@@ -1,5 +1,5 @@
 [![Transparently secure Resource management, effective collaborative allocation, Trust](https://user-images.githubusercontent.com/4000929/192081476-ca7f6c14-102d-4538-9b94-35e187c8585f.png)](https://pixeldrain.com/u/HWtH1eWg)
-Pitch :movie_camera: [02:50m Video hosted on pixeldrain](https://pixeldrain.com/u/HWtH1eWg) 
+Pitch :movie_camera: 02:50m Hosted on [pixeldrain](https://pixeldrain.com/u/HWtH1eWg) | [YouTube](https://youtu.be/1RBJ3temzNs) | [Vimeo](https://vimeo.com/753237646) 
 
 ## Pitch transcript by @eapo
 
