@@ -1,15 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import Links from '../collections/Links.js';
+import Listings from '../collections/Listings.js';
 
 Meteor.methods({
-  'createLink'(title, url) {
-    check(url, String);
+  'createListing'(title, category) {
     check(title, String);
+    check(category, String);
 
-    return Links.insert({
-      url,
+    return Listings.insert({
       title,
+      category,
       createdAt: new Date(),
     });
   },

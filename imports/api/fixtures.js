@@ -1,32 +1,32 @@
 import { Meteor } from 'meteor/meteor';
-import Links from './collections/Links.js';
+import Listings from './collections/Listings.js';
 
 Meteor.startup(() => {
-  // if the Links collection is empty
-  if (Links.find().count() === 0) {
+  // if the Listings collection is empty
+  if (Listings.find().count() === 0) {
     const data = [
       {
-        title: 'Do the Tutorial',
-        url: 'https://www.meteor.com/try',
+        title: 'babysitting',
+        category: 'services',
         createdAt: new Date(),
       },
       {
-        title: 'Follow the Guide',
-        url: 'http://guide.meteor.com',
+        title: 'apple',
+        category: 'goods',
         createdAt: new Date(),
       },
       {
-        title: 'Read the Docs',
-        url: 'https://docs.meteor.com',
+        title: 'math lessons',
+        category: 'services/education',
         createdAt: new Date(),
       },
       {
-        title: 'Discussions',
-        url: 'https://forums.meteor.com',
+        title: 'My awesome band album',
+        url: 'virtual/audio',
         createdAt: new Date(),
       },
     ];
 
-    data.forEach(link => Links.insert(link));
+    data.forEach(listing => Listings.insert(listing));
   }
 });

@@ -1,46 +1,46 @@
 <template>
   <div>
-    <h2>Learn Meteor!</h2>
+    <h2>Create your listing!</h2>
     <ul>
       <li>
-        <form class="info-link-add">
+        <form class="info-listings-add">
           <input type="text" v-model="title" name="title" placeholder="Title" required>
-          <input type="url" v-model="url" name="url" placeholder="Url" required>
-          <input type="submit" name="submit" @click="submit($event)" value="Add new link">
+          <input type="text" v-model="category" name="url" placeholder="Category" required>
+          <input type="submit" name="submit" @click="submit($event)" value="Add new listing">
         </form>
       </li>
-      <li v-for="link in links"><a :href="link.url" target="_blank">{{link.title}}</a></li>
+      <li v-for="listing in listings"><p>{{listing.title}}</p> ({{listing.category}})</li>
     </ul>
   </div>
 </template>
 
 <script>
-import Links from '../../api/collections/Links'
+import Listings from '../../api/collections/Listings'
 
 export default {
   data() {
     return {
       title: "",
-      url: "",
+      category: "",
     }
   },
   meteor: {
     $subscribe: {
-      'links': [],
+      'listings': [],
     },
-    links () {
-      return Links.find({})
+    listings () {
+      return Listings.find({})
     },
   },
   methods: {
     submit(event) {
       event.preventDefault()
-      Meteor.call('createLink', this.title, this.url, (error) => {
+      Meteor.call('createListing', this.title, this.category, (error) => {
         if (error) {
           alert(error.error)
         } else {
           this.title = ''
-          this.url = ''
+          this.category = ''
         }
       })
     }

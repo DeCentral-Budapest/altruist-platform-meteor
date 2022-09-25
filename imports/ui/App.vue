@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome to Meteor!</h1>
+    <h1>Welcome to the Altruist Platform!</h1>
     <hello/>
     <info/>
   </div>
