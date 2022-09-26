@@ -1,7 +1,7 @@
-import { assert } from 'chai'
+import assert from 'assert';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector'
-import Listings from '../collections/listings.js'
-import './publications.js'
+import Listings from '../collections/Listings.js'
+import '../publications/listings.js'
 
 describe('Publish listings', function () {
   beforeEach(function () {

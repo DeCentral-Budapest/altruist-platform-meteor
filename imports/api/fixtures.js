@@ -22,7 +22,7 @@ Meteor.startup(() => {
       },
       {
         title: 'My awesome band album',
-        url: 'virtual/audio',
+        category: 'virtual/audio',
         createdAt: new Date(),
       },
     ];

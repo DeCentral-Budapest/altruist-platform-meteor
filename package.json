@@ -1,5 +1,5 @@
 {
-  "name": "simple-todos",
+  "name": "altruist-platform",
   "private": true,
   "scripts": {
     "start": "meteor run",
@@ -20,7 +20,6 @@
     "mainModule": {
       "client": "client/main.js",
       "server": "server/main.js"
-    },
-    "testModule": "tests/main.js"
+    }
   }
 }

@@ -3,7 +3,7 @@ import assert from "assert";
 describe("skel", function () {
   it("package.json has correct name", async function () {
     const { name } = await import("../package.json");
-    assert.strictEqual(name, "skel");
+    assert.strictEqual(name, "altruist-platform");
   });
 
   if (Meteor.isClient) {

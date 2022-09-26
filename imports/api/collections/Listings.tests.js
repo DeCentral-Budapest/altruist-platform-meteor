@@ -3,7 +3,7 @@
 // https://guide.meteor.com/testing.html
 
 import { Meteor } from 'meteor/meteor';
-import { assert } from 'chai';
+import assert from 'assert';
 import Listings from './Listings.js';
 
 if (Meteor.isServer) {
