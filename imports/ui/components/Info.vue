@@ -9,7 +9,11 @@
           <input type="submit" name="submit" @click="submit($event)" value="Add new listing">
         </form>
       </li>
-      <li v-for="listing in listings"><p>{{listing.title}}</p> ({{listing.category}})</li>
+    </ul>
+    </br>
+    <h2>Current listings:</h2>
+    <ul>
+      <li v-for="listing in listings">{{listing.title}} ({{listing.category}})</li>
     </ul>
   </div>
 </template>
