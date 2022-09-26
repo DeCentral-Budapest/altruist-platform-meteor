@@ -23,6 +23,7 @@ Meteor.startup(() => {
       {
         title: 'My awesome band album',
         category: 'virtual/audio',
+        description: 'A wild fusion of jazz and electro',
         createdAt: new Date(),
       },
     ];
