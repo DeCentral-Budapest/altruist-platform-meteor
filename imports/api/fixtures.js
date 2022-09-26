@@ -8,16 +8,19 @@ Meteor.startup(() => {
       {
         title: 'babysitting',
         category: 'services',
+        description: 'Available between Mon - Fri 5 PM to 12 PM, and all day on weekends.',
         createdAt: new Date(),
       },
       {
         title: 'apple',
-        category: 'goods',
+        category: 'goods/food',
+        description: 'Jonathan Gold top quality, hand picked with lots of love',
         createdAt: new Date(),
       },
       {
         title: 'math lessons',
         category: 'services/education',
+        description: 'I have a teacher degree and 6 years experience in home schooling. References available upon request.',
         createdAt: new Date(),
       },
       {

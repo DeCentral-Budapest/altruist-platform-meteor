@@ -22,3 +22,4 @@ akryum:vue-component    # Vue-CLI template to publish components
 
 meteortesting:mocha               # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
+fourseven:scss
