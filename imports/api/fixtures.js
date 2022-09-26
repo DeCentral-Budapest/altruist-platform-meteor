@@ -2,8 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import Listings from './collections/Listings.js';
 
 Meteor.startup(() => {
-  Listings.remove({});
-  
   // if the Listings collection is empty
   if (Listings.find().count() === 0) {
     const data = [
