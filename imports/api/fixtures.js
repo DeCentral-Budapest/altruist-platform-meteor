@@ -3,7 +3,7 @@ import Listings from './collections/Listings.js';
 
 Meteor.startup(() => {
   // if the Listings collection is empty
-  if (Listings.find().count() === 0) {
+  if (Listings.find().count() <= 4) {
     const data = [
       {
         title: 'babysitting',
@@ -15,6 +15,7 @@ Meteor.startup(() => {
         title: 'apple',
         category: 'goods/food',
         description: 'Jonathan Gold top quality, hand picked with lots of love',
+        tags: '#organic',
         createdAt: new Date(),
       },
       {
@@ -27,6 +28,7 @@ Meteor.startup(() => {
         title: 'My awesome band album',
         category: 'virtual/audio',
         description: 'A wild fusion of jazz and electro',
+        tags:'#jazz #electro',
         createdAt: new Date(),
       },
     ];

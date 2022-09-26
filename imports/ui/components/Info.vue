@@ -7,6 +7,7 @@
           <input type="text" v-model="title" name="title" placeholder="Title" required>
           <input type="text" v-model="category" name="category" placeholder="Category" required>
           <input type="text" v-model="description" name="description" placeholder="Description">
+          <input type="text" v-model="tags" name="tags" placeholder="Tags">
           <input type="submit" name="submit" @click="submit($event)" value="Add new listing">
         </form>
       </li>
@@ -20,6 +21,7 @@
           <h5 class="card-title">{{listing.title}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
           <p class="card-text">{{listing.description}}</p>
+          <p class="card-text"><small class="text-muted">{{listing.tags}}</small>
           <div class="card-footer">
             <small class="text-muted">{{listing.createdAt.toLocaleDateString()}}</small>
           </div>
@@ -38,6 +40,7 @@ export default {
       title: "",
       category: "",
       description: "",
+      tags: "",
     }
   },
   meteor: {
@@ -51,13 +54,14 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault()
-      Meteor.call('createListing', this.title, this.category, this.description, (error) => {
+      Meteor.call('createListing', this.title, this.category, this.description, this.tags, (error) => {
         if (error) {
           alert(error.error)
         } else {
           this.title = ''
           this.category = ''
           this.description = ''
+          this.tags = ''
         }
       })
     }
