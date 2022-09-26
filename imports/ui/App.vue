@@ -1,26 +1,31 @@
 <template>
   <div>
     <h1>Welcome to the Altruist Platform!</h1>
-    <hello/>
-    <info/>
+    <Hello/>
+    <InputForm/>
+    <h2>Current offers:</h2>
+    <ListingGrid isNeed=false />
+    <h2>Current needs:</h2>
+    <ListingGrid isNeed=true />
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello.vue'
-import Info from './components/Info.vue'
+import InputForm from './components/InputForm.vue'
+import ListingGrid from './components/ListingGrid.vue'
 
 export default {
   components: {
     Hello,
-    Info,
+    InputForm,
+    ListingGrid,
   },
 }
 </script>
 
 <style>
   body {
-    font-family: sans-serif;
-    padding: 10px;
+    padding: 20px;
   }
 </style>

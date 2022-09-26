@@ -2,13 +2,16 @@ import { Meteor } from 'meteor/meteor';
 import Listings from './collections/Listings.js';
 
 Meteor.startup(() => {
+  Listings.remove({});
+  
   // if the Listings collection is empty
-  if (Listings.find().count() <= 4) {
+  if (Listings.find().count() === 0) {
     const data = [
       {
         title: 'babysitting',
         category: 'services',
         description: 'Available between Mon - Fri 5 PM to 12 PM, and all day on weekends.',
+        isNeed: false,
         createdAt: new Date(),
       },
       {
@@ -16,19 +19,22 @@ Meteor.startup(() => {
         category: 'goods/food',
         description: 'Jonathan Gold top quality, hand picked with lots of love',
         tags: '#organic',
+        isNeed: false,
         createdAt: new Date(),
       },
       {
         title: 'math lessons',
         category: 'services/education',
         description: 'I have a teacher degree and 6 years experience in home schooling. References available upon request.',
+        isNeed: false,
         createdAt: new Date(),
       },
       {
         title: 'My awesome band album',
-        category: 'virtual/audio',
+        category: 'virtualgoods/music',
         description: 'A wild fusion of jazz and electro',
         tags:'#jazz #electro',
+        isNeed: false,
         createdAt: new Date(),
       },
     ];
