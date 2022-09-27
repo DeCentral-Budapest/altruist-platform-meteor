@@ -14,10 +14,10 @@
             My listings
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">My offers</a></li>
-            <li><a class="dropdown-item" href="#">My needs</a></li>
+            <li><router-link to="/myoffers" class="dropdown-item">My offers</router-link></li>
+            <li><router-link to="/myneeds" class="dropdown-item">My needs</router-link></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Create new listing</a></li>
+            <li><router-link to="/listing" class="dropdown-item">Create new listing</router-link></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -25,8 +25,8 @@
             Browse market
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Browse offers</a></li>
-            <li><a class="dropdown-item" href="#">Browse needs</a></li>
+            <li><router-link to="/offers" class="dropdown-item">Browse offers</router-link></li>
+            <li><router-link to="/needs" class="dropdown-item">Browse needs</router-link></li>
           </ul>
         </li>
         <form class="d-flex" role="search">

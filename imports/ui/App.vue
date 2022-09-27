@@ -2,11 +2,7 @@
   <div>
     <div v-if="currentUser">
       <Navbar />
-      <InputForm/>
-      <h2>Current offers:</h2>
-      <ListingGrid isNeed=false />
-      <h2>Current needs:</h2>
-      <ListingGrid isNeed=true />
+      <router-view></router-view>
     </div>
     <div v-if="!currentUser">
       <div v-if="!registerActive" class="container-sm">
