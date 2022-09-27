@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import InputForm from '/imports/ui/components/InputForm.vue'
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
+import ListingModal from '/imports/ui/components/ListingModal.vue'
 
 Vue.use(VueRouter)
 
@@ -34,7 +34,7 @@ const routes = [
   {
     path: "/listing/:lid",
     name: 'Show listing',
-    component: InputForm,
+    component: ListingModal,
   },
 //  {
 //    path: "/profile",

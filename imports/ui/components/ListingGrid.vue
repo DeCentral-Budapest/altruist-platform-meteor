@@ -11,7 +11,7 @@
             <p class="card-text">{{listing.description}}</p>
             <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
             <div v-if="isOwnedByMe(listing)">
-              <a href="#" class="btn btn-primary">Edit</a>
+              <a href="#" class="btn btn-primary" @click="setActive(listing)" data-bs-toggle="modal" data-bs-target="#listingModal">Edit</a>
               <a href="#" class="btn btn-danger" @click="deleteListing(listing)">Delete</a>
             </div>
           </div>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { Session } from 'meteor/session';
 import Listings from '../../api/collections/Listings'
 
 export default {
@@ -64,6 +65,9 @@ export default {
     },
     deleteListing(listing) {
       Meteor.call('removeListing', listing._id);
+    },
+    setActive(listing) {
+      Session.set('listing', listing)
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })

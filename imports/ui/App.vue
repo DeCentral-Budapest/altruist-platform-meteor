@@ -3,6 +3,7 @@
     <div v-if="currentUser">
       <Navbar />
       <router-view></router-view>
+      <ListingModal />
     </div>
     <div v-if="!currentUser">
       <div v-if="!registerActive" class="container-sm">
@@ -40,7 +41,7 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import InputForm from './components/InputForm.vue'
+import ListingModal from './components/ListingModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
@@ -53,7 +54,7 @@ export default {
   },
   components: {
     Navbar,
-    InputForm,
+    ListingModal,
     ListingGrid,
     LoginForm,
     RegisterForm,
