@@ -1,7 +1,6 @@
 <template>
-  <form class="login-form" @submit.prevent="handleSubmit">
-    <div>
-      <label for="username">Username or email</label>
+  <form class="login-form justify-content-center" @submit.prevent="handleSubmit">
+    <div class="form-floating mb-4">
       <input
           id="username"
           name="username"
@@ -9,11 +8,11 @@
           placeholder="Username or email"
           required
           v-model="username"
+          class="form-control"
       />
+      <label for="username" class="form-label">Username or email</label>       
     </div>
-
-    <div>
-      <label for="password">Password</label>
+    <div class="form-floating mb-4">
       <input
           id="password"
           name="password"
@@ -21,11 +20,13 @@
           placeholder="Password"
           required
           v-model="password"
-      />
+          class="form-control"
+      />      
+      <label for="password" class="form-label">Password</label>
     </div>
 
     <div>
-      <button type="submit">Log In</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Log In</button>
     </div>
   </form>
 </template>

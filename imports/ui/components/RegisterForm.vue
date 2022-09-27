@@ -1,18 +1,18 @@
 <template>
   <form class="register-form" @submit.prevent="handleSubmit">
-    <div>
-      <label for="username">Username</label>
+    <div class="form-floating mb-4">
       <input
           id="username"
           name="username"
           type="text"
           placeholder="Username"
           v-model="username"
+          class="form-control"
       />
+      <label for="username" class="form-label">Username</label>
     </div>
 
-    <div>
-      <label for="email">Email</label>
+    <div class="form-floating mb-4">
       <input
           id="email"
           name="email"
@@ -20,11 +20,12 @@
           placeholder="Email"
           required
           v-model="email"
+          class="form-control"
       />
+      <label for="email" class="form-label">Email</label>
     </div>
 
-    <div>
-      <label for="password">Password</label>
+    <div class="form-floating mb-4">
       <input
           id="password"
           name="password"
@@ -32,11 +33,13 @@
           placeholder="Password"
           required
           v-model="password"
+          class="form-control"
       />
+      <label for="password" class="form-label">Password</label>
     </div>
 
     <div>
-      <button type="submit">Register</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
     </div>
   </form>
 </template>

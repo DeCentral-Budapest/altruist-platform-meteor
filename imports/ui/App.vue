@@ -9,11 +9,11 @@
       <ListingGrid isNeed=true />
     </div>
     <div v-if="!currentUser">
-      <div v-if="!registerActive">
+      <div v-if="!registerActive" class="container-sm">
         <loginForm/>
         <p>Don't have an account? <a href="#" @click="registerActive = !registerActive">Sign up here</a></p>
       </div>
-      <div v-if="registerActive">
+      <div v-if="registerActive" class="container-sm">
         <registerForm/>
         <p>Already have an account? <a href="#" @click="registerActive = !registerActive">Sign in here</a></p>
       </div> 
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import Hello from './components/Hello.vue'
 import Navbar from './components/Navbar.vue'
 import InputForm from './components/InputForm.vue'
 import ListingGrid from './components/ListingGrid.vue'
@@ -36,7 +35,6 @@ export default {
     }
   },
   components: {
-    Hello,
     Navbar,
     InputForm,
     ListingGrid,
