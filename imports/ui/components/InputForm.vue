@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Create your listing!</h2>
+    <h2>{{getTitle()}}</h2>
     <ul>
       <li>
         <form class="info-listings-add">
@@ -23,7 +23,7 @@ import Listings from '../../api/collections/Listings'
 
 export default {
   data() {
-    return {
+    return this.doc || {
       title: "",
       category: "",
       description: "",
@@ -53,6 +53,10 @@ export default {
           this.isNeed = false
         }
       })
+    },
+    getTitle() {
+      if (!this.doc) return "Create your listing!"
+      return this.doc.title
     }
   },
 }

@@ -20,4 +20,9 @@ Meteor.methods({
       createdBy: this.userId,
     });
   },
+  'removeListing'(id) {
+    check(id, String);
+
+    return Listings.remove(id);
+  },
 });

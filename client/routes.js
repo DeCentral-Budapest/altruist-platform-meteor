@@ -32,9 +32,9 @@ const routes = [
     props: { isNeed: 'true', isOwn: 'false' },
   },
   {
-    path: "/listing",
-    name: 'Listing',
-    component: InputForm
+    path: "/listing/:lid",
+    name: 'Show listing',
+    component: InputForm,
   },
 //  {
 //    path: "/profile",
