@@ -1,11 +1,7 @@
 <template>
   <div>
-    <h1>Welcome to the Altruist Platform!</h1>
-    <Hello/>
     <div v-if="currentUser">
-      <div v-if="currentUser.username">{{currentUser.username}}</div>
-      <div v-else>{{currentUser.emails[0].address}}</div>
-      <button @click="doLogout">Log Out</button>
+      <Navbar />
       <InputForm/>
       <h2>Current offers:</h2>
       <ListingGrid isNeed=false />
@@ -27,6 +23,7 @@
 
 <script>
 import Hello from './components/Hello.vue'
+import Navbar from './components/Navbar.vue'
 import InputForm from './components/InputForm.vue'
 import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
@@ -40,6 +37,7 @@ export default {
   },
   components: {
     Hello,
+    Navbar,
     InputForm,
     ListingGrid,
     LoginForm,
@@ -47,16 +45,9 @@ export default {
   },
   meteor: {
     currentUser () {
-      return Meteor.user();
+        return Meteor.user();
     },
   },
-  methods: {
-    doLogout() {
-      Meteor.logout(function(error) {
-        if (error) alert(error.message);
-      });
-    },
-  }
 }
 </script>
 
