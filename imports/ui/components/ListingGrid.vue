@@ -41,7 +41,10 @@ export default {
     },
     listings () {
       const isNeed = this.isNeed === 'true' ? true : false
-      return Listings.find({ isNeed })
+      const isOwn = this.isOwn === 'true' ? true : false
+      const selector = { isNeed }
+      if (isOwn) selector.createdBy = Meteor.userId()
+      return Listings.find(selector)
     },
     getTitle() {
       const isNeed = this.isNeed === 'true' ? true : false

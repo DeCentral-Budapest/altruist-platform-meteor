@@ -17,7 +17,7 @@ Meteor.methods({
       tags,
       isNeed,
       createdAt: new Date(),
-      createdBy: this.userId, // TODO
+      createdBy: this.userId,
     });
   },
 });
