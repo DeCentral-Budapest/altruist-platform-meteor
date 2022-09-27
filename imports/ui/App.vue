@@ -16,10 +16,10 @@
               from at least three existing users (who gained invitations in the system),
               and therefore self-curating to keep the quality of content in general. 
               That's not a very democratic statement, but resources plus democracy equals <i><img src="https://i.imgur.com/IJlEc0b.png" alt="Trolling" class="btn btn-danger btn-sm disabled" style="height: 2em;width: 2em;padding: 0;"></i>
-              and the lack of <i>Trust</i>, which plays a key role in </i>Altruism</i><sup id="cite_ref-1" class="btn-close"><a href="#fn1" id="#fnref1" name="#fnref1" class="keychainify-checked">[1]</a></sup>.
+              and the lack of <i>Trust</i>, which plays a key role in <i>Altruism</i><sup class="cite"><a href="#fn1" id="#fnref1" name="#fnref1">[1]</a></sup>.
             </p>
             <a href="#!" class="btn btn-sm btn-outline-secondary TODO"  @click="registerActive = !registerActive" title="Be one of the 1st to join the beta!">Book Now!</a>
-            <a href="#!" class="btn btn-sm btn-outline-success"  @click="registerActive = !registerActive" title="Sign up with Invited email address.">Sign up.</a>
+            <a href="#!" class="btn btn-sm btn-outline-success"  @click="registerActive = !registerActive" title="Sign up with Invited email address.">Sign up</a>
           </div>
           <div class="footnotes-list card-footer">
             <ol>
