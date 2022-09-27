@@ -1,7 +1,7 @@
 <template>
 
-<header class="navbar navbar-expand-lg navbar-dark bd-navbar sticky-top">
-  <nav class="navbar navbar-expand-lg bg-light">
+<header>
+  <nav class="navbar navbar-expand-lg bg-light sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">AltruistPlatform</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
 
       <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item col-6 col-lg-auto">
-            <a class="nav-link py-2 px-0 px-lg-2" href="https://opencollective.com/bootstrap" target="_blank" rel="noopener">
+            <a class="nav-link py-2 px-0 px-lg-2" href="">
               <i class="fa-solid fa-cart-shopping"></i>
               <small class="d-lg-none ms-2">Cart</small>
             </a>
@@ -48,12 +48,12 @@
           </li>
           <li class="nav-item dropdown">
             <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" data-bs-display="static">
-              <div v-if="currentUser.username">{{currentUser.username}}</div>
-              <div v-else>{{currentUser.emails[0].address}}</div>
+              <span v-if="currentUser.username">{{currentUser.username}}</span>
+              <span v-else>{{currentUser.emails[0].address}}</span>
             </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="">Settings</a></li>
-                <li><button class="dropdown-item" @click="doLogout">Log Out</button></li>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="">Settings</a></li>
+              <li><button class="dropdown-item" @click="doLogout">Log Out</button></li>
             </ul>
           </li>
         </ul>
