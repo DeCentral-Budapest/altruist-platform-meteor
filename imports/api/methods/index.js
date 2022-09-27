@@ -1,1 +1,1 @@
-import './createListing'
+import './listings'

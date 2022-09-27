@@ -60,7 +60,17 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault()
-      Meteor.call('createListing', this.title, this.category, this.description, this.tags, this.isNeed, (error) => {
+      const l = Session.get('listing')
+      const method = l ? 'updateListing' : 'createListing'
+      const doc = {
+        _id: l._id,
+        title: this.title, 
+        category: this.category,
+        description: this.description,
+        tags: this.tags,
+        isNeed: this.isNeed
+      }
+      Meteor.call(method, doc, (error) => {
         if (error) {
           alert(error.error)
         } else {
