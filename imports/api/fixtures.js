@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import Listings from './collections/Listings.js';
 
 Meteor.startup(() => {
@@ -38,5 +39,8 @@ Meteor.startup(() => {
     ];
 
     data.forEach(listing => Listings.insert(listing));
+  }    
+  if (!Meteor.users.findOne({ username: "MrBeast"})) {
+    Accounts.createUser({ username: "MrBeast", password: "MrBeast6000" });
   }
 });
