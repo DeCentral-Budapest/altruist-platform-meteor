@@ -9,6 +9,7 @@ Meteor.methods({
     check(doc.description, String);
     check(doc.tags, String);
     check(doc.isNeed, Boolean);
+    doc.status = 'listed';
     doc.createdAt = new Date();
     doc.createdBy = this.userId;
 

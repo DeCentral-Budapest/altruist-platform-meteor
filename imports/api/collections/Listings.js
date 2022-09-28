@@ -1,3 +1,13 @@
 import { Mongo } from 'meteor/mongo';
 
-export default new Mongo.Collection('listings');
+const Listings = new Mongo.Collection('listings');
+
+Listings.statusValues = [
+    'private',
+    'listed',
+    'canceled',
+    'suspended',
+    'archived',
+]
+
+export default Listings;

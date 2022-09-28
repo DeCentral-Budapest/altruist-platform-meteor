@@ -14,14 +14,15 @@
             </div>
           </div>
           <div class="col-md-4">
-            <h5>Tansaction status: {{this.status}}</h5>
+            <h5>Transaction status: {{this.status}}</h5>
             <small>{{transactionStatusHints(this.status)}}</small>
             <div v-if="this.status === 'inquiry'">
-                <button class="btn btn-outline-warning" @click="cancelTrasactiom()">Cancel</button>
-                <button class="btn btn-success" @click="agreeTrasactiom()">Agree</button>
+                <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
+                <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
             </div>
-            <div v-else-if="this.status === 'agreed'">
-                <button class="btn btn-success" @click="reviewTransaction()">Leave Review</button>
+            <div v-else-if="this.status === 'accepted'">
+                <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
+                <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
             </div>
             <h5>Listed by: {{getUserNameById(this.listedBy)}}</h5>
             <h5>Taken by: {{getUserNameById(this.takenBy)}}</h5>
@@ -82,13 +83,11 @@ export default {
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
-    cancelTrasactiom() {
-        Meteor.call('statusChangeTransaction', { txId: this.txId, status: 'canceled' })
-    },
-    agreeTrasactiom() {
-        Meteor.call('statusChangeTransaction', { txId: this.txId, status: 'agreed' })
+    changeStatus(status) {
+        Meteor.call('statusChangeTransaction', { txId: this.txId, status })
     },
     reviewTrasactiom() {
+        // TODO
     },
     sendMessage() {
         Meteor.call('sendMessage', { txId: this.txId, text: this.message }, (err, res) => {
