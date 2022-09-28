@@ -13,22 +13,42 @@
                     <input type="text" class="form-control" id="title" v-model="title" required>
                 </div>
                 <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <input type="text" class="form-control" id="category" v-model="category" required>
+                    <div class="form-url">
+                      <input class="form-control form-control-url" type="text" id="formURL" placeholder='https://i.imgur.com/e8PooMD.png'>
+                      <div id="formURL" class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
+                  	</div>
+                	<div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="formURLorFile">
+                    <label class="form-check-label" for="formURLorFile">Switch for File Upload</label>
+                	</div>
+                	<div class="form-file">
+              	    <input class="form-control" type="file" id="formFile" disabled>
+                	</div>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="5" v-model="description"></textarea>
+                    <textarea class="form-control" id="description" rows="3" v-model="description"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
                     <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp" v-model="tags">
                     <div id="tagsHelp" class="form-text">Use hashtags, separated by spaces.</div>
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="need" v-model="isNeed">
-                    <label class="form-check-label" for="need">It is a Need</label>
-                </div>
+                <div class="mb-3">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">Goods</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">Services</label>
+                  </div>
+              	<div class="form-check form-check-inline form-switch">
+                    <input class="form-check-input" type="checkbox" id="formIsNeed" v-model="isNeed">
+                    <label class="form-check-label" for="formIsNeed">It's a Need</label>
+              	</div>
+              </div>
+
             </form>
         </div>
         <div class="modal-footer">
@@ -63,7 +83,7 @@ export default {
       const l = Session.get('listing')
       const method = l ? 'updateListing' : 'createListing'
       const doc = {
-        title: this.title, 
+        title: this.title,
         category: this.category,
         description: this.description,
         tags: this.tags,
