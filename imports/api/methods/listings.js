@@ -5,7 +5,6 @@ import Listings from '../collections/Listings.js';
 Meteor.methods({
   'createListing'(doc) {
     check(doc.title, String);
-    check(doc.category, String);
     check(doc.description, String);
     check(doc.tags, String);
     check(doc.isNeed, Boolean);
@@ -18,7 +17,6 @@ Meteor.methods({
   'updateListing'(doc) {
     check(doc._id, String);
     check(doc.title, String);
-    check(doc.category, String);
     check(doc.description, String);
     check(doc.tags, String);
     check(doc.isNeed, Boolean);

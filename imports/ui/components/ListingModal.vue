@@ -14,8 +14,8 @@
                 </div>
                 <div class="mb-3">
                     <div class="form-url">
-                      <input class="form-control form-control-url" type="text" id="formURL" placeholder='https://i.imgur.com/e8PooMD.png'>
-                      <div id="formURL" class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
+                      <input class="form-control form-control-url" type="text" id="imgURL" v-model="imgURL" placeholder='https://i.imgur.com/e8PooMD.png'>
+                      <div id="imgURL" class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
                   	</div>
                 	<div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="formURLorFile">
@@ -36,11 +36,11 @@
                 </div>
                 <div class="mb-3">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="goods" v-model="picked">
                     <label class="form-check-label" for="inlineRadio1">Goods</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="services" v-model="picked">
                     <label class="form-check-label" for="inlineRadio2">Services</label>
                   </div>
               	<div class="form-check form-check-inline form-switch">
@@ -66,10 +66,11 @@ export default {
   data() {
     return {
       title: "",
-      category: "",
       description: "",
       tags: "",
       isNeed: false,
+      imgURL: "",
+      picked: "",
     }
   },
   mounted: function() {
@@ -77,13 +78,13 @@ export default {
     const myModal = document.getElementById('listingModal');
     myModal.addEventListener('shown.bs.modal', function () {
       const l = Session.get('listing')
-            console.log("mounted már késő?", l)
       if (!l) return;
       self.title = l.title;
-      self.category = l.category;
       self.description = l.description;
       self.tags = l.tags;
-      self.isNeed = l.isNeed; 
+      self.isNeed = l.isNeed;
+      self.imgURL = l.imgURL;
+      self.picked = l.offer;
       self.getTitle();   
     })
   },
@@ -99,10 +100,11 @@ export default {
       const method = l ? 'updateListing' : 'createListing'
       const doc = {
         title: this.title,
-        category: this.category,
+        imgURL: this.imgURL,
         description: this.description,
         tags: this.tags,
-        isNeed: this.isNeed
+        isNeed: this.isNeed,
+        offer: this.picked,
       }
       if (l) doc._id = l._id;
       Meteor.call(method, doc, (error) => {
@@ -110,10 +112,11 @@ export default {
           alert(error.error)
         } else {
           this.title = ''
-          this.category = ''
+          this.imgURL = ''
           this.description = ''
           this.tags = ''
           this.isNeed = false
+          this.picked = ''
         }
         Session.set('listing', null)
 //        const modal = document.getElementById('listingModal');
