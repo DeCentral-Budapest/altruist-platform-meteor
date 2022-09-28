@@ -6,7 +6,7 @@
           name="username"
           type="text"
           placeholder="Username or email"
-          value="MrBeast"
+          v-model="username"
           required
           class="form-control"
       />
@@ -18,7 +18,7 @@
           name="password"
           type="password"
           placeholder="Password"
-          value="MrBeast6000"
+          v-model="password"
           required
           class="form-control"
       />
@@ -38,8 +38,8 @@ export default {
   name: "LoginForm",
   data() {
     return {
-      username: "",
-      password: ""
+      username: "MrBeast",
+      password: "MrBeast6000"
     };
   },
   methods: {
