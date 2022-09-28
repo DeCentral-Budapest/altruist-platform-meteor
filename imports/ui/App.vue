@@ -4,6 +4,7 @@
       <Navbar />
       <router-view></router-view>
       <ListingModal />
+      <ProfileModal />
     </div>
     <div v-if="!currentUser">
       <div v-if="!registerActive" class="container-sm">
@@ -46,6 +47,7 @@ import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 import TransactionPage from './components/TransactionPage.vue'
+import ProfileModal from './components/ProfileModal.vue'
 
 export default {
   data() {
@@ -56,6 +58,7 @@ export default {
   components: {
     Navbar,
     ListingModal,
+    ProfileModal,
     ListingGrid,
     LoginForm,
     RegisterForm,

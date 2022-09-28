@@ -13,4 +13,9 @@ Meteor.methods({
     }
     Meteor.users.update(userId, { $set: { avatar: path } });
   },
+  
+  'updateUser'(doc) {
+    const userId = Meteor.userId();
+    Meteor.users.update(userId, { $set: doc });
+  },
 });

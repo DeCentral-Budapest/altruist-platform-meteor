@@ -15,8 +15,8 @@
           <div class="col-sm-9">
             <h2>{{currentUser.username}}</h2>
             <div class="d-flex justify-content-center">
-              <button class="btn btn-primary btn-block m-2">Connections</button>
-              <button class="btn btn-primary btn-block m-2" @click="editProfile">Edit profile</button>
+              <button class="btn btn-primary btn-block m-2" @click="photoUpload">Change photo</button>
+              <button class="btn btn-primary btn-block m-2" @click="activate(currentUser)" data-bs-toggle="modal" data-bs-target="#profileModal">Edit profile</button>
             </div>
           </div>
         </div>
@@ -44,7 +44,6 @@
         </div>
       </div>
     </div>
-
 
      <div class="card mb-4">
       <div class="card-body">
@@ -84,7 +83,7 @@ export default {
     },
   },
   methods: {
-    editProfile () {
+    photoUpload () {
       Photos.upload(
         { category: 'userAvatar' },
         function oncomplete(file) {
@@ -96,7 +95,9 @@ export default {
             }
           })
       });
-
+    },
+    activate(user) {
+      Session.set('profile', user);
     }
   }
 }
