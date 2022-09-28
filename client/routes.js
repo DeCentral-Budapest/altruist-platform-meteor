@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
 import ListingModal from '/imports/ui/components/ListingModal.vue'
+import Profile from '/imports/ui/components/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -36,11 +37,11 @@ const routes = [
     name: 'Show listing',
     component: ListingModal,
   },
-//  {
-//    path: "/profile",
-//    name: 'Profile',
-//    component: Profile
-//  }
+  {
+    path: "/profile",
+    name: 'Profile',
+    component: Profile
+  }
 ]
 
 const router = new VueRouter({

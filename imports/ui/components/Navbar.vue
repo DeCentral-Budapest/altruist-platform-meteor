@@ -52,7 +52,7 @@
               <span v-else>{{currentUser.emails[0].address}}</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="">Settings</a></li>
+              <li><router-link to="/profile" class="dropdown-item" href="">Profile</router-link></li>
               <li><button class="dropdown-item" @click="doLogout">Log Out</button></li>
             </ul>
           </li>
