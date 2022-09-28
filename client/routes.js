@@ -3,11 +3,8 @@ import VueRouter from 'vue-router'
 
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
 import ListingModal from '/imports/ui/components/ListingModal.vue'
-<<<<<<< HEAD
 import Profile from '/imports/ui/components/Profile.vue'
-=======
 import TransactionPage from '/imports/ui/components/TransactionPage.vue'
->>>>>>> a9b63b5 (Initiating transaction by Taking an Offer or Need)
 
 Vue.use(VueRouter)
 
@@ -42,22 +39,15 @@ const routes = [
     component: ListingModal,
   },
   {
-<<<<<<< HEAD
-    path: "/profile",
-    name: 'Profile',
-    component: Profile
-  }
-=======
     path: "/transaction/:tid",
     name: 'View transaction',
     component: TransactionPage,
   },
-//  {
-//    path: "/profile",
-//    name: 'Profile',
-//    component: Profile
-//  }
->>>>>>> a9b63b5 (Initiating transaction by Taking an Offer or Need)
+  {
+    path: "/profile",
+    name: 'Profile',
+    component: Profile
+  },
 ]
 
 const router = new VueRouter({
