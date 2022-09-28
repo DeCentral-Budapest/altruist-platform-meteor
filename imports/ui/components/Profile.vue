@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+  <div class="fixed-bottom bd-highlight">
+    <div class="container-fluid">
+      This is your private view. <a class="" href="#">See what others see</a>
+    </div>
+  </div>
 
     <div class="card mb-4">
       <div class="card-body">
@@ -43,9 +48,9 @@
 
      <div class="card mb-4">
       <div class="card-body">
-        <h4>Altruist score</h4>  
+        <h4>Altruist score</h4>
           <div class="d-flex justify-content-center">
-            <i class="fa-regular fa-thumbs-up"></i> 
+            <i class="fa-regular fa-thumbs-up"></i>
             <p> 42</p>
           </div>
       </div>
@@ -91,9 +96,8 @@ export default {
             }
           })
       });
-      
+
     }
   }
 }
 </script>
-
