@@ -19,7 +19,7 @@
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" rows="5" v-model="description"></textarea>
-                </div>  
+                </div>
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
                     <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp" v-model="tags">
@@ -86,4 +86,3 @@ export default {
 
 <style>
 </style>
-    

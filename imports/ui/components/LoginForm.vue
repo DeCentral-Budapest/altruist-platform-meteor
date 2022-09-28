@@ -6,11 +6,11 @@
           name="username"
           type="text"
           placeholder="Username or email"
+          value="MrBeast"
           required
-          v-model="username"
           class="form-control"
       />
-      <label for="username" class="form-label">Username or email</label>       
+      <label for="username" class="form-label">Username or email</label>
     </div>
     <div class="form-floating mb-4">
       <input
@@ -18,10 +18,10 @@
           name="password"
           type="password"
           placeholder="Password"
+          value="MrBeast6000"
           required
-          v-model="password"
           class="form-control"
-      />      
+      />
       <label for="password" class="form-label">Password</label>
     </div>
 

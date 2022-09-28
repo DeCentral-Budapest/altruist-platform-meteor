@@ -13,10 +13,10 @@
             <h4 class="card-title" title="Invitation-only service">Invite only!</h4>
             <h6 class="card-subtitle mb-2 text-muted">Invitation-only service</h6>
             <p class="card-text">
-              The <i>Altruist Paltform</i> is closed and one can only join by an invitation 
+              The <i>Altruist Paltform</i> is closed and one can only join by an invitation
               from at least three existing users (who gained invitations in the system),
-              and therefore self-curating to keep the quality of content in general. 
-              That's not a very democratic statement, but resources plus democracy equals <i><img src="https://i.imgur.com/IJlEc0b.png" alt="Trolling" class="btn btn-danger btn-sm disabled" style="height: 2em;width: 2em;padding: 0;"></i>
+              and therefore self-curating to keep the quality of content in general.
+              That's not a very democratic statement, but resources plus democracy equals <i><img src="https://i.imgur.com/IJlEc0b.png" alt="Trolling" class="btn btn-close" style="height: 1.8em;width: 1.8em;padding: 0; cursor: not-allowed;"></i>
               and the lack of <i>Trust</i>, which plays a key role in <i>Altruism</i><sup class="cite"><a href="#fn1" id="#fnref1" name="#fnref1">[1]</a></sup>.
             </p>
             <a href="#!" class="btn btn-sm btn-outline-secondary TODO"  @click="registerActive = !registerActive" title="Be one of the 1st to join the beta!">Book Now!</a>
@@ -34,7 +34,7 @@
       <div v-if="registerActive" class="container-sm">
         <registerForm/>
         <p>Already have an account? <a href="#" @click="registerActive = !registerActive">Sign in here</a></p>
-      </div> 
+      </div>
     </div>
   </div>
 </template>
