@@ -25,3 +25,5 @@ johanbrook:publication-collector  # Test a Meteor publication by collecting its 
 fourseven:scss
 accounts-password
 session
+jalik:ufs
+jalik:ufs-gridfs
