@@ -63,13 +63,13 @@ export default {
       const l = Session.get('listing')
       const method = l ? 'updateListing' : 'createListing'
       const doc = {
-        _id: l._id,
         title: this.title, 
         category: this.category,
         description: this.description,
         tags: this.tags,
         isNeed: this.isNeed
       }
+      if (l) doc._id = l._id;
       Meteor.call(method, doc, (error) => {
         if (error) {
           alert(error.error)

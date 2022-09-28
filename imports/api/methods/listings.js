@@ -22,7 +22,7 @@ Meteor.methods({
     check(doc.tags, String);
     check(doc.isNeed, Boolean);
 
-    return Listings.update(doc._id, doc);
+    return Listings.update(doc._id, { $set: doc });
   },
   'removeListing'(id) {
     check(id, String);
