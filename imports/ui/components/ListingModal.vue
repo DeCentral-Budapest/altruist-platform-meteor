@@ -72,6 +72,21 @@ export default {
       isNeed: false,
     }
   },
+  mounted: function() {
+    const self = this;
+    const myModal = document.getElementById('listingModal');
+    myModal.addEventListener('shown.bs.modal', function () {
+      const l = Session.get('listing')
+            console.log("mounted már késő?", l)
+      if (!l) return;
+      self.title = l.title;
+      self.category = l.category;
+      self.description = l.description;
+      self.tags = l.tags;
+      self.isNeed = l.isNeed; 
+      self.getTitle();   
+    })
+  },
   meteor: {
     currentUser () {
         return Meteor.user();
