@@ -39,8 +39,8 @@ Meteor.startup(() => {
     ];
 
     data.forEach(listing => Listings.insert(listing));
-  }    
-  if (!Meteor.users.findOne({ username: "MrBeast"})) {
-    Accounts.createUser({ username: "MrBeast", password: "MrBeast6000" });
+  }
+  if (!Meteor.users.findOne({ username: "MrBeast.demo"})) { // TODO remove username.MrBeast from DB 
+    Accounts.createUser({ username: "MrBeast.demo", password: "MrBeast6000", nickname: "Jim-Jam", realname: "Jimmy Donaldson", birth: "05/07/1998", region: "Greenville, North Carolina", relations: "CJ_Donaldson", ascore: "369", web: "https://mrbeast.fandom.com/wiki/MrBeast", rocketchat: "MrBeast", active: 1, default_zone: 10 });
   }
 });
