@@ -45,6 +45,7 @@ import ListingModal from './components/ListingModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
+import TransactionPage from './components/TransactionPage.vue'
 
 export default {
   data() {
@@ -58,10 +59,16 @@ export default {
     ListingGrid,
     LoginForm,
     RegisterForm,
+    TransactionPage,
   },
   meteor: {
     currentUser () {
         return Meteor.user();
+    },
+    $subscribe: {
+      'listings': [],
+      'transactions': [],
+      'reviews': [],
     },
   },
 }

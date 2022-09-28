@@ -14,6 +14,9 @@
               <a href="#" class="btn btn-primary" @click="setActive(listing)" data-bs-toggle="modal" data-bs-target="#listingModal">Edit</a>
               <a href="#" class="btn btn-danger" @click="deleteListing(listing)">Delete</a>
             </div>
+            <div v-else>
+              <a href="#" class="btn btn-success" @click="takeListing(listing)">Take</a>
+            </div>
           </div>
           <div class="card-footer">
             <small class="text-muted">{{listing.createdAt.toLocaleDateString()}}</small>
@@ -64,13 +67,23 @@ export default {
       return listing.createdBy === Meteor.userId() && this.isOwn === 'true'
     },
     deleteListing(listing) {
-      Meteor.call('removeListing', listing._id);
+      Meteor.call('removeListing', listing._id)
     },
     setActive(listing) {
       Session.set('listing', listing)
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
+    },
+    takeListing(listing) {
+      const self = this;
+      const tx = {
+        listingId: listing._id,
+        listedBy: listing.createdBy,
+      }
+      Meteor.call('initiateTransaction', tx, (err, res) => {
+        self.$router.push({ name: 'View transaction', params: { tid: res } })
+      });
     }
   },
 }
