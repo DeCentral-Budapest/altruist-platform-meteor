@@ -5,9 +5,9 @@
 				<div class="col-12">
 					<div class="py-2 px-4 border-bottom d-none d-lg-block">
 						<div class="d-flex align-items-center py-1">
-							<!--div class="position-relative">
-								<img src="{{activeContraParty.avatar}}" class="rounded-circle mr-1" alt="{{activeContraParty.username}}" width="40" height="40">
-							</div-->
+							<div class="position-relative">
+								<img :src="activeContraPartyAvatar" class="rounded-circle mr-1" :alt="activeContraParty.username" width="40" height="40">
+							</div>
 							<div class="flex-grow-1 pl-3">
 								<strong>{{activeContraParty.username}}</strong>
 								<div v-if="this.isTyping()" class="text-muted small"><em>Typing...</em></div>
@@ -18,16 +18,23 @@
 					<div class="position-relative">
 						<div class="chat-messages p-4">
 							<div v-for="msg in this.activeChat()" class="pb-4">
-							<!--div class="{{this.sideClass(msg)}}"-->
-								<div>
-									<!--img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="{{msg.userId}}" width="40" height="40"-->
-									<!--div class="text-muted small text-nowrap mt-2">{{msg.time}}</div-->
+								<div v-if="msg.text" :class="[isMine(msg) ? 'chat-message-right' : 'chat-message-left']">
+									<!--div>
+										<img :src="getAvatarById(msg.sentBy)" class="rounded-circle mr-1" :alt="getUserNameById(msg.sentBy)" width="40" height="40">
+										<div class="text-muted small text-nowrap mt-2">{{msg.time}}</div>
+									</div-->
+									<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+										<div class="font-weight-bold mb-1">{{getUserNameById(msg.sentBy)}}</div>
+										{{msg.text}}
+									</div>
 								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">{{msg.userId}}</div>
-									{{msg.text}}
+								<div v-else-if="msg.status">
+									<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+										<div class="font-weight-bold mb-1 text-center">
+										{{msg.status}} by {{getUserNameById(msg.sentBy)}}
+										</div>
+									</div>
 								</div>
-							<!--/div-->
 							</div>
 						</div>
 					</div>
@@ -90,14 +97,26 @@ export default {
       else return nullUser
       return Meteor.users.findOne(contraPartyId) || nullUser
     },
+	activeContraPartyAvatar() {
+      return this.activeContraParty.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'
+    }
   },
   methods: {
-	sideClass(msg) {
-		const isOurs = msg.userId === Meteor.userId()
-		return isOurs ? 'chat-message-right' : 'chat-message-left'
+	isMine(msg) {
+		return msg.sentBy === Meteor.userId()
 	},
     isTyping() {
         return false // TODO: implement
+    },
+	getUserNameById(userId) {
+        const user = Meteor.users.findOne(userId)
+        if (user) return user.username
+        return 'Not found user'
+    },
+	getAvatarById(userId) {
+        const user = Meteor.users.findOne(userId)
+        if (user && user.avatar) return user.avatar
+        return 'https://bootdey.com/img/Content/avatar/avatar1.png'
     },
 	activeChat() {
 		console.log('Get active chat')

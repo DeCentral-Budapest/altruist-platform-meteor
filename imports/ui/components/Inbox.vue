@@ -143,9 +143,11 @@ export default {
     },
     lastMessage(transaction) {
       const chat = transaction.chat
-      if (chat.length === 0) return 'New dialog'
-      const text = _.last(chat).text
-      return text.substr(0, 20)
+      if (chat.length === 0) return 
+      const lastMsg = _.last(chat)
+      if (lastMsg.text) return 'Says: '+ lastMsg.text.substr(0, 20)
+      else if (lastMsg.status) return lastMsg.status
+      return 'ERROR'
     },
     whatToDo(trasaction) {
       return Transactions.statusTodos[trasaction.status]
