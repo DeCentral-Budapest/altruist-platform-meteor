@@ -105,10 +105,16 @@ export default {
           const profileModal = document.getElementById('profileModal');
           const modal = bootstrap.Modal.getInstance(profileModal);    
           modal.hide();
+          toastr.options = { positionClass: 'toast-bottom-right' };
+          toastr.success("Profile saved")
         }
       });
     }
   },
 }
 </script>
-
+<style>
+  .toast {
+    background-color: #51a351 !important;
+  }
+</style>

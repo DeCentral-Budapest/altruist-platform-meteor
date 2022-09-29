@@ -130,6 +130,8 @@ export default {
           const listingModal = document.getElementById('listingModal');
           const modal = bootstrap.Modal.getInstance(listingModal);    
           modal.hide();
+          toastr.options = { positionClass: 'toast-bottom-right' };
+          toastr.success("Listing saved")
         }
       })
     },
@@ -152,4 +154,7 @@ export default {
 </script>
 
 <style>
+.toast {
+  background-color: #51a351 !important;
+}
 </style>
