@@ -4,7 +4,7 @@ import Listings from './collections/Listings.js';
 import Transactions from './collections/Transactions.js';
 
 Meteor.startup(() => {
-  let demoUserId = Meteor.users.findOne({ username: "MrBeast.demo"})
+  let demoUserId = Meteor.users.findOne({ username: "MrBeast.demo"})?._id;
   if (!demoUserId) { // TODO remove username.MrBeast from DB
     demoUserId = Accounts.createUser({ username: "MrBeast.demo", password: "MrBeast6000" });
     Meteor.users.update(demoUserId, { $set:
@@ -24,9 +24,14 @@ Meteor.startup(() => {
   }
 
   // if the Listings collection is empty
-  if (false) {
-    Listings.remove({});
-    Transactions.remove({});
+  const oldListings = Listings.find({ 'createdBy.username': { $exists: true } });
+  if (oldListings) {
+    // Listings.remove({});
+   // Transactions.remove({});
+    oldListings.forEach((l) => {
+      Transactions.remove({ listingId: l._id });
+      Listings.remove({ id: l._id });
+    })
     const data = [
       {
         title: 'babysitting',
