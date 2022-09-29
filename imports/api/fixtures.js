@@ -24,7 +24,7 @@ Meteor.startup(() => {
   }
 
   // if the Listings collection is empty
-  if (true) {
+  if (false) {
     Listings.remove({});
     Transactions.remove({});
     const data = [

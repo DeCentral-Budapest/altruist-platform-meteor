@@ -19,19 +19,19 @@
           <div class="col-md-3">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title text-uppercase btn-outline-secondary">{{this.status}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(this.listedBy)}}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(this.takenBy)}}</h6>
+                <h5 class="card-title text-uppercase btn-outline-secondary">{{activeTx.status}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(activeTx.listedBy)}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(activeTx.takenBy)}}</h6>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                      <small>{{transactionStatusHints(this.status)}}</small>
+                      <small>{{transactionStatusHints(activeTx.status)}}</small>
                     </li>
                     <li class="list-group-item">
-                      <div v-if="this.status === 'inquiry'">
+                      <div v-if="activeTx.status === 'inquiry'">
                           <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
                           <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
                       </div>
-                      <div v-else-if="this.status === 'accepted'">
+                      <div v-else-if="activeTx.status === 'accepted'">
                           <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
                           <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
                       </div>
@@ -77,7 +77,14 @@ export default {
       'listings': [],
       'transactions': [],
       'reviews': [],
-    }
+    },
+    activeTxId() {
+      const activeTx = Session.get('activeTx')
+      return activeTx && activeTx._id
+    },
+    activeTx() {
+      return Session.get('activeTx')
+    },
   },
   methods: {
     getUserNameById(userId) {
@@ -106,6 +113,8 @@ export default {
         Meteor.call('sendMessage', { txId: this.txId, text: this.message }, (err, res) => {
             if (!err) {
                 this.message = ''
+                const activeTx = Session.get('activeTx')
+    			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
             }
         })
     },
