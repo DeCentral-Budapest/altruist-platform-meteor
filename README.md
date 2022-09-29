@@ -1,7 +1,13 @@
+## Running on Galaxy 
+[![altru.eu on meteor.cloud](https://assets.website-files.com/5dd3f8176674eb0829f184d5/5fff6890ad5e896f40209256_Meteor%20Logo.png "Scale your apps confidently with minimal DevOps")](https://altru.eu.meteorapp.com/)
+
+- https://altru.eu.meteorapp.com/
+
+
+## Pitch & transcript by @eapo
+
 [![Transparently secure Resource management, effective collaborative allocation, Trust](https://user-images.githubusercontent.com/4000929/192081476-ca7f6c14-102d-4538-9b94-35e187c8585f.png)](https://pixeldrain.com/u/HWtH1eWg)
 Pitch :movie_camera: 02:50m Hosted on [pixeldrain](https://pixeldrain.com/u/HWtH1eWg) | [YouTube](https://youtu.be/1RBJ3temzNs) | [Vimeo](https://vimeo.com/753237646) 
-
-## Pitch transcript by @eapo
 
 > We are provided with _times of abundance_ which enables us to **share with others**.
 
@@ -18,7 +24,7 @@ I am an independent *Information Architect* and *Permaculture designer/teacher*.
 The growth in human **consumption**, waste of **resources**, and the accelerating **extinction** of species make clear the **impossibility** of continuous growth.
 Sometimes we need to make hard decisions and consider what enough is.
 
-> #### I believe in the power of **globally connected** **local communities** using *F/LOSS*[^FLOSS] solutions.
+> #### I believe in the power of **globally connected** **local communities** using F/LOSS[^FLOSS] solutions.
 
 To realize this sustainably, we need:
 - [x] transparently secure **resource management**,
@@ -84,19 +90,18 @@ Mentor, Teacher, Opensource developer
     - [x] and also a [description of the idea](#bulb-idea).
     - [x] You could also link a [video explaining your idea](https://pixeldrain.com/u/HWtH1eWg).
 - [ ] 2. Add these handles as maintainers on GitHub.
-    - [ ] `@henriquealbert`
-    - [ ] `@grubba27`
-    - [ ] `@vitorflores`
-    - [ ] `@jessamagtalas`
-    - [ ] `@kevin-tayong`
-    - [ ] `@denihs`
-    - [ ] `@alimgafar`
-    - [ ] `@aquinoit`
-    - [ ] `@fredmaiaarantes`
-- [ ] In the end, your app needs to be running on Galaxy during demo time.
-    - [ ] account.setup
+    - [x] `@henriquealbert`
+    - [x] `@grubba27`
+    - [x] `@vitorflores`
+    - [x] `@jessamagtalas`
+    - [x] `@kevin-tayong`
+    - [x] `@denihs`
+    - [x] `@alimgafar`
+    - [x] `@aquinoit`
+    - [x] `@fredmaiaarantes`
+- [ ] In the end, your app needs to be [running on Galaxy](https://altru.eu.meteorapp.com/) during demo time.
+    - [x] account.setup
     - [ ] custom domain
-    - [ ] `git pull`
-    - [ ] app.setup
-    - [ ] publish
+    - [x] app.setup
+    - [x] publish
 - [ ] The judges will need to be able to access your app during your demo as well as after 3 days from demo day.
