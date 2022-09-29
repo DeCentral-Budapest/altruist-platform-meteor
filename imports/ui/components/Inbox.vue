@@ -42,7 +42,7 @@
         </div><!-- /.panel-body -->
       </div><!-- /.panel -->
     </div><!-- /.message-sideleft -->
-    <div class="col-md-6 message-panel">
+    <div  v-if="activeTx" class="col-md-6 message-panel">
         <Messenger></Messenger>
     </div><!-- /.message-panel -->
     <div v-if="activeTx" class="col-md-3 message-sideright">
