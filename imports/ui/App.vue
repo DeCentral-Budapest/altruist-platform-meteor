@@ -13,7 +13,7 @@
             <strong>The <abbr title="They connect people and build communities to create economic opportunity for all.">eBay</abbr> of <abbr title="the principle or practice of unselfish concern for or devotion to the welfare of others (opposed to egoism).">altruism</abbr><span>.</span></strong>
           </div>
           <div class="card-body">
-            <h1 class="card-title container-fluid">alTRU.Eu.meteorapp<sup><small>.com</small></sup></h1>
+            <h1 class="card-title container-fluid logo-before">alTRU.Eu.meteorapp<sup><small>.com</small></sup></h1>
               <p class="part card-text">A <strong>Trusted <abbr title="Free/Libre Open-Source Software; Libre: maintains the software user's civil liberty rights">F/LOSS</abbr> marketplace</strong> for <em>collaborative economy</em>, where individuals, communities and organisations able to share their <em>resources, services and needs</em> in a trusted way for <em>money</em>, in <em>exchange</em> for other goods and services, or like a <em>give away</em>, <abbr title="Alternative payment option, where the unconditional transaction will higher the seller's &quot;altruism score&quot;">for free</abbr>.
             </p>
 
@@ -118,4 +118,15 @@ export default {
   .text-right {
     text-align: right !important;
   }
+  .logo-before:before {
+    content: "💚🤲💝";
+    background-image: url(/assets/images/altrueco-logo-v1.png);
+    text-indent: -999px;
+    overflow: hidden;
+    width: 2.3em;
+    display: inline-block;
+    height: 1.3em;
+    background-size: cover;
+    vertical-align: text-bottom;
+    }
 </style>
