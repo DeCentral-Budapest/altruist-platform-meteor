@@ -5,12 +5,12 @@
       <div class="panel">
         <div class="panel-heading">
           <h3 class="panel-title">{{this.showAll ? 'All Transactions' : 'Inbox'}}</h3>
-          <div class="pull-right">
+          <div class="mb-3">
             <div class="form-check form-check-inline form-switch">
               <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
               <label class="form-check-label" for="showAll">Show all</label>
           </div>
-          </div>
+        </div>
         </div><!-- /.panel-heading -->
         <div class="panel-body no-padding">
           <div v-for="listing in listings" class="list-group no-margin list-message">
@@ -28,9 +28,12 @@
                   <li v-for="tx in transactionsOf(listing)" class="list-group-item" @click="setActive(tx)">
                     <h4 class="list-group-item-heading">{{contraPartyOf(tx).username}} <small class="float-end">{{tx.createdAt.toLocaleDateString()}}</small></h4>
                     <p class="list-group-item-text">
-                        {{lastMessage(tx)}} <strong class="float-end">{{whatToDo(tx)}}</strong>
+                        {{lastMessage(tx)}} 
                     </p>
-                    <span class="badge bg-primary float-end">{{tx.status}}</span>
+                    <p class="list-group-item-text">
+                      <strong class="float-start">{{whatToDo(tx)}}</strong>
+                      <span class="badge bg-primary float-end">{{tx.status}}</span>
+                    </p>
                   </li>
                 </ul>
               </div>
@@ -140,7 +143,7 @@ export default {
       const chat = transaction.chat
       if (chat.length === 0) return 
       const lastMsg = _.last(chat)
-      if (lastMsg.text) return 'Says: '+ lastMsg.text.substr(0, 20)
+      if (lastMsg.text) return lastMsg.text.substr(0, 20) + '…'
       else if (lastMsg.status) return lastMsg.status
       return 'ERROR'
     },
@@ -174,6 +177,121 @@ export default {
 </script>
   
 <style scoped>
+/* ========================================================================
+ * MESSAGES
+ * ======================================================================== */
+.message form {
+  padding: 6px 15px;
+  background-color: #FAFAFA;
+  border-bottom: 1px solid #E6EBED;
+}
+.message form .has-icon .form-control-icon {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  width: 34px;
+  line-height: 33px;
+  text-align: center;
+  color: #777;
+}
+.message > a {
+  position: relative;
+}
+.message .indicator {
+  text-align: center;
+}
+.message .indicator .spinner {
+  left: 26%;
+  width: 200px;
+  font-size: 13px;
+  line-height: 17px;
+  color: #999;
+}
 
+.message-wrapper {
+  position: relative;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 0px;
+}
+.message-wrapper .message-sideleft {
+  vertical-align: top !important;
+}
+.message-wrapper .message-sideleft[class*="col-"] {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.message-wrapper .message-sideright {
+  background-color: #f8f8f8;
+}
+.message-wrapper .message-sideright[class*="col-"] {
+  padding: 30px;
+}
+.message-wrapper .message-sideright .panel {
+  border-top: 1px dotted #DDD;
+  padding-top: 20px;
+}
+.message-wrapper .message-sideright .panel:first-child {
+  border-top: none;
+  padding-top: 0px;
+}
+.message-wrapper .message-sideright .panel .panel-heading {
+  border-bottom: none;
+}
+.message-wrapper .panel {
+  background-color: transparent !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.message-wrapper .panel .panel-heading, .message-wrapper .panel .panel-body {
+  background-color: transparent !important;
+}
+.message-wrapper .media .media-body {
+  font-weight: 300;
+}
+.message-wrapper .media .media-heading {
+  margin-bottom: 0px;
+}
+.message-wrapper .media small {
+  color: #999999;
+  font-weight: 400;
+}
+
+.list-message .list-group-item {
+  padding: 15px;
+  color: #999999 !important;
+  border-right: 3px solid #8CC152 !important;
+}
+.list-message .list-group-item.active {
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #DDD !important;
+}
+.list-message .list-group-item.active p {
+  color: #999999 !important;
+}
+.list-message .list-group-item.active:hover, .list-message .list-group-item.active:focus, .list-message .list-group-item.active:active {
+  background-color: #EEEEEE;
+}
+.list-message .list-group-item small {
+  font-size: 12px;
+}
+.list-message .list-group-item .list-group-item-heading {
+  color: #999999 !important;
+}
+.list-message .list-group-item .list-group-item-text {
+  margin-bottom: 10px;
+}
+.list-message .list-group-item:last-child {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  border-bottom: 1px solid #DDD !important;
+}
+.avatar{
+    width:50px;
+    height:50px;
+} 
 </style>
   
