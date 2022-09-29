@@ -6,7 +6,7 @@
         <div class="card h-100 listing">
           <img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
+            <h5 class="card-title listing-title" :class="{ need: listing.isNeed }" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
             <p class="card-text" v-html="listing.description"></p>
             <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
@@ -96,5 +96,11 @@ export default {
 <style scoped>
   .listing blockquote {
       font-style: italic;
+  }
+  .listing-title:before {
+    content: '💝';
+  }
+  .listing-title.need:before {
+    content: '🤲';
   }
 </style>
