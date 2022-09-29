@@ -14,7 +14,7 @@
                 </div>
                 <div class="mb-3">
                 	<div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="formURLorFile" v-model="checked" disabled>
+                    <input class="form-check-input" type="checkbox" id="formURLorFile" v-model="checked">
                     <label class="form-check-label" for="formURLorFile">Switch to <i>{{(checked)?"URL":"File"}}</i> upload</label>
                 	</div>
                   <div v-if="!checked" class="form-url">
@@ -22,7 +22,8 @@
                     <div class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
                   </div>
                 	<div v-if="checked" class="form-file">
-              	    <input class="form-control" type="file" id="formFile">
+                    <a href="#" class="btn btn-sm btn-outline-secondary" @click="photoUpload">Upload image</a>
+                    <span v-if="fileName">{{fileName}} uploaded</span>
                     <div class="form-text">File size limit applied on this server.</div>
                 	</div>
                 </div>
@@ -63,6 +64,7 @@
 
 <script>
 import bootstrap from 'bootstrap';
+import { Photos } from '../../api/collections/Photos';
 
 export default {
   data() {
@@ -74,6 +76,7 @@ export default {
       imgURL: "",
       picked: "",
       checked: "",
+      fileName: "",
     }
   },
   mounted: function() {
@@ -98,6 +101,7 @@ export default {
       self.tags = '';
       self.isNeed = false;
       self.picked = '';
+      self.fileName = '';
     })
   },
   meteor: {
@@ -133,7 +137,16 @@ export default {
       const l = Session.get('listing')
       if (!l) return "Create your listing!"
       return l.title
-    }
+    },
+    photoUpload () {
+      const self = this;
+      Photos.upload(
+        { category: 'listing' },
+        function oncomplete(file) {
+          self.imgURL = file.path;
+          self.fileName = file.name;
+      });
+    },
   },
 }
 </script>
