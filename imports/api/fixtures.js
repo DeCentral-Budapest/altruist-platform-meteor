@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import Listings from './collections/Listings.js';
+import Transactions from './collections/Transactions.js';
 
 Meteor.startup(() => {
   let demoUserId = Meteor.users.findOne({ username: "MrBeast.demo"})
@@ -23,7 +24,9 @@ Meteor.startup(() => {
   }
 
   // if the Listings collection is empty
-  if (Listings.find().count() === 0) {
+  if (true) {
+    Listings.remove({});
+    Transactions.remove({});
     const data = [
       {
         title: 'babysitting',
