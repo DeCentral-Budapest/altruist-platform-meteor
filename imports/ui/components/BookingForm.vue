@@ -33,19 +33,20 @@
           v-model="reason"
           class="form-control"
       />
-      <label for="reason" class="form-label">Reason</label>
+      <label for="reason" class="form-label">Why do you want to join us?</label>
     </div>
     <div>
-      <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Book in!</button>
     </div>
   </form>
 </template>
+
 
 <script>
 import { Accounts } from 'meteor/accounts-base';
 
 export default {
-name: "RegisterForm",
+name: "BookingForm",
 data() {
   return {
       registerActive: false,
@@ -61,10 +62,25 @@ data() {
   },
   methods: {
     handleSubmit(event) {
-      Accounts.createUser({ username: this.username, email: this.email, reason: this.reason }, function (error) {
-          if (error) alert(error.message);
-        });
+      event.preventDefault()
+        const method = 'createListing'
+        const doc = {
+          title: '<i>' + this.username + ' </i> sent a membership request. ',
+          description: '<i>' + this.username + '</i>?<br /> wants to join with the following reason: <blockquote class="blockquote">' + this.reason + '</blockquote><br />If you know why we should trust this person/community/organisation, please let Us know below this <i>Listing</i>.',
+          tags: '#NewBooking #MembershipRequest #ApprovalNeeded #WaitList',
+          isNeed: true,
+          offer: 'services',
+        }
+        Meteor.call(method, doc, (error) => {
+          if (error) {
+            alert(error.error)
+          } else {
+            alert('Booking sent to approval')
+          }
+            Session.set('listing', null)
+          })
+        },
+        // TODO mailto:altru@valto.ro
     }
-  },
-}
+  };
 </script>

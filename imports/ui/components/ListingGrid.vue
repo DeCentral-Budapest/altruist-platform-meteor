@@ -3,12 +3,12 @@
     <h2>{{getTitle}}</h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       <div v-for="listing in listings" class="col">
-        <div class="card h-100">
+        <div class="card h-100 listing">
           <img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title" @click="goto(listing)">{{listing.title}}</h5>
+            <h5 class="card-title" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
-            <p class="card-text">{{listing.description}}</p>
+            <p class="card-text" v-html="listing.description"></p>
             <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
             <p class="card-text"><small class="text-muted">{{listing.offer}}</small></p>
             <div v-if="isOwnedByMe(listing)">
@@ -94,4 +94,7 @@ export default {
 </script>
 
 <style scoped>
+  .listing blockquote {
+      font-style: italic;
+  }
 </style>
