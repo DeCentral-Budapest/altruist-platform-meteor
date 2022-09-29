@@ -6,10 +6,10 @@
 					<div class="py-2 px-4 border-bottom d-none d-lg-block">
 						<div class="d-flex align-items-center py-1">
 							<!--div class="position-relative">
-								<img src="{{activeContraParty().avatar}}" class="rounded-circle mr-1" alt="{{activeContraParty().username}}" width="40" height="40">
+								<img src="{{activeContraParty.avatar}}" class="rounded-circle mr-1" alt="{{activeContraParty.username}}" width="40" height="40">
 							</div-->
 							<div class="flex-grow-1 pl-3">
-								<strong>{{activeContraParty().username}}</strong>
+								<strong>{{activeContraParty.username}}</strong>
 								<div v-if="this.isTyping()" class="text-muted small"><em>Typing...</em></div>
 							</div>
 						</div>
@@ -17,148 +17,25 @@
 
 					<div class="position-relative">
 						<div class="chat-messages p-4">
-
-							<div class="chat-message-right pb-4">
+							<div v-for="msg in this.activeChat()" class="pb-4">
+							<!--div class="{{this.sideClass(msg)}}"-->
 								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:33 am</div>
+									<!--img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="{{msg.userId}}" width="40" height="40"-->
+									<!--div class="text-muted small text-nowrap mt-2">{{msg.time}}</div-->
 								</div>
 								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">You</div>
-									Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
+									<div class="font-weight-bold mb-1">{{msg.userId}}</div>
+									{{msg.text}}
 								</div>
+							<!--/div-->
 							</div>
-
-							<!--div class="chat-message-left pb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:34 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-									<div class="font-weight-bold mb-1">Sharon Lessman</div>
-									Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-								</div>
-							</div>
-
-							<div class="chat-message-right mb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:35 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">You</div>
-									Cum ea graeci tractatos.
-								</div>
-							</div>
-
-							<div class="chat-message-left pb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:36 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-									<div class="font-weight-bold mb-1">Sharon Lessman</div>
-									Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor magna, vitae commodo lectus mauris et velit.
-									Proin ultricies placerat imperdiet. Morbi varius quam ac venenatis tempus.
-								</div>
-							</div>
-
-							<div class="chat-message-left pb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:37 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-									<div class="font-weight-bold mb-1">Sharon Lessman</div>
-									Cras pulvinar, sapien id vehicula aliquet, diam velit elementum orci.
-								</div>
-							</div>
-
-							<div class="chat-message-right mb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:38 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">You</div>
-									Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-								</div>
-							</div>
-
-							<div class="chat-message-left pb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:39 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-									<div class="font-weight-bold mb-1">Sharon Lessman</div>
-									Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-								</div>
-							</div>
-
-							<div class="chat-message-right mb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:40 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">You</div>
-									Cum ea graeci tractatos.
-								</div>
-							</div>
-
-							<div class="chat-message-right mb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:41 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">You</div>
-									Morbi finibus, lorem id placerat ullamcorper, nunc enim ultrices massa, id dignissim metus urna eget purus.
-								</div>
-							</div>
-
-							<div class="chat-message-left pb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:42 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-									<div class="font-weight-bold mb-1">Sharon Lessman</div>
-									Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor magna, vitae commodo lectus mauris et velit.
-									Proin ultricies placerat imperdiet. Morbi varius quam ac venenatis tempus.
-								</div>
-							</div>
-
-							<div class="chat-message-right mb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:43 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-									<div class="font-weight-bold mb-1">You</div>
-									Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-								</div>
-							</div>
-
-							<div class="chat-message-left pb-4">
-								<div>
-									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-									<div class="text-muted small text-nowrap mt-2">2:44 am</div>
-								</div>
-								<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-									<div class="font-weight-bold mb-1">Sharon Lessman</div>
-									Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-								</div>
-							</div!-->
-
 						</div>
 					</div>
 
 					<div class="flex-grow-0 py-3 px-4 border-top">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Type your message">
-							<button class="btn btn-primary">Send</button>
+							<input type="text" class="form-control" placeholder="Type your message" v-model="messageInput">
+							<button class="btn btn-primary" @click="sendMessage()">Send</button>
 						</div>
 					</div>
 
@@ -187,28 +64,24 @@ export default {
         tx,
         contraParty 
     }*/
-    return {}
+    return {
+		messageInput: ''
+	}
   },
   props: {
   },
   meteor: {
     activeTx() {
-      console.log('Get active')
+		console.log('Get active tx')
       const tx = Session.get('activeTx')
-      console.log('Get active', tx)
-      return tx
-    },
-  },
-  methods: {
-    isTyping() {
-        return false // TODO
+      console.log('Active tx is', tx)
+      return tx || {}
     },
     activeContraParty() {
       const tx = Session.get('activeTx')
-      console.log('Get active', tx)
-      console.log('Name of', tx)
+      console.log('Get active contraparty', tx)
 
-      const nullUser = { username: "Not found", avatar: '' }
+      const nullUser = { username: "Not found", avatar: 'https://bootdey.com/img/Content/avatar/avatar1.png' }
       if (!tx) return nullUser
       let contraPartyId
       const userId = Meteor.userId()
@@ -216,6 +89,34 @@ export default {
       else if (tx.takenBy === userId) contraPartyId = tx.listedBy
       else return nullUser
       return Meteor.users.findOne(contraPartyId) || nullUser
+    },
+  },
+  methods: {
+	sideClass(msg) {
+		const isOurs = msg.userId === Meteor.userId()
+		return isOurs ? 'chat-message-right' : 'chat-message-left'
+	},
+    isTyping() {
+        return false // TODO: implement
+    },
+	activeChat() {
+		console.log('Get active chat')
+      const tx = Session.get('activeTx')
+	  if (!tx) return []
+	  const chat = tx.chat
+      console.log('Active chat is', chat)
+      return chat || []
+	},
+    sendMessage() {
+		debugger
+        Meteor.call('newChatMessage', { txId: Session.get('activeTx')._id, text: this.messageInput }, (err, res) => {
+            if (!err) {
+                this.messageInput = ''
+				const activeTx = Session.get('activeTx')
+				Session.set('activeTx', null )
+				Session.set('activeTx', activeTx )	// to trigger reactive ui update
+            }
+        })
     },
   },
 }

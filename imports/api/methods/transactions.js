@@ -9,6 +9,7 @@ Meteor.methods({
     doc.takenBy = this.userId;
     doc.status = 'inquiry'
     doc.chat = [];
+    doc.chatMsgCount = 0;
     doc.agreedValue = [];
     doc.listerReview = null;
     doc.takerReview = null;
@@ -16,24 +17,18 @@ Meteor.methods({
 
     return Transactions.insert(doc);
   },
-  'addChat'(doc) {
-    check(doc.txId, String);
-    check(doc.text, String);
-
-    return Transactions.update(doc.txId, { $push: { chat: text } });
-  },
   'statusChangeTransaction'(doc) {
     check(doc.txId, String);
     check(doc.status, String);
 
     return Transactions.update(doc.txId, { $set: { status: doc.status } });
   },
-  'sendMessage'(doc) {
+  'newChatMessage'(doc) {
     check(doc.txId, String);
     check(doc.text, String);
 
-    const msgRecord = { sentBy: this.userId, text: doc.text }
-    return Transactions.update(doc.txId, { $push: { chat: msgRecord } });
+    const msgRecord = { sentBy: this.userId, time: new Date(), text: doc.text }
+    return Transactions.update(doc.txId, { $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
   },
   'reviewBylister'(doc) {
     check(doc.txId, String);

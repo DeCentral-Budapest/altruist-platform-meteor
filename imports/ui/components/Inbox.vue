@@ -1,6 +1,6 @@
 <template>
-    <div>
-<div class="row message-wrapper rounded shadow mb-20">
+<div>
+  <div class="row message-wrapper rounded shadow mb-20">
     <div class="col-md-3 message-sideleft">
         <div class="panel">
             <div class="panel-heading">
@@ -18,7 +18,7 @@
                     <a v-for="tx in transactionsOf(listing)" href="#" class="list-group-item" @click="setActive(tx)">
                         <h4 class="list-group-item-heading">{{contraPartyOf(tx).username}} <small>{{tx.status}}</small></h4>
                         <p class="list-group-item-text">
-                            {{lastMessage(tx)}} <strong>{{whatToDo(tx)}}</strong>
+                            Says: {{lastMessage(tx)}} <strong>{{whatToDo(tx)}}</strong>
                         </p>
                         <span class="label label-success pull-right">{{tx.createdAt.toLocaleDateString()}}</span>
                         <div class="clearfix"></div>
@@ -30,7 +30,27 @@
     <div class="col-md-6 message-panel">
         <Messenger></Messenger>
     </div><!-- /.message-panel -->
-    <div class="col-md-3 message-sideright">
+    <div v-if="activeTx" class="col-md-3 message-sideright">
+      <div class="panel">
+            <div class="panel-body">
+                <div class="media">
+                    <h5>Listed by: {{getUserNameById(activeTx.listedBy)}}</h5>
+                    <h5>Taken by: {{getUserNameById(activeTx.takenBy)}}</h5>
+                    <h5>Transaction status: {{activeTx.status}}</h5>
+                    <small>{{transactionStatusHints(activeTx.status)}}</small>
+                    <div v-if="activeTx.status === 'inquiry'">
+                        <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
+                        <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
+                    </div>
+                    <div v-else-if="activeTx.status === 'accepted'">
+                        <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
+                        <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.message-sideright -->
+    <!--div class="col-md-3 message-sideright">
         <div class="panel">
             <div class="panel-heading">
                 <div class="media">
@@ -42,7 +62,7 @@
                         <small>Thursday 5th July 2014-via Intercom</small>
                     </div>
                 </div>
-            </div><!-- /.panel-heading -->
+            </div>
             <div class="panel-body">
                 <p class="lead">
                     Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
@@ -52,11 +72,11 @@
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </div><!-- /.panel-body -->
-        </div><!-- /.panel -->
-    </div><!-- /.message-sideright -->
+            </div>
+        </div>
+    </div--><!-- /.message-sideright -->
+  </div>
 </div>
-    </div>
 </template>
   
 <script>
@@ -93,14 +113,15 @@ export default {
       console.log('listings', listings)
       return listings
     },
-  },
-  methods: {
     activeTxId() {
-      return Session.get('activeTx')._id
+      const activeTx = Session.get('activeTx')
+      return activeTx && activeTx._id
     },
     activeTx() {
       return Session.get('activeTx')
     },
+  },
+  methods: {
     setActive(tx) {
       console.log('Set active', tx)
       Session.set('activeTx', tx)
@@ -127,8 +148,25 @@ export default {
       return text.substr(0, 20)
     },
     whatToDo(trasaction) {
-      return 'Todo'
-    }
+      return Transactions.statusTodos[trasaction.status]
+    },
+    getUserNameById(userId) {
+        const user = Meteor.users.findOne(userId)
+        if (user) return user.username
+        return 'Not found user'
+    },
+    transactionStatusHints(status) {
+        return Transactions.statusHints[status]
+    },
+    goto(listing) {
+      this.$router.push({ name: 'View listing', params: { lid: listing._id } })
+    },
+    changeStatus(status) {
+        Meteor.call('statusChangeTransaction', { txId: Session.get('activeTx')._id, status })
+    },
+    leaveReview() {
+        // TODO
+    },
   },
 }
 </script>

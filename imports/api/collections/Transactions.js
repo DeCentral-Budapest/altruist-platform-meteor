@@ -18,4 +18,12 @@ Transactions.statusHints = {
     reviewed: 'This transaction has been reviewed by both parties'
 }
 
+Transactions.statusTodos = {
+    inquiry: 'Accept',
+    canceled: '',
+    accepted: 'Leave review',
+    disputed: '',
+    reviewed: ''
+}
+
 export default Transactions;
