@@ -35,8 +35,8 @@
           </ul>
         </li>
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="searchText">
+            <button class="btn btn-outline-success" type="submit" @click="doSearch">Search</button>
         </form>
       </ul>
 
@@ -71,6 +71,12 @@
 
 <script>
 export default {
+  name: "Navbar",
+  data () {
+    return {
+      searchText: ""
+    }
+  },
   meteor: {
     currentUser () {
         return Meteor.user();
@@ -82,8 +88,14 @@ export default {
         if (error) alert(error.message);
       });
     },
-    createNewListing() {
-
+    doSearch() {
+      if (!this.searchText) return;
+      Session.set("searchText", this.searchText);
+      if (this.$route.name != "Search results") {
+        this.$router.push({
+          name: "Search results",
+        });
+      }
     }
   },
 }

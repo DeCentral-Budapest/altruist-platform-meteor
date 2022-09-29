@@ -43,20 +43,30 @@ export default {
       type: String,
       default: "",
     }
-
   },
   meteor: {
     $subscribe: {
       'listings': [],
     },
     listings () {
-      const isNeed = this.isNeed === 'true' ? true : false
-      const isOwn = this.isOwn === 'true' ? true : false
-      const selector = { isNeed }
-      const userId = Meteor.userId()
-      if (isOwn) selector.createdBy = userId
-      else selector.createdBy = { $ne: userId }
-      return Listings.find(selector)
+      let selector = {};
+      if (this.isNeed !== "both" && this.isOwn !== "both") {
+        const isNeed = this.isNeed === 'true' ? true : false
+        const isOwn = this.isOwn === 'true' ? true : false
+        selector = { isNeed }
+        const userId = Meteor.userId()
+        if (isOwn) selector.createdBy = userId
+        else selector.createdBy = { $ne: userId }
+      }
+      let listings = Listings.find(selector)
+      if (Session.get("searchText")){
+        const searchText = Session.get("searchText");
+        listings = listings.fetch().filter(l =>
+        l.title?.toLowerCase().search(searchText.toLowerCase()) >= 0
+        || l.text?.toLowerCase().search(searchText.toLowerCase()) >= 0
+        )
+      }
+      return listings;
     },
     getTitle() {
       const isNeed = this.isNeed === 'true' ? true : false

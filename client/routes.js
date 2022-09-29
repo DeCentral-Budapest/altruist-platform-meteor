@@ -59,6 +59,12 @@ const routes = [
     name: 'Profile',
     component: Profile
   },
+  {
+    path: "/searchresults",
+    name: "Search results",
+    component: ListingGrid,
+    props: { isNeed: 'both', isOwn: 'both' },
+  },
 ]
 
 const router = new VueRouter({
