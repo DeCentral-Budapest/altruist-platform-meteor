@@ -13,7 +13,7 @@
     </div>
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" id="formSwitchCheckDefault" v-model="checked">
-      <label class="form-check-label" for="formSwitchCheckDefault">Use the <i>invited email</i> instead {{ checked }}</label>
+      <label class="form-check-label" for="formSwitchCheckDefault">Use the <i>invited email</i> instead</label>
     </div>
     <div class="form-floating mb-4">
       <input

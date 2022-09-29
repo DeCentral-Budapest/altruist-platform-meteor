@@ -13,16 +13,17 @@
                     <input type="text" class="form-control" id="title" v-model="title" required>
                 </div>
                 <div class="mb-3">
-                    <div class="form-url">
-                      <input class="form-control form-control-url" type="text" id="imgURL" v-model="imgURL" placeholder='https://i.imgur.com/e8PooMD.png'>
-                      <div id="imgURL" class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
-                  	</div>
                 	<div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="formURLorFile">
-                    <label class="form-check-label" for="formURLorFile">Switch for File Upload</label>
+                    <input class="form-check-input" type="checkbox" id="formURLorFile" v-model="checked" disabled>
+                    <label class="form-check-label" for="formURLorFile">Switch to <i>{{(checked)?"URL":"File"}}</i> upload</label>
                 	</div>
-                	<div class="form-file">
-              	    <input class="form-control" type="file" id="formFile" disabled>
+                  <div v-if="!checked" class="form-url">
+                    <input class="form-control form-control-url" type="text" id="imgURL" v-model="imgURL" placeholder='https://i.imgur.com/e8PooMD.png'>
+                    <div class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
+                  </div>
+                	<div v-if="checked" class="form-file">
+              	    <input class="form-control" type="file" id="formFile">
+                    <div class="form-text">File size limit applied on this server.</div>
                 	</div>
                 </div>
                 <div class="mb-3">
@@ -71,6 +72,7 @@ export default {
       isNeed: false,
       imgURL: "",
       picked: "",
+      checked: "",
     }
   },
   mounted: function() {
@@ -85,7 +87,7 @@ export default {
       self.isNeed = l.isNeed;
       self.imgURL = l.imgURL;
       self.picked = l.offer;
-      self.getTitle();   
+      self.getTitle();
     })
   },
   meteor: {

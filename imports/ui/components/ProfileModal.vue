@@ -9,21 +9,27 @@
         <div class="modal-body">
             <form>
                 <div class="mb-3">
-                    <label for="nickname" class="form-label">Nickname</label>
-                    <input type="text" class="form-control" id="nickname" v-model="nickname">
-                </div>
-                <div class="mb-3">
                     <label for="realname" class="form-label">Real name</label>
                     <input type="text" class="form-control" id="realname" v-model="realname">
                 </div>
                 <div class="mb-3">
-                    <label for="birth" class="form-label">Birth</label>
-                    <input type="date" class="form-control" id="birth" v-model="birth">
+                    <label for="nickname" class="form-label">Nickname</label>
+                    <input type="text" class="form-control" id="nickname" v-model="nickname">
                 </div>
                 <div class="mb-3">
                     <label for="region" class="form-label">Region</label>
                     <input type="text" class="form-control" id="region" v-model="region">
                 </div>                
+                <div class="mb-3">
+					<div class="form-floating">
+					  <textarea class="form-control" placeholder="Biograpy" id="bio" style="height: 100px" v-model="bio"></textarea>
+					  <label for="bio">About me …</label>
+					</div>
+                </div>                
+                <div class="mb-3">
+                    <label for="birth" class="form-label">Birth</label>
+                    <input type="date" class="form-control" id="birth" v-model="birth">
+                </div>
                 <div class="mb-3">
                     <label for="web" class="form-label">Web</label>
                     <input type="text" class="form-control" id="web" v-model="web">
@@ -52,6 +58,7 @@ export default {
       nickname: "",
       realname: "",
       birth: "",
+      bio: "",
       region: "",
       web: "",
       rocketchat: "",
@@ -66,6 +73,7 @@ export default {
       self.nickname = p.nickname;
       self.realname = p.realname;
       self.birth = p.birth;
+      self.bio = p.bio;
       self.region = p.region;
       self.web = p.web;
       self.rocketchat = p.rocketchat;      
@@ -83,6 +91,7 @@ export default {
         nickname: this.nickname,
         realname: this.realname,
         birth: this.birth,
+        bio: this.bio,
         region: this.region,
         web: this.web,
         rocketchat: this.rocketchat,

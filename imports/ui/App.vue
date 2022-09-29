@@ -105,11 +105,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   body {
     padding: 1em;
     }
   sup > small {
     font-size: 0.5em;
+  }
+  .text-right {
+    text-align: right !important;
   }
 </style>
