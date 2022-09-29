@@ -1,13 +1,13 @@
 <template>
     <div class="modal fade" id="listingModal" tabindex="-1" aria-labelledby="listingModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <form @submit.prevent="submit($event)">
+        <div class="modal-content"> 
         <div class="modal-header">
             <h5 class="modal-title" id="listingModalLabel">{{getTitle()}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" id="title" v-model="title" required>
@@ -48,21 +48,22 @@
                     <input class="form-check-input" type="checkbox" id="formIsNeed" v-model="isNeed">
                     <label class="form-check-label" for="formIsNeed">It's a Need</label>
               	</div>
-              </div>
-
-            </form>
+          </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer">            
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" @click="submit($event)">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        </div>
+        </div> 
+        </form>
     </div>
     </div>
 </template>
 
 
 <script>
+import bootstrap from 'bootstrap';
+
 export default {
   data() {
     return {
@@ -89,6 +90,15 @@ export default {
       self.picked = l.offer;
       self.getTitle();
     })
+    myModal.addEventListener('hidden.bs.modal', function () {
+      Session.set('listing', null);
+      self.title = '';
+      self.imgURL = '';
+      self.description = '';
+      self.tags = '';
+      self.isNeed = false;
+      self.picked = '';
+    })
   },
   meteor: {
     currentUser () {
@@ -113,16 +123,10 @@ export default {
         if (error) {
           alert(error.error)
         } else {
-          this.title = ''
-          this.imgURL = ''
-          this.description = ''
-          this.tags = ''
-          this.isNeed = false
-          this.picked = ''
+          const listingModal = document.getElementById('listingModal');
+          const modal = bootstrap.Modal.getInstance(listingModal);    
+          modal.hide();
         }
-        Session.set('listing', null)
-//        const modal = document.getElementById('listingModal');
-//        modal.modal('hide')
       })
     },
     getTitle() {

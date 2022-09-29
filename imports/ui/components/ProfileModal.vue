@@ -1,13 +1,13 @@
 <template>
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+        <form @submit.prevent="submit($event)">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="profileModalLabel">Your profile data</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
                 <div class="mb-3">
                     <label for="realname" class="form-label">Real name</label>
                     <input type="text" class="form-control" id="realname" v-model="realname">
@@ -38,19 +38,21 @@
                     <label for="rocketchat" class="form-label">RocketChat</label>
                     <input type="text" class="form-control" id="rocketchat" v-model="rocketchat">
                 </div>
-            </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" @click="submit($event)">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         </div>
+        </form>
     </div>
     </div>
 </template>
 
 
 <script>
+import bootstrap from 'bootstrap';
+
 export default {
   name: "ProfileModal",
   data() {
@@ -99,7 +101,11 @@ export default {
       Meteor.call('updateUser', doc, (error) => {
         if (error) {
           alert(error.error)
-        } 
+        } else {
+          const profileModal = document.getElementById('profileModal');
+          const modal = bootstrap.Modal.getInstance(profileModal);    
+          modal.hide();
+        }
       });
     }
   },
