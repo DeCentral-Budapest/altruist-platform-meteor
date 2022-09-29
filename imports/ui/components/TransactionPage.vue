@@ -82,7 +82,12 @@ export default {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
     changeStatus(status) {
-        Meteor.call('statusChangeTransaction', { txId: this.txId, status })
+        Meteor.call('statusChangeTransaction', { txId: this.txId, status }, (err, res) => {
+          if (!err) {
+	    			const activeTx = Session.get('activeTx')
+			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
+          }
+        })
     },
     reviewTrasactiom() {
         // TODO
