@@ -17,6 +17,8 @@
             <Messenger></Messenger>
           </div>
           <div class="col-md-3">
+            <h5>Listed by: {{getUserNameById(this.listedBy)}}</h5>
+            <h5>Taken by: {{getUserNameById(this.takenBy)}}</h5>
             <h5>Transaction status: {{this.status}}</h5>
             <small>{{transactionStatusHints(this.status)}}</small>
             <div v-if="this.status === 'inquiry'">
@@ -27,8 +29,6 @@
                 <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
                 <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
             </div>
-            <h5>Listed by: {{getUserNameById(this.listedBy)}}</h5>
-            <h5>Taken by: {{getUserNameById(this.takenBy)}}</h5>
           </div>
         </div>
         </div>

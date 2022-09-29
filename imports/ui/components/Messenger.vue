@@ -108,13 +108,11 @@ export default {
       return chat || []
 	},
     sendMessage() {
-		debugger
         Meteor.call('newChatMessage', { txId: Session.get('activeTx')._id, text: this.messageInput }, (err, res) => {
             if (!err) {
                 this.messageInput = ''
 				const activeTx = Session.get('activeTx')
-				Session.set('activeTx', null )
-				Session.set('activeTx', activeTx )	// to trigger reactive ui update
+				Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
             }
         })
     },
