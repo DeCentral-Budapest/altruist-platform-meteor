@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Inbox from '/imports/ui/components/Inbox.vue'
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
 import ListingModal from '/imports/ui/components/ListingModal.vue'
 import Profile from '/imports/ui/components/Profile.vue'
@@ -9,6 +10,16 @@ import TransactionPage from '/imports/ui/components/TransactionPage.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: "/",
+    name: "Home",
+    redirect: '/inbox'
+  },
+  {
+    path: "/inbox",
+    name: "Inbox",
+    component: Inbox,
+  },
   {
     path: "/myoffers",
     name: "My Offers",

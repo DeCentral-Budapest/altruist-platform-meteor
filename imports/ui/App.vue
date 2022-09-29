@@ -66,6 +66,7 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
+import Inbox from './components/Inbox.vue'
 import ListingModal from './components/ListingModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
@@ -83,6 +84,7 @@ export default {
   },
   components: {
     Navbar,
+    Inbox,
     ListingModal,
     ProfileModal,
     ListingGrid,
