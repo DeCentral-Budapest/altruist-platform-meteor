@@ -2,39 +2,42 @@
 <div>
   <div class="row message-wrapper rounded shadow mb-20">
     <div class="col-md-3 message-sideleft">
-        <div class="panel">
-            <div class="panel-heading">
-                    <h3 class="panel-title">{{this.showAll ? 'All Transactions' : 'Inbox'}}</h3>
-                <div class="pull-right">
-                  <div class="form-check form-check-inline form-switch">
-                    <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
-                    <label class="form-check-label" for="showAll">Show all</label>
-              	</div>
-                </div>
-            </div><!-- /.panel-heading -->
-            <div class="panel-body no-padding">
-                <div v-for="listing in listings" class="list-group no-margin list-message">
-                  <h5>{{listing.title}}</h5>
-                  
-                  <a href="#" class="list-group-item">
-                        <h4 class="list-group-item-heading">Jeck Joko <small>Yesterday at 15:45</small></h4>
-                        <p class="list-group-item-text">
-                            Ticket #78: <strong>Problems with custom CSS3</strong>
-                        </p>
-                        <span class="label label-success pull-right">SOLVED</span>
-                        <div class="clearfix"></div>
-                    </a>
-                                        <a v-for="tx in transactionsOf(listing)" href="#" class="list-group-item" @click="setActive(tx)">
-                        <h4 class="list-group-item-heading">{{contraPartyOf(tx).username}} <small>{{tx.status}}</small></h4>
-                        <p class="list-group-item-text">
-                            Says: {{lastMessage(tx)}} <strong>{{whatToDo(tx)}}</strong>
-                        </p>
-                        <span class="label label-success pull-right">{{tx.createdAt.toLocaleDateString()}}</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </div><!-- /.list-group -->
-            </div><!-- /.panel-body -->
-        </div><!-- /.panel -->
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{this.showAll ? 'All Transactions' : 'Inbox'}}</h3>
+          <div class="pull-right">
+            <div class="form-check form-check-inline form-switch">
+              <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
+              <label class="form-check-label" for="showAll">Show all</label>
+          </div>
+          </div>
+        </div><!-- /.panel-heading -->
+        <div class="panel-body no-padding">
+          <div v-for="listing in listings" class="list-group no-margin list-message">
+            <div class="card h-100 listing">
+              <!--img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap"-->
+              <div class="card-body">
+                <h5 class="card-title listing-title" :class="{ need: listing.isNeed }" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
+                <p class="card-text" v-html="listing.description"></p>
+                <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
+                <p class="card-text"><small class="text-muted">{{listing.offer}}</small></p>
+              <!--/div>
+              <div class="card-footer"-->
+                <ul class="list-group list-group-flush">
+                  <li v-for="tx in transactionsOf(listing)" class="list-group-item" @click="setActive(tx)">
+                    <h4 class="list-group-item-heading">{{contraPartyOf(tx).username}} <small>{{tx.createdAt.toLocaleDateString()}}</small></h4>
+                    <p class="list-group-item-text">
+                        {{lastMessage(tx)}} <strong>{{whatToDo(tx)}}</strong>
+                    </p>
+                    <span class="badge bg-primary float-right">{{tx.status}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div><!-- /.listing -->
+        </div><!-- /.panel-body -->
+      </div><!-- /.panel -->
     </div><!-- /.message-sideleft -->
     <div class="col-md-6 message-panel">
         <Messenger></Messenger>
@@ -63,31 +66,6 @@
         </div>
       </div>
     </div><!-- /.message-sideright -->
-    <!--div class="col-md-3 message-sideright">
-        <div class="panel">
-            <div class="panel-heading">
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="sarah tingting" class="img-circle avatar">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Sarah Tingting</h4>
-                        <small>Thursday 5th July 2014-via Intercom</small>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-body">
-                <p class="lead">
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </p>
-                <hr>
-                <strong>Hi Tol Lee</strong>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        </div>
-    </div--><!-- /.message-sideright -->
   </div>
 </div>
 </template>
@@ -135,6 +113,9 @@ export default {
     },
   },
   methods: {
+    listingImg(listing) {
+      return listing.imgURL || "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAZlBMVEXv8PL6+/1/ipDz9Pbv7/Dt8PFueYB5g4n2+fzn6eyAiJB8ho16h4+Ai5Ht7vD19felq69zf4bBxsjS19l1gYTm6+yFjpSZnqKYoaR3hId3gYrh4eWytruOlZmUmqBwfILFy8yqsLTvp419AAAEDklEQVR4nO3b63aiMBSG4ZAQwzkqHqptR3v/NzkJtGptcIo6unfW986PWWuolsfEAA6KJPbEs3fgvwch/yDkH4T8g5B/EPIPQv5ByD8I+Qch/yDkH4T8g5B/F4TWKi5Ze5VQCT4pCCEkH4QQ0g9CCOkHIYT0gxBC+kEIIf0ghJB+EEJIPwghpB+EENIPQgjpByGE9IMQQvpBCCH9IISQfhBCSD8IIaQfhBDS75FCrW/a1SsfjjG8mzDVrvSWuicQoiEpdD+fJNntuZ0SaiTxUWOo15N7tB7/XnyIUDf2xZjNZmNuyT98+zJ2CB8kVLksX0Uq9I29VjIf+0Z80CzNZaX0jUcLv7deOPJZHicc+5BgTpiOfAgzYVnkYx8CIYS/DMKT+hVXh48JMQi1sCLPhQ0vmVEIs7d6Z97bLLg1BmH2ZyaLSu7mNrQ1AqGaz4qikLWc5KFfEoFQ/KkK6du+hQYxBuGqqjth9RHrGL5XshfGOob2bSu7aTppYx3DxjhhXZt1Etoag9DmcmG2k2kWvNKNQahV0s73eRLvOY03Wjt0IR+H8FLMhGr8h5KMhKoRqp2GT68vxEjYCNua2TR4SLgQH6EWWWuk9MShz87S0GrDSJh4oKxn0ywNE7t/VfZsKx+hbRelu0SS9WI6cDXvP85Qr/OMqdAB+/NrWZvB5UarvD6/EOYitO1GylNiYBjdCOarH9f6LIRa2+49eMgtN+n5oqLdTy1X/kJqts/E8RVgIUyPU/SzxTRwFprqsnQj7BajeXJcVTkIm8wBi2/C6vy4qN17sFlUlRdKN1GPWzkIk3ZRnAk98fuCkqrl10T+HEUuQv1zivYMf1zs56L/K7V5XZ1sNp6YshCmZ4vMQSjN9Hhw96uoqU+3H1ZU2kLVHyaKENGN0+dxsRvBrw/cDq/Abm/pC1XTAesw0BOTXqiWdfnjp3b7hLqwdCeZrRkawf696BFuFTXnI+j/9CsqVaHuhLadDfI6x8JfaailO2MNvgBzd9SkKuzG0K2iVWjXv42issuiGpjIWzeKlIV18DBxlvnIV8ER9FWLeeaEJO/F8LP0V9WlHB7noprNa6pjmP5S+A+/LGVB9I6h+wi709TIhdILR8ZQSHMMl/cCFsH//H6+UNxROPZXc5ulRNdSd1m4Dl41jc6sLc17hFPV3Ok+bzHwAfKThf29+smNt+v3O9XQXGn8zLrL9y0E1e9bPLPHCfUdvvd0zRNgDCGkH4QQ0g9CCOkHIYT0gxBC+kEIIf0ghJB+EEJIPwghpB+EENIPQgjpByGE9IMQQvpBCCH9IISQfhBCSD8IIaQfhBDSD8Jw1iouWXuVMJIg5B+E/IOQfxDyD0L+Qcg/CPkHIf8g5B+E/IOQfxDyL37hX1Wmjti02vgMAAAAAElFTkSuQmCC";
+    },
     setActive(tx) {
       console.log('Set active', tx)
       Session.set('activeTx', tx)
@@ -177,7 +158,7 @@ export default {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
     changeStatus(status) {
-        Meteor.call('statusChangeTransaction', { txId: this.txId, status }, (err, res) => {
+        Meteor.call('statusChangeTransaction', { txId: Session.get('activeTx').txId, status }, (err, res) => {
           if (!err) {
 	    			const activeTx = Session.get('activeTx')
 			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
