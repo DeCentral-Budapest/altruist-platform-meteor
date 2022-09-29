@@ -17,17 +17,27 @@
             <Messenger></Messenger>
           </div>
           <div class="col-md-3">
-            <h5>Listed by: {{getUserNameById(this.listedBy)}}</h5>
-            <h5>Taken by: {{getUserNameById(this.takenBy)}}</h5>
-            <h5>Transaction status: {{this.status}}</h5>
-            <small>{{transactionStatusHints(this.status)}}</small>
-            <div v-if="this.status === 'inquiry'">
-                <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
-                <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
-            </div>
-            <div v-else-if="this.status === 'accepted'">
-                <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
-                <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-uppercase btn-outline-secondary">{{this.status}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(this.listedBy)}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(this.takenBy)}}</h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <small>{{transactionStatusHints(this.status)}}</small>
+                    </li>
+                    <li class="list-group-item">
+                      <div v-if="this.status === 'inquiry'">
+                          <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
+                          <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
+                      </div>
+                      <div v-else-if="this.status === 'accepted'">
+                          <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
+                          <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+                      </div>
+                    </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

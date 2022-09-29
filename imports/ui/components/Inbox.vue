@@ -15,7 +15,16 @@
             <div class="panel-body no-padding">
                 <div v-for="listing in listings" class="list-group no-margin list-message">
                   <h5>{{listing.title}}</h5>
-                    <a v-for="tx in transactionsOf(listing)" href="#" class="list-group-item" @click="setActive(tx)">
+                  
+                  <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">Jeck Joko <small>Yesterday at 15:45</small></h4>
+                        <p class="list-group-item-text">
+                            Ticket #78: <strong>Problems with custom CSS3</strong>
+                        </p>
+                        <span class="label label-success pull-right">SOLVED</span>
+                        <div class="clearfix"></div>
+                    </a>
+                                        <a v-for="tx in transactionsOf(listing)" href="#" class="list-group-item" @click="setActive(tx)">
                         <h4 class="list-group-item-heading">{{contraPartyOf(tx).username}} <small>{{tx.status}}</small></h4>
                         <p class="list-group-item-text">
                             Says: {{lastMessage(tx)}} <strong>{{whatToDo(tx)}}</strong>
@@ -31,24 +40,28 @@
         <Messenger></Messenger>
     </div><!-- /.message-panel -->
     <div v-if="activeTx" class="col-md-3 message-sideright">
-      <div class="panel">
-            <div class="panel-body">
-                <div class="media">
-                    <h5>Listed by: {{getUserNameById(activeTx.listedBy)}}</h5>
-                    <h5>Taken by: {{getUserNameById(activeTx.takenBy)}}</h5>
-                    <h5>Transaction status: {{activeTx.status}}</h5>
-                    <small>{{transactionStatusHints(activeTx.status)}}</small>
-                    <div v-if="activeTx.status === 'inquiry'">
-                        <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
-                        <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
-                    </div>
-                    <div v-else-if="activeTx.status === 'accepted'">
-                        <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
-                        <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
-                    </div>
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title text-uppercase btn-outline-secondary">{{activeTx.status}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(activeTx.listedBy)}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(activeTx.takenBy)}}</h6>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <small>{{transactionStatusHints(activeTx.status)}}</small>
+              </li>
+              <li class="list-group-item">
+                <div v-if="activeTx.status === 'inquiry'">
+                    <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
+                    <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
                 </div>
-            </div>
+                <div v-else-if="activeTx.status === 'accepted'">
+                    <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
+                    <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+                </div>
+              </li>
+          </ul>
         </div>
+      </div>
     </div><!-- /.message-sideright -->
     <!--div class="col-md-3 message-sideright">
         <div class="panel">
@@ -164,7 +177,12 @@ export default {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
     changeStatus(status) {
-        Meteor.call('statusChangeTransaction', { txId: Session.get('activeTx')._id, status })
+        Meteor.call('statusChangeTransaction', { txId: this.txId, status }, (err, res) => {
+          if (!err) {
+	    			const activeTx = Session.get('activeTx')
+			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
+          }
+        })
     },
     leaveReview() {
         // TODO
