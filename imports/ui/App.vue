@@ -99,6 +99,7 @@ export default {
         return Meteor.user();
     },
     $subscribe: {
+      'users': [],
       'listings': [],
       'transactions': [],
       'reviews': [],

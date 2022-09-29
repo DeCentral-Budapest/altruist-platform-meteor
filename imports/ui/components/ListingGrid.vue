@@ -20,7 +20,8 @@
             </div>
           </div>
           <div class="card-footer">
-            <small class="text-muted">{{listing.createdAt.toLocaleDateString()}}</small>
+            <small class="">{{creatorOf(listing)}}</small>
+            <small class="text-muted float-right">{{listing.createdAt.toLocaleDateString()}}</small>
           </div>
         </div>
       </div>
@@ -78,6 +79,11 @@ export default {
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
+    },
+    creatorOf(listing) {
+      const userId = listing.createdBy
+      const user = Meteor.users.findOne(userId)
+      return user.username
     },
     takeListing(listing) {
       const self = this;
