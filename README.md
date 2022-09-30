@@ -3,6 +3,31 @@
 
 - https://altru.eu.meteorapp.com/
 
+## You are Welcome
+### To contributon on
+- [the Project Board](https://github.com/orgs/DeCentral-Budapest/projects/2)
+- [the Code](https://github.com/DeCentral-Budapest/altruist-platform-meteor) `git clone https://github.com/DeCentral-Budapest/altruist-platform-meteor.git`
+- [issues](https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues)
+- [feature request](https://github.com/DeCentral-Budapest/altruist-platform-meteor/labels/enhancement)
+### Join the team
+- `mailto:altruist@valto.ro`
+### Support the project
+- Make this repository :star: Starred
+- [Altruist Platform - Open Collective](https://opencollective.com/decentral/projects/altrueco)
+- [❤ the repository](https://github.com/DeCentral-Budapest/altruist-platform-meteor)
+- Look for `#altrueco` tag on the [Altruist Platform](https://altru.eu.meteorapp.com/)
+
+#### Sare our _Call to Action_ 
+🇭🇺 
+```
+Kérlek ⭐️ Csillagozd meg aktuális projektünk GitHub repoját oszd meg minél több emberrel, hogy ők is megtehessék. Minden ⭐️ és ❤️ számít. Köszönjük!
+https://github.com/DeCentral-Budapest/altruist-platform-meteor
+```
+🇬🇧 
+```
+Please make it ⭐️ Starred and help us to reach the mass with this amazing project:
+https://github.com/DeCentral-Budapest/altruist-platform-meteor
+```
 
 ## Pitch & transcript by @eapo
 
@@ -34,7 +59,7 @@ To realize this sustainably, we need:
 [^AltruismScore]:With the help of the ***Altruism Score*** we find the right balance in our own lives to provide positive examples for others, so that they can find their own balance.
 
 1. For the *transparently secure **resource management*** we need cryptographically scalable open-source framework on a reliable hosting
-2. For *effective and collaborative allocation* of resources, we need active individuals, communities and organization motivated to share their needs and surpluses
+2. For *effective and collaborative allocation* of resources, we need active individuals, communities and organization **motivate**d to share their needs and surpluses
 3. **Trust** is provided by the open-source code and community curation, where everyone is encouraged to learn and give back following the Sustainable Development Agenda
 
 #### Work
