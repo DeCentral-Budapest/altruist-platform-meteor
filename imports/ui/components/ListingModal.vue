@@ -34,7 +34,7 @@
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
                     <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp" v-model="tags">
-                    <div id="tagsHelp" class="form-text">Use hashtags, separated by spaces.</div>
+                    <div id="tagsHelp" class="form-text">Use smarttags & hashtags, separated by spaces (@location $currency !command #tag1 #tag2).</div>
                 </div>
                 <div class="mb-3">
                   <div class="form-check form-check-inline">

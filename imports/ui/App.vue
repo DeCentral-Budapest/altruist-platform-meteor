@@ -128,5 +128,6 @@ export default {
     height: 1.3em;
     background-size: cover;
     vertical-align: text-bottom;
-    }
+    margin-left: -0.8em;
+  }
 </style>
