@@ -86,7 +86,23 @@
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
           <div class="accordion-body">
             <p><strong>All the active listings will show up here</strong></p>
-            <a href="#" class="btn btn-success">List your Resources and Needs!</a>
+            <div class="col" >
+              <div class="card h-100">
+                <ol class="list-group list-group-numbered" >
+                  <li v-for="lst in listings" class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-bold">{{getTitle(lst.listingId)}}</div>
+                        <span>date: {{ls.createdAt.toLocaleDateString()}}</span>
+                        <span>status: {{ls.status}}</span>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">14</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#listingModal">List your Resources and Needs!</a>
+          </div>
+        </div>
           </div>
         </div>
       </div>
@@ -130,6 +146,16 @@ export default {
       });
       console.log(txs.fetch());
       return txs;
+    },
+    listings () {
+      userId = Meteor.userId();
+       const lst = Listings.find({
+        $or: [
+          { listedBy: userId },
+        ],
+      });
+      console.log(lst.fetch());
+      return lst;
     },
   },
   methods: {
