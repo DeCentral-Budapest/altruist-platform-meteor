@@ -11,7 +11,7 @@ if (Meteor.isServer) {
     it('insert correctly', function () {
       const id = Listings.insert({
         title: 'babysitting',
-        category: 'services',
+        offer: 'services',
       });
       const added = Listings.find({ _id: id });
       const collectionName = added._getCollectionName();

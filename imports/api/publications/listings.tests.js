@@ -8,7 +8,7 @@ describe('Publish listings', function () {
     Listings.remove({})
     Listings.insert({
       title: 'babysittings',
-      category: 'services'
+      offer: 'services'
     })
   })
 

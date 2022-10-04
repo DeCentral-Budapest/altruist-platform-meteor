@@ -7,10 +7,9 @@
           <img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title listing-title" :class="{ need: listing.isNeed }" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{listing.offer}}</h6>
             <p class="card-text" v-html="listing.description"></p>
             <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
-            <p class="card-text"><small class="text-muted">{{listing.offer}}</small></p>
             <div v-if="isOwnedByMe(listing)">
               <a href="#" class="btn btn-primary" @click="setActive(listing)" data-bs-toggle="modal" data-bs-target="#listingModal">Edit</a>
               <a href="#" class="btn btn-danger" @click="deleteListing(listing)">Delete</a>
