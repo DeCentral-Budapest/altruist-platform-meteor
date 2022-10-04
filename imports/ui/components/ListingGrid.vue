@@ -39,6 +39,14 @@ export default {
       type: String,
       default: "",
     },
+    isServ: {
+      type: String,
+      default: "",
+    },
+    isGood: {
+      type: String,
+      default: "",
+    },
     isOwn: {
       type: String,
       default: "",
@@ -52,9 +60,13 @@ export default {
       let selector = {};
       if (this.isNeed !== "both" && this.isOwn !== "both") {
         const isNeed = this.isNeed === 'true' ? true : false
+        const isServ = this.isServ === 'true' ? true : false
+        const isGood = this.isGood === 'true' ? true : false
         const isOwn = this.isOwn === 'true' ? true : false
         selector = { isNeed }
         const userId = Meteor.userId()
+        if (isServ) selector.offer = 'services'
+        if (isGood) selector.offer = 'goods'
         if (isOwn) selector.createdBy = userId
         else selector.createdBy = { $ne: userId }
       }
@@ -70,9 +82,11 @@ export default {
     },
     getTitle() {
       const isNeed = this.isNeed === 'true' ? true : false
+      const isServ = this.isServ === 'true' ? true : false
+      const isGood = this.isGood === 'true' ? true : false
       const isOwn = this.isOwn === 'true' ? true : false
       let t = isOwn ? 'My ' : 'Browse '
-      t += isNeed ? 'Needs' : 'Offers'
+      t += isNeed ? 'Needs' : (isGood ? 'Goods' : 'Services')
       return t;
     },
   },

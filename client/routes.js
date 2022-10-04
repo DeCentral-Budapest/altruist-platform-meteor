@@ -24,13 +24,25 @@ const routes = [
     path: "/myoffers",
     name: "My Offers",
     component: ListingGrid,
-    props: { isNeed: 'false', isOwn: 'true' },
+    props: { isNeed: 'false', isOwn: 'true'},
+  },
+  {
+    path: "/mygoods",
+    name: "My Goods",
+    component: ListingGrid,
+    props: { isNeed: 'false', isOwn: 'true', isServ: 'false', isGood: 'true' },
+  },
+  {
+    path: "/myservices",
+    name: "My Services",
+    component: ListingGrid,
+    props: { isNeed: 'false', isOwn: 'true', isServ: 'true', isGood: 'false' },
   },
   {
     path: "/myneeds",
     name: 'My needs',
     component: ListingGrid,
-    props: { isNeed: 'true', isOwn: 'true' },
+    props: { isNeed: 'true', isOwn: 'true', isServ: 'false', isGood: 'false' },
   },
   {
     path: "/offers",
