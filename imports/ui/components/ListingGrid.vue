@@ -16,7 +16,7 @@
               <a href="#" class="btn btn-danger" @click="deleteListing(listing)">Delete</a>
             </div>
             <div v-else>
-              <a href="#" class="btn btn-success" @click="takeListing(listing)">Take</a>
+              <a href="#" class="btn btn-primary" @click="takeListing(listing)">Inquiry<i class="fa fa-fw fa-question"></i></a>
             </div>
           </div>
           <div class="card-footer">

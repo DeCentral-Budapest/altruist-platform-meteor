@@ -5,9 +5,9 @@
 				<div class="col-12">
 					<div class="py-2 px-4 border-bottom d-none d-lg-block">
 						<div class="d-flex align-items-center py-1">
-							<div class="position-relative">
+							<!--div class="position-relative">
 								<img :src="activeContraPartyAvatar" class="rounded-circle mr-1" :alt="activeContraParty.username" width="40" height="40">
-							</div>
+							</div-->
 							<div class="flex-grow-1 pl-3">
 								<strong>{{activeContraParty.username}}</strong>
 								<div v-if="this.isTyping()" class="text-muted small"><em>Typing...</em></div>
@@ -32,6 +32,10 @@
 									<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
 										<div class="font-weight-bold mb-1 text-center">
 										{{msg.status}} by {{getUserNameById(msg.sentBy)}}
+											<span class="badge float-right bg-success rounded-pill" v-if="msg.status === 'accepted'"><i class="fa fa-fw fa-check"></i></span>
+											<span class="badge float-right bg-primary rounded-pill" v-if="msg.status === 'inquiry'"><i class="fa fa-fw fa-question"></i></span>
+											<span class="badge float-right bg-warning rounded-pill" v-if="msg.status === 'disputed'"><i class="fa fa-fw fa-exclamation"></i></span>
+											<span class="badge float-right bg-danger rounded-pill" v-if="msg.status === 'canceled'"><i class="fa fa-fw fa-times"></i></span>
 										</div>
 									</div>
 								</div>
@@ -182,5 +186,18 @@ export default {
 }
 .border-top {
     border-top: 1px solid #dee2e6!important;
-}    
+}
+.float-right {
+    float: right;
+}
+.chat-messages > div {
+    position: relative;
+}
+.chat-messages span.badge {
+    margin: 0;
+    padding: 0.3em 0.2em;
+    position: absolute;
+    right: -8px;
+    font-size: 1em;
+}
 </style>

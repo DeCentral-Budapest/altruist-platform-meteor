@@ -4,7 +4,7 @@
     <div class="col-md-3 message-sideleft">
       <div class="panel">
         <div class="panel-heading">
-          <h3 class="panel-title">{{this.showAll ? 'All Transactions' : 'Inbox'}}</h3>
+          <h3 class="panel-title">{{this.showAll ? 'All Transactions' : 'Active Listings'}}</h3>
           <div class="mb-3">
             <div class="form-check form-check-inline form-switch">
               <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
@@ -19,21 +19,33 @@
               <div class="card-body">
                 <h5 class="card-title listing-title" :class="{ need: listing.isNeed }" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
-                <p class="card-text" v-html="listing.description"></p>
-                <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
-                <p class="card-text"><small class="text-muted">{{listing.offer}}</small></p>
+				<span class="btn badge bg-primary float-end" data-bs-toggle="collapse" :data-bs-target="returnID(listing._id)" aria-expanded="false" aria-controls="collapseWidthExample"><i class="fa fa-chevron-circle-down"></i></span>
+				<div class="collapse collapse-horizontal" :id="listing._id">
+					<div class="card-text description" v-html="listing.description">
+					  This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+					</div>
+				</div>
+                <p class="card-text tags"><small class="text-muted">{{listing.tags}}</small></p>
+                <p class="card-text offer"><small class="text-muted">{{listing.offer}}</small></p>
               <!--/div>
               <div class="card-footer"-->
                 <ul class="list-group list-group-flush">
-                  <li v-for="tx in transactionsOf(listing)" class="list-group-item" @click="setActive(tx)">
-                    <h4 class="list-group-item-heading">{{contraPartyOf(tx).username}} <small class="float-end">{{tx.createdAt.toLocaleDateString()}}</small></h4>
-                    <p class="list-group-item-text">
-                        {{lastMessage(tx)}} 
-                    </p>
-                    <p class="list-group-item-text">
-                      <strong class="float-start">{{whatToDo(tx)}}</strong>
-                      <span class="badge bg-primary float-end">{{tx.status}}</span>
-                    </p>
+                  <li v-for="tx in transactionsOf(listing)" class="card border-primary btn btn-light" @click='setActive(tx);hasActive = tx._id;scrollMeTo("messenger")' :class="{'active': hasActive === tx._id}">
+					  <div class="card-header">
+						{{whatToDo(tx)}}
+					  </div>
+					  <div class="card-body">
+						<p class="card-text">
+							{{contraPartyOf(tx).username}}
+						<br />{{lastMessage(tx)}} </p>
+					  </div>
+					  <div class="card-footer text-muted">
+						{{tx.createdAt.toLocaleDateString()}} 
+<span class="badge float-right bg-success rounded-pill" v-if="tx.status === 'accepted'"><i class="fa fa-fw fa-check"></i></span>
+<span class="badge float-right bg-primary rounded-pill" v-if="tx.status === 'inquiry'"><i class="fa fa-fw fa-question"></i></span>
+<span class="badge float-right bg-warning rounded-pill" v-if="tx.status === 'disputed'"><i class="fa fa-fw fa-exclamation"></i></span>
+<span class="badge float-right bg-danger rounded-pill" v-if="tx.status === 'canceled'"><i class="fa fa-fw fa-times"></i></span>
+					  </div>
                   </li>
                 </ul>
               </div>
@@ -42,11 +54,11 @@
         </div><!-- /.panel-body -->
       </div><!-- /.panel -->
     </div><!-- /.message-sideleft -->
-    <div  v-if="activeTx" class="col-md-6 message-panel">
+    <div v-if="activeTx" class="col-md-6 message-panel" id="messenger" ref="messenger">
         <Messenger></Messenger>
-    </div><!-- /.message-panel -->
-    <div v-if="activeTx" class="col-md-3 message-sideright">
-      <div class="card h-100">
+    <!--/div>
+    <div v-if="activeTx" class="col-md-3 message-sideright"-->
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title text-uppercase btn-outline-secondary">{{activeTx.status}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(activeTx.listedBy)}}</h6>
@@ -55,13 +67,13 @@
               <li class="list-group-item">
                 <small>{{transactionStatusHints(activeTx.status)}}</small>
               </li>
-              <li class="list-group-item">
+              <li class="list-group-item text-center">
                 <div v-if="activeTx.status === 'inquiry'">
                     <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
-                    <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
+                    <button class="btn btn-success" @click="changeStatus('accepted')">Accept <i class="fa fa-fw fa-check"></i></button>
                 </div>
                 <div v-else-if="activeTx.status === 'accepted'">
-                    <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
+                    <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute <i class="fa fa-fw fa-exclamation"></i></button>
                     <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
                 </div>
               </li>
@@ -84,6 +96,7 @@ export default {
   data() {
     return {
       showAll: false,
+	  hasActive: ''
     }
   },
   components: {
@@ -119,6 +132,9 @@ export default {
   methods: {
     listingImg(listing) {
       return listing.imgURL || "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAZlBMVEXv8PL6+/1/ipDz9Pbv7/Dt8PFueYB5g4n2+fzn6eyAiJB8ho16h4+Ai5Ht7vD19felq69zf4bBxsjS19l1gYTm6+yFjpSZnqKYoaR3hId3gYrh4eWytruOlZmUmqBwfILFy8yqsLTvp419AAAEDklEQVR4nO3b63aiMBSG4ZAQwzkqHqptR3v/NzkJtGptcIo6unfW986PWWuolsfEAA6KJPbEs3fgvwch/yDkH4T8g5B/EPIPQv5ByD8I+Qch/yDkH4T8g5B/F4TWKi5Ze5VQCT4pCCEkH4QQ0g9CCOkHIYT0gxBC+kEIIf0ghJB+EEJIPwghpB+EENIPQgjpByGE9IMQQvpBCCH9IISQfhBCSD8IIaQfhBDS75FCrW/a1SsfjjG8mzDVrvSWuicQoiEpdD+fJNntuZ0SaiTxUWOo15N7tB7/XnyIUDf2xZjNZmNuyT98+zJ2CB8kVLksX0Uq9I29VjIf+0Z80CzNZaX0jUcLv7deOPJZHicc+5BgTpiOfAgzYVnkYx8CIYS/DMKT+hVXh48JMQi1sCLPhQ0vmVEIs7d6Z97bLLg1BmH2ZyaLSu7mNrQ1AqGaz4qikLWc5KFfEoFQ/KkK6du+hQYxBuGqqjth9RHrGL5XshfGOob2bSu7aTppYx3DxjhhXZt1Etoag9DmcmG2k2kWvNKNQahV0s73eRLvOY03Wjt0IR+H8FLMhGr8h5KMhKoRqp2GT68vxEjYCNua2TR4SLgQH6EWWWuk9MShz87S0GrDSJh4oKxn0ywNE7t/VfZsKx+hbRelu0SS9WI6cDXvP85Qr/OMqdAB+/NrWZvB5UarvD6/EOYitO1GylNiYBjdCOarH9f6LIRa2+49eMgtN+n5oqLdTy1X/kJqts/E8RVgIUyPU/SzxTRwFprqsnQj7BajeXJcVTkIm8wBi2/C6vy4qN17sFlUlRdKN1GPWzkIk3ZRnAk98fuCkqrl10T+HEUuQv1zivYMf1zs56L/K7V5XZ1sNp6YshCmZ4vMQSjN9Hhw96uoqU+3H1ZU2kLVHyaKENGN0+dxsRvBrw/cDq/Abm/pC1XTAesw0BOTXqiWdfnjp3b7hLqwdCeZrRkawf696BFuFTXnI+j/9CsqVaHuhLadDfI6x8JfaailO2MNvgBzd9SkKuzG0K2iVWjXv42issuiGpjIWzeKlIV18DBxlvnIV8ER9FWLeeaEJO/F8LP0V9WlHB7noprNa6pjmP5S+A+/LGVB9I6h+wi709TIhdILR8ZQSHMMl/cCFsH//H6+UNxROPZXc5ulRNdSd1m4Dl41jc6sLc17hFPV3Ok+bzHwAfKThf29+smNt+v3O9XQXGn8zLrL9y0E1e9bPLPHCfUdvvd0zRNgDCGkH4QQ0g9CCOkHIYT0gxBC+kEIIf0ghJB+EEJIPwghpB+EENIPQgjpByGE9IMQQvpBCCH9IISQfhBCSD8IIaQfhBDSD8Jw1iouWXuVMJIg5B+E/IOQfxDyD0L+Qcg/CPkHIf8g5B+E/IOQfxDyL37hX1Wmjti02vgMAAAAAElFTkSuQmCC";
+    },
+    returnID(id) {
+      return "#"+id
     },
     setActive(tx) {
       console.log('Set active', tx)
@@ -159,8 +175,14 @@ export default {
         return Transactions.statusHints[status]
     },
     goto(listing) {
-      this.$router.push({ name: 'View listing', params: { lid: listing._id } })
+     // this.$router.push({ name: 'View listing', params: { lid: listing._id } })
+		console.log('asd');
+		console.log(this);
     },
+	scrollMeTo(refName) {
+            // var element = this.$els[refName];
+			// element.scrollIntoView();
+        },
     changeStatus(status) {
         Meteor.call('statusChangeTransaction', { txId: Session.get('activeTx')._id, status }, (err, res) => {
           if (!err) {
@@ -260,9 +282,7 @@ export default {
 }
 
 .list-message .list-group-item {
-  padding: 15px;
-  color: #999999 !important;
-  border-right: 3px solid #8CC152 !important;
+  padding: 1em .2em;
 }
 .list-message .list-group-item.active {
   background-color: #EEEEEE;
@@ -293,5 +313,24 @@ export default {
     width:50px;
     height:50px;
 } 
+.list-message .card-text.tags {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1em * 2);
+    line-height: 1em;
+}
+ul.list-group .card.btn {
+    padding: 0;
+}
+.list-group.list-message {
+    box-shadow: -1px 1px 2px;
+}
+ul.list-group span.badge {
+    margin: 0;
+    padding: 0.3em 0.2em;
+    float: right;
+    font-size: 1em;
+}
+
 </style>
   
