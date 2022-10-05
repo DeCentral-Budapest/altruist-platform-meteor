@@ -27,7 +27,7 @@
 				<li><hr class="dropdown-divider"></li>
 				<li><button class="dropdown-item active" data-bs-toggle="modal" data-bs-target="#listingModal">Create new listing</button></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><h6 class="dropdown-header">Related Listings</h6></li>
+				<li><h6 class="dropdown-header">Accessible Listings</h6></li>
 				<li><router-link to="/listings" class="dropdown-item">Goods & Services</router-link></li>
 				<li><router-link to="/needs" class="dropdown-item">Needs</router-link></li>
 			  </ul>
