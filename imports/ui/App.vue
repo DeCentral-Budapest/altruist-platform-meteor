@@ -68,7 +68,7 @@
 import Navbar from './components/Navbar.vue'
 import FooterNav from './components/FooterNav.vue'
 import Welcome from './components/Welcome.vue'
-import Inbox from './components/Inbox.vue'
+import Activity from './components/Activity.vue'
 import ListingModal from './components/ListingModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
@@ -87,7 +87,7 @@ export default {
   components: {
     Navbar,
     FooterNav,
-    Inbox,
+    Activity,
     ListingModal,
     ProfileModal,
     ListingGrid,
@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   body {
     padding: 1em;
     }

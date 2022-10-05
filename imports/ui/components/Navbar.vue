@@ -11,7 +11,7 @@
 		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item">
 			  <a class="nav-link" href="#" role="button" aria-expanded="false">
-				<router-link to="/inbox" class="dropdown-item">Activity</router-link>
+				<router-link to="/activity" class="dropdown-item">Activity</router-link>
 			  </a>
 			</li>
 			<li class="nav-item dropdown">
@@ -38,7 +38,7 @@
 			</form>
 			<li class="nav-item dropdown">
 				<button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true" data-bs-display="static">
-				  <span v-if="currentUser.username"><img class="avatar rounded-circle img-thumbnail" :alt="currentUser.realname" v-bind:src="avatarimg" />{{currentUser.username}}</span>
+				  <span v-if="currentUser.username"><!--img class="avatar rounded-circle img-thumbnail" :alt="currentUser.realname" v-bind:src="avatarimg" /-->{{currentUser.username}}</span>
 				  <span v-else>{{currentUser.emails[0].address}}</span>
 				</button>
         <ul class="dropdown-menu dropdown-menu-end">

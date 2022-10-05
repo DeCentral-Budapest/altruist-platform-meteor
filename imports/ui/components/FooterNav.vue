@@ -10,7 +10,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="#" role="button" aria-expanded="false">
-              <router-link to="/inbox" class="dropdown-item">Inbox</router-link>
+              <router-link to="/activity" class="dropdown-item">Activity</router-link>
             </a>
           </li>
           <li class="nav-item dropdown">

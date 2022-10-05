@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Inbox from '/imports/ui/components/Inbox.vue'
+import Activity from '/imports/ui/components/Activity.vue'
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
 import ListingModal from '/imports/ui/components/ListingModal.vue'
 import Profile from '/imports/ui/components/Profile.vue'
@@ -13,12 +13,12 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    redirect: '/inbox'
+    redirect: '/activity'
   },
   {
-    path: "/inbox",
-    name: "Inbox",
-    component: Inbox,
+    path: "/activity",
+    name: "Activity",
+    component: Activity,
   },
   {
     path: "/myresources",
