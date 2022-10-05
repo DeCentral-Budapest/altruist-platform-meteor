@@ -47,7 +47,7 @@
                   <input type="checkbox" aria-label="Checkbox for following text input">
                 </div>
               </div>
-  <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput">
+  <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput" v-on:keyup.enter="sendMessage()">
 <div class="input-group-append">
     <button class="btn btn-primary" @click="sendMessage()">Send <i class="fa fa-paper-plane"></i></button>
   </div>
