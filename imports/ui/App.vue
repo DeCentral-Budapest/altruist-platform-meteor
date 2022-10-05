@@ -75,7 +75,7 @@ import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 import BookingForm from './components/BookingForm.vue'
 import Hello from './components/Hello.vue'
-import TransactionPage from './components/TransactionPage.vue'
+import DealPage from './components/DealPage.vue'
 import ProfileModal from './components/ProfileModal.vue'
 
 export default {
@@ -96,7 +96,7 @@ export default {
     BookingForm,
     Hello,
     Welcome,
-    TransactionPage,
+    DealPage,
   },
   meteor: {
     currentUser () {
@@ -105,7 +105,7 @@ export default {
     $subscribe: {
       'users': [],
       'listings': [],
-      'transactions': [],
+      'deals': [],
       'reviews': [],
     },
   },

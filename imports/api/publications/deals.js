@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import Transactions from '../collections/Transactions.js';
+import Deals from '../collections/Deals.js';
 
-Meteor.publish('transactions', function () {
+Meteor.publish('deals', function () {
   const user = Meteor.users.findOne(this.userId);
   if (!user) {
     return this.ready();
   }
-  return Transactions.find();
+  return Deals.find();
 });

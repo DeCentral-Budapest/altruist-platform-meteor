@@ -5,7 +5,7 @@ import Activity from '/imports/ui/components/Activity.vue'
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
 import ListingModal from '/imports/ui/components/ListingModal.vue'
 import Profile from '/imports/ui/components/Profile.vue'
-import TransactionPage from '/imports/ui/components/TransactionPage.vue'
+import DealPage from '/imports/ui/components/DealPage.vue'
 
 Vue.use(VueRouter)
 
@@ -62,9 +62,9 @@ const routes = [
     component: ListingModal,
   },
   {
-    path: "/transaction/:tid",
-    name: 'View transaction',
-    component: TransactionPage,
+    path: "/deal/:tid",
+    name: 'View deal',
+    component: DealPage,
   },
   {
     path: "/profile",

@@ -4,7 +4,7 @@
       <div class="col-md-4 message-sideleft">
         <div class="panel">
           <div class="panel-heading">
-            <h3 class="panel-title">{{this.showAll ? 'All Transactions' : 'Active Listings'}}</h3>
+            <h3 class="panel-title">{{this.showAll ? 'All Deals' : 'Active Listings'}}</h3>
             <div class="mb-3">
               <div class="form-check form-check-inline form-switch">
                 <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
@@ -37,7 +37,7 @@
                 <!--/div>
                 <div class="card-footer"-->
                   <ul class="list-group list-group-flush">
-                    <li v-for="tx in transactionsOf(listing)" class="card border-primary btn btn-light" @click='setActive(tx);hasActive = tx._id;scrollMeTo("messenger")' :class="{'active': hasActive === tx._id}">
+                    <li v-for="tx in dealsOf(listing)" class="card border-primary btn btn-light" @click='setActive(tx);hasActive = tx._id;scrollMeTo("messenger")' :class="{'active': hasActive === tx._id}">
                       <div class="card-header">
                       {{whatToDo(tx)}}
                       </div>
@@ -81,7 +81,7 @@
           <div class="card-footer text-muted">
             <dl class="row">
               <dt class="col-sm-2">{{activeTx.status}}</dt>
-              <dd class="col-sm-10">{{transactionStatusHints(activeTx.status)}}</dd>
+              <dd class="col-sm-10">{{dealStatusHints(activeTx.status)}}</dd>
             </dl>
           </div>
         </div>
@@ -113,7 +113,7 @@ import Popper from 'vue-popperjs';
 import { Session } from 'meteor/session';
 import { _ } from 'meteor/underscore';
 import Listings from '/imports/api/collections/Listings'
-import Transactions from '/imports/api/collections/Transactions'
+import Deals from '/imports/api/collections/Deals'
 import Messenger from './Messenger.vue'
 import 'vue-popperjs/dist/vue-popper.css';
 import Welcome from './Welcome.vue'
@@ -136,7 +136,7 @@ export default {
     $subscribe: {
       'users': [],
       'listings': [],
-      'transactions': [],
+      'deals': [],
       'reviews': [],
     },
     listings() {
@@ -145,7 +145,7 @@ export default {
       const userId = Meteor.userId()
       const selector = { $or: [ { listedBy: userId }, { takenBy: userId } ] }
       if (!this.showAll) selector.status = { $in: ['inquiry', 'accepted'] }
-      const txs = Transactions.find(selector)
+      const txs = Deals.find(selector)
       const listingIds = _.uniq(txs.map(tx => tx.listingId))
       const listings = listingIds.map(id => Listings.findOne(id))
       console.log('listings', listings)
@@ -171,23 +171,23 @@ export default {
       console.log('Set active', tx)
       Session.set('activeTx', tx)
     },
-    transactionsOf(listing) {
+    dealsOf(listing) {
       const selector = { listingId: listing._id }
       if (!this.showAll) selector.status = { $in: ['inquiry', 'accepted'] }
-      const transactions = Transactions.find(selector)
-      console.log('transactions', transactions)
-      return transactions
+      const deals = Deals.find(selector)
+      console.log('deals', deals)
+      return deals
     },
-    contraPartyOf(transaction) {
+    contraPartyOf(deal) {
       let contraPartyId
       const userId = Meteor.userId()
-      if (transaction.listedBy === userId) contraPartyId = transaction.takenBy
-      else if (transaction.takenBy === userId) contraPartyId = transaction.listedBy
+      if (deal.listedBy === userId) contraPartyId = deal.takenBy
+      else if (deal.takenBy === userId) contraPartyId = deal.listedBy
       else return { username: "Not found" }
       return Meteor.users.findOne(contraPartyId) || { username: "Not found" }
     },
-    lastMessage(transaction) {
-      const chat = transaction.chat
+    lastMessage(deal) {
+      const chat = deal.chat
       if (chat.length === 0) return 
       const lastMsg = _.last(chat)
       if (lastMsg.text) return lastMsg.text.substr(0, 20) + '…'
@@ -195,15 +195,15 @@ export default {
       return 'ERROR'
     },
     whatToDo(trasaction) {
-      return Transactions.statusTodos[trasaction.status]
+      return Deals.statusTodos[trasaction.status]
     },
     getUserNameById(userId) {
         const user = Meteor.users.findOne(userId)
         if (user) return user.username
         return 'Not found user'
     },
-    transactionStatusHints(status) {
-        return Transactions.statusHints[status]
+    dealStatusHints(status) {
+        return Deals.statusHints[status]
     },
     goto(listing) {
      // this.$router.push({ name: 'View listing', params: { lid: listing._id } })
@@ -215,10 +215,10 @@ export default {
 			// element.scrollIntoView();
         },
     changeStatus(status) {
-        Meteor.call('statusChangeTransaction', { txId: Session.get('activeTx')._id, status }, (err, res) => {
+        Meteor.call('statusChangeDeal', { txId: Session.get('activeTx')._id, status }, (err, res) => {
           if (!err) {
 	    			const activeTx = Session.get('activeTx')
-			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
+			    	Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
           }
         })
     },

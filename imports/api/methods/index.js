@@ -1,3 +1,3 @@
 import './listings'
-import './transactions'
+import './deals'
 import './updateUser'

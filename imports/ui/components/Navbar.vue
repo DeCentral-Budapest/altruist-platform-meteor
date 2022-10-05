@@ -45,7 +45,7 @@
           <li><h6 class="dropdown-header">My Profile</h6></li>
           <li><router-link to="/profile" class="dropdown-item" href="">Profile</router-link></li>
           <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Wallet</router-link></li>
-          <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Transaction History</router-link></li>
+          <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Deal History</router-link></li>
           <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Network Map</router-link></li>
           <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Invitations</router-link></li>
           <li><hr class="dropdown-divider"></li>

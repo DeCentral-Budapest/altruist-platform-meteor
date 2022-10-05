@@ -61,13 +61,13 @@
 <script>
 import { Session } from 'meteor/session'
 import Listings from '../../api/collections/Listings'
-import Transactions from '../../api/collections/Transactions'
+import Deals from '../../api/collections/Deals'
 
 export default {
   data() {
 /*    const txId = Session.get('activeTxId')
     if (!txId) return {}
-    const tx = Transactions.findOne(txId)
+    const tx = Deals.findOne(txId)
     let contraPartyId
     if (Meteor.userId() === tx.listedBy) contraPartyId = tx.takenBy
     else if (Meteor.userId() === tx.takenBy) contraPartyId = tx.listedBy
@@ -137,7 +137,7 @@ export default {
             if (!err) {
                 this.messageInput = ''
 				const activeTx = Session.get('activeTx')
-				Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
+				Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
             }
         })
     },
