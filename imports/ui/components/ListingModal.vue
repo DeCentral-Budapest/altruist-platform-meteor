@@ -90,7 +90,7 @@ export default {
       self.tags = l.tags;
       self.isNeed = l.isNeed;
       self.imgURL = l.imgURL;
-      self.picked = l.offer;
+      self.picked = l.category;
       self.getTitle();
     })
     myModal.addEventListener('hidden.bs.modal', function () {
@@ -120,7 +120,7 @@ export default {
         description: this.description,
         tags: this.tags,
         isNeed: this.isNeed,
-        offer: this.picked,
+        category: this.picked,
       }
       if (l) doc._id = l._id;
       Meteor.call(method, doc, (error) => {

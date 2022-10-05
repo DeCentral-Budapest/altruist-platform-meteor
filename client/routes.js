@@ -21,8 +21,8 @@ const routes = [
     component: Inbox,
   },
   {
-    path: "/myoffers",
-    name: "My Offers",
+    path: "/myresources",
+    name: "My Resources",
     component: ListingGrid,
     props: { isNeed: 'false', isOwn: 'true'},
   },
@@ -45,8 +45,8 @@ const routes = [
     props: { isNeed: 'true', isOwn: 'true', isServ: 'false', isGood: 'false' },
   },
   {
-    path: "/offers",
-    name: "Offers",
+    path: "/listings",
+    name: "Listings",
     component: ListingGrid,
     props: { isNeed: 'false', isOwn: 'false' },
   },

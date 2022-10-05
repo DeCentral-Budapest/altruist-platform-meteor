@@ -89,11 +89,12 @@
             <div class="col" >
               <div class="card h-100">
                 <ol class="list-group list-group-numbered" >
-                  <li v-for="lst in listings" class="list-group-item d-flex justify-content-between align-items-start">
+                  <li v-for="listing in listings" class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                      <div class="fw-bold">{{getTitle(lst.listingId)}}</div>
-                        <span>date: {{ls.createdAt.toLocaleDateString()}}</span>
-                        <span>status: {{ls.status}}</span>
+                      <div class="fw-bold">{{getTitle(listing._id)}}</div>
+                        <span>date: {{listing.createdAt.toLocaleDateString()}}</span>
+                        <span>{{listing.category}}</span>
+                        <span v-if="listing.isNeed"> need</span>
                     </div>
                     <span class="badge bg-primary rounded-pill">14</span>
                   </li>
@@ -149,11 +150,7 @@ export default {
     },
     listings () {
       userId = Meteor.userId();
-       const lst = Listings.find({
-        $or: [
-          { listedBy: userId },
-        ],
-      });
+      const lst = Listings.find({ createdBy: userId });
       console.log(lst.fetch());
       return lst;
     },

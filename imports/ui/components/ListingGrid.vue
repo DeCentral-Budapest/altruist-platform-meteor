@@ -10,7 +10,6 @@
             <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
             <p class="card-text" v-html="listing.description"></p>
             <p class="card-text"><small class="text-muted">{{listing.tags}}</small></p>
-            <p class="card-text"><small class="text-muted">{{listing.offer}}</small></p>
             <div v-if="isOwnedByMe(listing)">
               <a href="#" class="btn btn-primary" @click="setActive(listing)" data-bs-toggle="modal" data-bs-target="#listingModal">Edit</a>
               <a href="#" class="btn btn-danger" @click="deleteListing(listing)">Delete</a>
@@ -65,8 +64,8 @@ export default {
         const isOwn = this.isOwn === 'true' ? true : false
         selector = { isNeed }
         const userId = Meteor.userId()
-        if (isServ) selector.offer = 'services'
-        if (isGood) selector.offer = 'goods'
+        if (isServ) selector.list = 'services'
+        if (isGood) selector.list = 'goods'
         if (isOwn) selector.createdBy = userId
         else selector.createdBy = { $ne: userId }
       }
@@ -136,3 +135,4 @@ export default {
     content: '🤲';
   }
 </style>
+

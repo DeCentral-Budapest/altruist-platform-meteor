@@ -69,7 +69,9 @@ data() {
           description: '<i>' + this.username + '</i>?<br /> wants to join with the following reason: <blockquote class="blockquote">' + this.reason + '</blockquote><br />If you know why we should trust this person/community/organisation, please let Us know below this <i>Listing</i>.',
           tags: '#NewBooking #MembershipRequest #ApprovalNeeded #WaitList',
           isNeed: true,
-          offer: 'services',
+          category: 'services',
+          createdAt: new Date(),
+          createdBy: rootUserId,
         }
         Meteor.call(method, doc, (error) => {
           if (error) {

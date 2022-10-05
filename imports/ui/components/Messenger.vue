@@ -1,6 +1,5 @@
 <template>
-    <div>
-		<div class="card">
+		<div class="card-body">
 			<div class="row g-0">
 				<div class="col-12">
 					<div class="py-2 px-4 border-bottom d-none d-lg-block">
@@ -14,7 +13,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="position-relative">
 						<div class="chat-messages p-4">
 							<div v-for="msg in this.activeChat()" class="pb-4">
@@ -42,18 +40,22 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="flex-grow-0 py-3 px-4 border-top">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Type your message" v-model="messageInput">
-							<button class="btn btn-primary" @click="sendMessage()">Send</button>
-						</div>
+					<div class="flex-grow-0 py-3 border-top">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+              </div>
+  <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput">
+<div class="input-group-append">
+    <button class="btn btn-primary" @click="sendMessage()">Send <i class="fa fa-paper-plane"></i></button>
+  </div>
+            </div>
 					</div>
-
 				</div>
 			</div>
 		</div>
-    </div>
 </template>
 
 <script>

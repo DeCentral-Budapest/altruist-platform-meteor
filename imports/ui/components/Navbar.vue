@@ -28,7 +28,7 @@
 				<li><button class="dropdown-item active" data-bs-toggle="modal" data-bs-target="#listingModal">Create new listing</button></li>
 				<li><hr class="dropdown-divider"></li>
 				<li><h6 class="dropdown-header">Related Listings</h6></li>
-				<li><router-link to="/offers" class="dropdown-item">Goods & Services</router-link></li>
+				<li><router-link to="/listings" class="dropdown-item">Goods & Services</router-link></li>
 				<li><router-link to="/needs" class="dropdown-item">Needs</router-link></li>
 			  </ul>
 			</li>
@@ -41,17 +41,17 @@
 				  <span v-if="currentUser.username"><img class="avatar rounded-circle img-thumbnail" :alt="currentUser.realname" v-bind:src="avatarimg" />{{currentUser.username}}</span>
 				  <span v-else>{{currentUser.emails[0].address}}</span>
 				</button>
-				<ul class="dropdown-menu dropdown-menu-end">
-				  <li><h6 class="dropdown-header">My Profile</h6></li>
-				  <li><router-link to="/profile" class="dropdown-item" href="">Profile</router-link></li>
-				  <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Wallet</router-link></li>
-				  <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Transaction History</router-link></li>
-				  <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Network Map</router-link></li>
-				  <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Invitations</router-link></li>
-				  <li><hr class="dropdown-divider"></li>
-				  <li><router-link to="/profile" class="dropdown-item" href="">Settings</router-link></li>
-				  <li><button class="dropdown-item" @click="doLogout">Log Out</button></li>
-				</ul>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><h6 class="dropdown-header">My Profile</h6></li>
+          <li><router-link to="/profile" class="dropdown-item" href="">Profile</router-link></li>
+          <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Wallet</router-link></li>
+          <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Transaction History</router-link></li>
+          <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Network Map</router-link></li>
+          <li><router-link to="/profile" class="dropdown-item disabled" aria-disabled="true">Invitations</router-link></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><router-link to="/profile" class="dropdown-item" href="">Settings</router-link></li>
+          <li><button class="dropdown-item" @click="doLogout">Log Out</button></li>
+        </ul>
 			</li>
 			</ul>
 		</div>
@@ -68,6 +68,8 @@ export default {
     return {
       searchText: ""
     }
+  },
+  components: {
   },
   meteor: {
     currentUser () {

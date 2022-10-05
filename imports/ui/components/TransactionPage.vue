@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div v-if="this.listing">
           <div class="row">
           <div class="col-md-3">
@@ -8,6 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title" v-html="this.listing.title"></h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{this.listing.category}}</h6>
+                    <h5 class="card-title" @click="goto(this.listing)" v-html="this.listing.title"></h5>
                     <p class="card-text" v-html="this.listing.description"></p>
                     <p class="card-text"><small class="text-muted">{{this.listing.tags}}</small></p>
                 </div>

@@ -66,6 +66,8 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
+import FooterNav from './components/FooterNav.vue'
+import Welcome from './components/Welcome.vue'
 import Inbox from './components/Inbox.vue'
 import ListingModal from './components/ListingModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
@@ -84,6 +86,7 @@ export default {
   },
   components: {
     Navbar,
+    FooterNav,
     Inbox,
     ListingModal,
     ProfileModal,
@@ -92,6 +95,7 @@ export default {
     RegisterForm,
     BookingForm,
     Hello,
+    Welcome,
     TransactionPage,
   },
   meteor: {

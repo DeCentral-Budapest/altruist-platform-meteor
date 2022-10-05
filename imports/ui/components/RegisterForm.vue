@@ -63,7 +63,7 @@ export default {
 name: "RegisterForm",
 data() {
   return {
-    invitation: "",
+    invitation: "1stJoinerBy@root",
     username: "",
     email: "",
     password: "",
