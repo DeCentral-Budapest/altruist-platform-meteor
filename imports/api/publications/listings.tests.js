@@ -7,7 +7,7 @@ describe('Publish listings', function () {
   beforeEach(function () {
     Listings.remove({})
     Listings.insert({
-      title: 'Life, universe, everythig?'
+      title: 'Life, universe, everything?',
       category: 'services'
     })
   })

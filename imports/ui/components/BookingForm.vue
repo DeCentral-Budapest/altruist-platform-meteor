@@ -71,7 +71,7 @@ data() {
           isNeed: true,
           category: 'services',
           createdAt: new Date(),
-          createdBy: rootUserId,
+        //  createdBy: rootUserId,
         }
         Meteor.call(method, doc, (error) => {
           if (error) {

@@ -10,7 +10,7 @@ if (Meteor.isServer) {
   describe('listings collection', function () {
     it('insert correctly', function () {
       const id = Listings.insert({
-        title: 'Life, universe, everythig?'
+        title: 'Life, universe, everything?',
         category: 'services',
       });
       const added = Listings.find({ _id: id });

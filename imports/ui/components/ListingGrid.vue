@@ -64,8 +64,8 @@ export default {
         const isOwn = this.isOwn === 'true' ? true : false
         selector = { isNeed }
         const userId = Meteor.userId()
-        if (isServ) selector.list = 'services'
-        if (isGood) selector.list = 'goods'
+        if (isServ) selector.category = 'services'
+        if (isGood) selector.category = 'goods'
         if (isOwn) selector.createdBy = userId
         else selector.createdBy = { $ne: userId }
       }
