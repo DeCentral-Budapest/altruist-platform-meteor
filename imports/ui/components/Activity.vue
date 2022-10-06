@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row message-wrapper rounded shadow mb-20">
+    <div class="row message-wrapper">
       <div class="col-md-4 message-sideleft">
         <div class="panel">
           <div class="panel-heading">
@@ -39,7 +39,7 @@
                   <ul class="list-group list-group-flush">
                     <li v-for="tx in dealsOf(listing)" class="card border-primary btn btn-light" @click='setActive(tx);hasActive = tx._id;scrollMeTo("messenger")' :class="{'active': hasActive === tx._id}">
                       <div class="card-header">
-                      {{whatToDo(tx)}}
+                        {{todo(tx.status)}}
                       </div>
                       <div class="card-body">
                         <p class="card-text">
@@ -50,10 +50,7 @@
                       </div>
                       <div class="card-footer text-muted">
                       {{tx.createdAt.toLocaleDateString()}} 
-                        <span class="badge float-right bg-success rounded-pill" v-if="tx.status === 'accepted'"><i class="fa fa-fw fa-check"></i></span>
-                        <span class="badge float-right bg-primary rounded-pill" v-if="tx.status === 'inquiry'"><i class="fa fa-fw fa-question"></i></span>
-                        <span class="badge float-right bg-warning rounded-pill" v-if="tx.status === 'disputed'"><i class="fa fa-fw fa-exclamation"></i></span>
-                        <span class="badge float-right bg-danger rounded-pill" v-if="tx.status === 'canceled'"><i class="fa fa-fw fa-times"></i></span>
+											  <span class="badge float-right rounded-pill" :class="bgClass(tx.status)"><i class="fa fa-fw" :class="faClass(tx.status)"></i></span>
                       </div>
                     </li>
                   </ul>
@@ -66,10 +63,7 @@
       <div v-if="activeTx" class="col-md-8 message-panel" id="messenger" ref="messenger">
         <div class="card">
           <div class="card-header">
-            <span class="badge float-right bg-success rounded-pill" v-if="activeTx.status === 'accepted'"><i class="fa fa-fw fa-check"></i></span>
-            <span class="badge float-right bg-primary rounded-pill" v-if="activeTx.status === 'inquiry'"><i class="fa fa-fw fa-question"></i></span>
-            <span class="badge float-right bg-warning rounded-pill" v-if="activeTx.status === 'disputed'"><i class="fa fa-fw fa-exclamation"></i></span>
-            <span class="badge float-right bg-danger rounded-pill" v-if="activeTx.status === 'canceled'"><i class="fa fa-fw fa-times"></i></span>
+            <span class="badge float-right rounded-pill" :class="bgClass(activeTx.status)"><i class="fa fa-fw" :class="faClass(activeTx.status)"></i></span>
             <button type="button" class="btn btn-primary disabled" disabled>
               Listed by <span class="badge badge-light">{{getUserNameById(activeTx.listedBy)}}</span>
             </button>
@@ -102,7 +96,6 @@
       </div><!-- /.message-sideright -->
       <div v-else>
         <Welcome/>
-        <FooterNav/>
       </div>
     </div>
   </div>
@@ -117,7 +110,7 @@ import Deals from '/imports/api/collections/Deals'
 import Messenger from './Messenger.vue'
 import 'vue-popperjs/dist/vue-popper.css';
 import Welcome from './Welcome.vue'
-import FooterNav from './FooterNav.vue'
+import Footr from './Footr.vue'
   
 export default {
   data() {
@@ -130,7 +123,7 @@ export default {
     'popper': Popper,
     Messenger,
     Welcome,
-    FooterNav,
+    Footr,
   },
   meteor: {
     $subscribe: {
@@ -175,7 +168,7 @@ export default {
       const selector = { listingId: listing._id }
       if (!this.showAll) selector.status = { $in: ['inquiry', 'accepted'] }
       const deals = Deals.find(selector)
-      console.log('deals', deals)
+      console.log('deals', deals.fetch())
       return deals
     },
     contraPartyOf(deal) {
@@ -194,8 +187,14 @@ export default {
       else if (lastMsg.status) return lastMsg.status
       return 'ERROR'
     },
-    whatToDo(trasaction) {
-      return Deals.statusTodos[trasaction.status]
+    bgClass(status) {
+       return Deals.statusObjects[status].bgClass
+    },
+    faClass(status) {
+       return Deals.statusObjects[status].faClass
+    },
+    todo(status) {
+      return Deals.statusObjects[status].todo
     },
     getUserNameById(userId) {
         const user = Meteor.users.findOne(userId)
@@ -203,7 +202,7 @@ export default {
         return 'Not found user'
     },
     dealStatusHints(status) {
-        return Deals.statusHints[status]
+        return Deals.statusObjects[status].hint
     },
     goto(listing) {
      // this.$router.push({ name: 'View listing', params: { lid: listing._id } })

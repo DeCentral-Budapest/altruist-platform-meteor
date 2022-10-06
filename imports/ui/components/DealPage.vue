@@ -93,7 +93,7 @@ export default {
         return 'Not found user'
     },
     dealStatusHints(status) {
-        return Deals.statusHints[status]
+        return Deals.statusObjects[status].hint
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
