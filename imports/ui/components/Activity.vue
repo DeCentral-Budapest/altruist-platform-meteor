@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row message-wrapper rounded shadow mb-20">
+    <div class="row message-wrapper">
       <div class="col-md-4 message-sideleft">
         <div class="panel">
           <div class="panel-heading">
@@ -96,7 +96,6 @@
       </div><!-- /.message-sideright -->
       <div v-else>
         <Welcome/>
-        <FooterNav/>
       </div>
     </div>
   </div>
@@ -111,7 +110,7 @@ import Deals from '/imports/api/collections/Deals'
 import Messenger from './Messenger.vue'
 import 'vue-popperjs/dist/vue-popper.css';
 import Welcome from './Welcome.vue'
-import FooterNav from './FooterNav.vue'
+import Footr from './Footr.vue'
   
 export default {
   data() {
@@ -124,7 +123,7 @@ export default {
     'popper': Popper,
     Messenger,
     Welcome,
-    FooterNav,
+    Footr,
   },
   meteor: {
     $subscribe: {
