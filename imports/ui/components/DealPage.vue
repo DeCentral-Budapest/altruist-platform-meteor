@@ -25,7 +25,7 @@
                 <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(activeTx.takenBy)}}</h6>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                      <small>{{transactionStatusHints(activeTx.status)}}</small>
+                      <small>{{dealStatusHints(activeTx.status)}}</small>
                     </li>
                     <li class="list-group-item">
                       <div v-if="activeTx.status === 'inquiry'">
@@ -43,20 +43,20 @@
           </div>
         </div>
         </div>
-        <div v-else>Transaction not found, or Session expired</div>
+        <div v-else>Deal not found, or Session expired</div>
     </div>
 </template>
 
 <script>
 import { Session } from 'meteor/session'
 import Listings from '../../api/collections/Listings'
-import Transactions from '../../api/collections/Transactions'
+import Deals from '../../api/collections/Deals'
 import Messenger from './Messenger.vue'
 
 export default {
   data() {
     const txId = this.$route.params.tid
-    let tx = Transactions.findOne(txId)
+    let tx = Deals.findOne(txId)
     if (!tx) tx = { listing: null }
     else {
       const listing = Listings.findOne(tx.listingId)
@@ -76,7 +76,7 @@ export default {
   meteor: {
     $subscribe: {
       'listings': [],
-      'transactions': [],
+      'deals': [],
       'reviews': [],
     },
     activeTxId() {
@@ -93,17 +93,17 @@ export default {
         if (user) return user.username
         return 'Not found user'
     },
-    transactionStatusHints(status) {
-        return Transactions.statusHints[status]
+    dealStatusHints(status) {
+        return Deals.statusObjects[status].hint
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
     changeStatus(status) {
-        Meteor.call('statusChangeTransaction', { txId: this.txId, status }, (err, res) => {
+        Meteor.call('statusChangeDeal', { txId: this.txId, status }, (err, res) => {
           if (!err) {
 	    			const activeTx = Session.get('activeTx')
-			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
+			    	Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
           }
         })
     },
@@ -115,7 +115,7 @@ export default {
             if (!err) {
                 this.message = ''
                 const activeTx = Session.get('activeTx')
-    			    	Session.set('activeTx', Transactions.findOne(activeTx._id) ) // to trigger reactive ui update
+    			    	Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
             }
         })
     },

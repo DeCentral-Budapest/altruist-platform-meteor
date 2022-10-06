@@ -1,4 +1,4 @@
 import './listings'
-import './transactions'
+import './deals'
 import './reviews'
 import './users'

@@ -55,7 +55,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-            Transactions
+            Deals
           </button>
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
@@ -63,7 +63,7 @@
             <div class="col" >
               <div class="card h-100">
                 <ol class="list-group list-group-numbered" >
-                  <li v-for="tx in transactions" class="list-group-item d-flex justify-content-between align-items-start">
+                  <li v-for="tx in deals" class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
                       <div class="fw-bold">{{getTitle(tx.listingId)}}</div>
                         <span>date: {{tx.createdAt.toLocaleDateString()}}</span>
@@ -114,7 +114,7 @@
 
 <script>
 import { Photos } from '../../api/collections/Photos';
-import Transactions from '../../api/collections/Transactions.js';
+import Deals from '../../api/collections/Deals.js';
 import Listings from '../../api/collections/Listings'
 
 export default {
@@ -137,9 +137,9 @@ export default {
     },
     relations () {
     },
-    transactions () {
+    deals () {
       userId = Meteor.userId();
-       const txs = Transactions.find({
+       const txs = Deals.find({
         $or: [
           { listedBy: userId },
           { takenBy: userId },

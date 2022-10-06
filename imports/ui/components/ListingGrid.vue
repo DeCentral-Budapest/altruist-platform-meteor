@@ -116,8 +116,8 @@ export default {
         listingId: listing._id,
         listedBy: listing.createdBy,
       }
-      Meteor.call('initiateTransaction', tx, (err, res) => {
-        self.$router.push({ name: 'View transaction', params: { tid: res } })
+      Meteor.call('initiateDeal', tx, (err, res) => {
+        self.$router.push({ name: 'View deal', params: { tid: res } })
       });
     }
   },
