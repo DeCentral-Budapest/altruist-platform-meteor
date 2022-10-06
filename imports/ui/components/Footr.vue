@@ -8,7 +8,7 @@
         Permaculture Ethics <cite title="Source Title">Fair Share</cite>
       </figcaption>
     </figure>
-    <div class="nav container overflow-hidden mb-5">
+    <div class="nav container overflow-hidden mb-5" v-if="currentUser">
       <FooterNav/>
     </div>
   </footer>
