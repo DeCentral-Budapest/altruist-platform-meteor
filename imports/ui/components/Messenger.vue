@@ -30,10 +30,7 @@
 									<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
 										<div class="font-weight-bold mb-1 text-center">
 										{{msg.status}} by {{getUserNameById(msg.sentBy)}}
-											<span class="badge float-right bg-success rounded-pill" v-if="msg.status === 'accepted'"><i class="fa fa-fw fa-check"></i></span>
-											<span class="badge float-right bg-primary rounded-pill" v-if="msg.status === 'inquiry'"><i class="fa fa-fw fa-question"></i></span>
-											<span class="badge float-right bg-warning rounded-pill" v-if="msg.status === 'disputed'"><i class="fa fa-fw fa-exclamation"></i></span>
-											<span class="badge float-right bg-danger rounded-pill" v-if="msg.status === 'canceled'"><i class="fa fa-fw fa-times"></i></span>
+											<span class="badge float-right rounded-pill" :class="bgClass(msg.status)"><i class="fa fa-fw fa-question" :class="faClass(msg.status)"></i></span>
 										</div>
 									</div>
 								</div>
@@ -123,6 +120,12 @@ export default {
         const user = Meteor.users.findOne(userId)
         if (user && user.avatar) return user.avatar
         return 'https://bootdey.com/img/Content/avatar/avatar1.png'
+    },
+    bgClass(status) {
+       return Deals.statusObjects[status].bgClass
+    },
+    faClass(status) {
+       return Deals.statusObjects[status].faClass
     },
 	activeChat() {
 		console.log('Get active chat')
