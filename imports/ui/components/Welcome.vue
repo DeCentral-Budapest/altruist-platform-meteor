@@ -20,6 +20,16 @@
     <div class="col-sm-6 py-2">
       <div class="card">
         <div class="card-body">
+          <h5 class="card-title">About Listings</h5>
+          <h6 class="card-subtitle text-muted py-2"></h6>
+            <p class="card-text"><p><span>The basic feature of the software is to list your resources or needs (we call them </span><em><strong><span>Listings</span></strong></em><span>). The category of the </span><em><span>Listings</span></em><span> can be </span><em><strong><span>Goods</span></strong></em><span>, or </span><strong><span>Services</span></strong><span>. The state of the </span><strong><span>Listing</span></strong><span> can be switched from the default state to </span><em><span>“It’s a Need”</span></em><span>, what represents the listed resource as a Need.</span></p></p>
+          <a href="#" class="btn btn-primary disabled" disabled>Soon You can publish your Story <i class="fa-solid fa-fw fa-pen-nib"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 py-2">
+      <div class="card">
+        <div class="card-body">
           <h5 class="card-title">The Problem</h5>
           <h6 class="card-subtitle text-muted py-2">The reason the platform was created</h6>
             <p class="card-text" ><span>Independent communities provide bottom-up solutions, they are the foundation for stable &amp; resilient social and economic systems, and they </span><strong><span>lack the technology</span></strong><span> to </span><strong><span>collect</span></strong><span>, </span><strong><span>process</span></strong><span>, and </span><strong><span>share</span></strong><span> their </span><strong><span>available resources</span></strong><span>, as well as </span><strong><span>the resources in need</span></strong><span>.</span></p>
