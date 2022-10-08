@@ -14,8 +14,12 @@ A **Trusted F/LOSS marketplace** for *collaborative economy*, where individuals,
 
 - https://altru.eu.meteorapp.com/
 
+## [Impact 2022 Hackathon](https://impact.meteor.com/hackathon) 🏆<sup>3rd</sup> Winner
+- [Impact 2022 Hackathon Winner announcement | Meteor Monthly Update — September 2022 | by Kevin Tayong | Oct, 2022 | Meteor Blog](https://blog.meteor.com/meteor-monthly-update-september-2022-f527948e22c8#7a6c)
+
+
 ## You are Welcome
-### To contributon on
+### To contribute on
 - [the Project Board](https://github.com/orgs/DeCentral-Budapest/projects/2)
 - [the Code](https://github.com/DeCentral-Budapest/altruist-platform-meteor) `git clone https://github.com/DeCentral-Budapest/altruist-platform-meteor.git`
 - [issues](https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues)
@@ -39,6 +43,18 @@ https://github.com/DeCentral-Budapest/altruist-platform-meteor
 Please make it ⭐️ Starred and help us to reach the mass with this amazing project:
 https://github.com/DeCentral-Budapest/altruist-platform-meteor
 ```
+
+## Installation
+Host your own instance
+0. `git clone https://github.com/DeCentral-Budapest/altruist-platform-meteor.git | cd ./altruist-platform-meteor`  
+1. `sudo nvm install 14` ([nvm-sh/nvm: Node Version Manager](https://github.com/nvm-sh/nvm)
+2. `sudo npm install -g meteor | . ~/.bashrc` ([Install the Latest Version of Meteor](https://www.meteor.com/developers/install?utm_source=website&utm_medium=install_button&utm_campaign=frontpage) and [reload `.bashrc` after](https://reactgo.com/reload-bashrc/))
+3. `meteor npm install`
+### Additional resources
+- On Windows `METEOR_DISABLE_FS_FIBERS` should be disabled using `$env:METEOR_DISABLE_FS_FIBERS = 1` from _PowerShell_ ([High CPU usage for Meteor 1.5 on Windows · Issue #8803 · meteor/meteor](https://github.com/meteor/meteor/issues/8803))
+- [How to solve npm error "npm ERR! code ELIFECYCLE" - Stack Overflow](https://stackoverflow.com/questions/42308879/how-to-solve-npm-error-npm-err-code-elifecycle/49505612#49505612)
+
+---
 
 ## Impact Hackathon Pitch by @eapo
 
