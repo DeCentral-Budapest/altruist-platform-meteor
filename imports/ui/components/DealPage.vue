@@ -19,19 +19,19 @@
           <div class="col-md-3">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title text-uppercase btn-outline-secondary">{{activeTx.status}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(activeTx.listedBy)}}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(activeTx.takenBy)}}</h6>
+                <h5 class="card-title text-uppercase btn-outline-secondary">{{activeDeal.status}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(activeDeal.listedBy)}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(activeDeal.takenBy)}}</h6>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                      <small>{{dealStatusHints(activeTx.status)}}</small>
+                      <small>{{dealStatusHints(activeDeal.status)}}</small>
                     </li>
                     <li class="list-group-item">
-                      <div v-if="activeTx.status === 'inquiry'">
+                      <div v-if="activeDeal.status === 'inquiry'">
                           <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
                           <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
                       </div>
-                      <div v-else-if="activeTx.status === 'accepted'">
+                      <div v-else-if="activeDeal.status === 'accepted'">
                           <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
                           <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
                       </div>
@@ -54,18 +54,18 @@ import Messenger from './Messenger.vue'
 
 export default {
   data() {
-    const txId = this.$route.params.tid
-    let tx = Deals.findOne(txId)
-    if (!tx) tx = { listing: null }
+    const dealId = this.$route.params.tid
+    let deal = Deals.findOne(dealId)
+    if (!deal) deal = { listing: null }
     else {
-      const listing = Listings.findOne(tx.listingId)
-      tx.listing = listing
-      tx.txId = tx._id
+      const listing = Listings.findOne(deal.listingId)
+      deal.listing = listing
+      deal.dealId = deal._id
     }
-    tx.message = ''
-    console.log("activeTx", tx)
-    Session.set('activeTx', tx)
-    return tx
+    deal.message = ''
+    console.log("activeDeal", deal)
+    Session.set('activeDeal', deal)
+    return deal
   },
   components: {
     Messenger,
@@ -78,12 +78,12 @@ export default {
       'deals': [],
       'reviews': [],
     },
-    activeTxId() {
-      const activeTx = Session.get('activeTx')
-      return activeTx && activeTx._id
+    activeDealId() {
+      const activeDeal = Session.get('activeDeal')
+      return activeDeal && activeDeal._id
     },
-    activeTx() {
-      return Session.get('activeTx')
+    activeDeal() {
+      return Session.get('activeDeal')
     },
   },
   methods: {
@@ -99,10 +99,10 @@ export default {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
     changeStatus(status) {
-        Meteor.call('statusChangeDeal', { txId: this.txId, status }, (err, res) => {
+        Meteor.call('statusChangeDeal', { dealId: this.dealId, status }, (err, res) => {
           if (!err) {
-	    			const activeTx = Session.get('activeTx')
-			    	Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
+	    			const activeDeal = Session.get('activeDeal')
+			    	Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
           }
         })
     },
@@ -110,11 +110,11 @@ export default {
         // TODO
     },
     sendMessage() {
-        Meteor.call('sendMessage', { txId: this.txId, text: this.message }, (err, res) => {
+        Meteor.call('sendMessage', { dealId: this.dealId, text: this.message }, (err, res) => {
             if (!err) {
                 this.message = ''
-                const activeTx = Session.get('activeTx')
-    			    	Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
+                const activeDeal = Session.get('activeDeal')
+    			    	Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
             }
         })
     },

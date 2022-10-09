@@ -62,16 +62,16 @@ import Deals from '../../api/collections/Deals'
 
 export default {
   data() {
-/*    const txId = Session.get('activeTxId')
-    if (!txId) return {}
-    const tx = Deals.findOne(txId)
+/*    const dealId = Session.get('activeDealId')
+    if (!dealId) return {}
+    const deal = Deals.findOne(dealId)
     let contraPartyId
-    if (Meteor.userId() === tx.listedBy) contraPartyId = tx.takenBy
-    else if (Meteor.userId() === tx.takenBy) contraPartyId = tx.listedBy
+    if (Meteor.userId() === deal.listedBy) contraPartyId = deal.takenBy
+    else if (Meteor.userId() === deal.takenBy) contraPartyId = deal.listedBy
     else contraPartyId = Meteor.userId()
     const contraParty = Meteor.users.findOne(contraPartyId)
     return {
-        tx,
+        deal,
         contraParty 
     }*/
     return {
@@ -81,22 +81,22 @@ export default {
   props: {
   },
   meteor: {
-    activeTx() {
-		console.log('Get active tx')
-      const tx = Session.get('activeTx')
-      console.log('Active tx is', tx)
-      return tx || {}
+    activeDeal() {
+		console.log('Get active deal')
+      const deal = Session.get('activeDeal')
+      console.log('Active deal is', deal)
+      return deal || {}
     },
     activeContraParty() {
-      const tx = Session.get('activeTx')
-      console.log('Get active contraparty', tx)
+      const deal = Session.get('activeDeal')
+      console.log('Get active contraparty', deal)
 
       const nullUser = { username: "Not found", avatar: 'https://bootdey.com/img/Content/avatar/avatar1.png' }
-      if (!tx) return nullUser
+      if (!deal) return nullUser
       let contraPartyId
       const userId = Meteor.userId()
-      if (tx.listedBy === userId) contraPartyId = tx.takenBy
-      else if (tx.takenBy === userId) contraPartyId = tx.listedBy
+      if (deal.listedBy === userId) contraPartyId = deal.takenBy
+      else if (deal.takenBy === userId) contraPartyId = deal.listedBy
       else return nullUser
       return Meteor.users.findOne(contraPartyId) || nullUser
     },
@@ -129,18 +129,18 @@ export default {
     },
 	activeChat() {
 		console.log('Get active chat')
-      const tx = Session.get('activeTx')
-	  if (!tx) return []
-	  const chat = tx.chat
+      const deal = Session.get('activeDeal')
+	  if (!deal) return []
+	  const chat = deal.chat
       console.log('Active chat is', chat)
       return chat || []
 	},
     sendMessage() {
-        Meteor.call('newChatMessage', { txId: Session.get('activeTx')._id, text: this.messageInput }, (err, res) => {
+        Meteor.call('newChatMessage', { dealId: Session.get('activeDeal')._id, text: this.messageInput }, (err, res) => {
             if (!err) {
                 this.messageInput = ''
-				const activeTx = Session.get('activeTx')
-				Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
+				const activeDeal = Session.get('activeDeal')
+				Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
             }
         })
     },
