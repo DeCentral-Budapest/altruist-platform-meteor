@@ -31,8 +31,8 @@
           <li><router-link to="/myresources" class="nav-link">My Resources</router-link></li>
           <li><router-link to="/mygoods" class="nav-link">- My Goods</router-link></li>
           <li><router-link to="/myservices" class="nav-link">- My Services</router-link></li>
-          <li><router-link to="/myneeds" class="nav-link">My needs</router-link></li>
-          <li><a href="#" class="nav-link active" data-bs-toggle="modal" data-bs-target="#listingModal" role="button">Create new listing</a></li>
+          <li><router-link to="/myneeds" class="nav-link">My Needs</router-link></li>
+          <li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#listingModal" role="button">Create new listing</a></li>
         </ul>
       </li>
     </ul>
@@ -68,6 +68,14 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+      </div>
+    </div>
+    <div class="row container-fluid text-right">
+      <div class="col">
+        <small><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/blob/main/LICENSE" target="_blank"><i class="fa-brands fa-github fa-fw"></i>AGPL-3.0 license </a></small>
+      </div>
+      <div class="col">
+        <small>Created with 💚 on the <em >Lands of the Hungarian Crown</em></small>
       </div>
     </div>
   </div>

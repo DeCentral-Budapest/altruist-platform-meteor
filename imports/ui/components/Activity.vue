@@ -1,25 +1,42 @@
 <template>
   <div class="container-fluid">
     <div class="row message-wrapper">
+      <div class="col-md-12">
+        <h2>
+          {{this.showAll ? 'All of Your' : 'Your active'}} <em>Deals</em> are listed here.
+        </h2>
+        <p class="form-check-inline">
+          <em>Deals</em> are activities on your listed Goods &amp; Services and Needs. By default only the active <em>Deals</em> are shown.
+        </p>
+        <div class="form-check form-check-inline form-switch form-check-inline">
+          <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
+          <label class="form-check-label" for="showAll">Show all</label>
+        </div>
+        <p>
+          <router-link to="/myresources" class="btn btn-outline-primary keychainify-checked">Jump to my released <em>Resources</em> »</router-link>
+          <router-link to="/myneeds" class="btn btn-outline-primary keychainify-checked">Jump to my released <em>Needs</em> »</router-link>
+        </p>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </symbol>
+          <strong>
+          The <em>Deals</em> can have the following states:
+          </strong>
+          <span class="bg-primary text-light inline">Inquiry</span> | <span class="bg-danger text-light inline">Canceled</span> | <span class="bg-success text-light inline">Accepted</span> | <span class="bg-warning text-light inline">Disputed</span> | <span class="bg-info text-light inline">Reviewed</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
       <div class="col-md-4 message-sideleft">
         <div class="panel">
-          <div class="panel-heading">
-            <h3 class="panel-title">{{this.showAll ? 'All Deals' : 'Active Listings'}}</h3>
-            <div class="mb-3">
-              <div class="form-check form-check-inline form-switch">
-                <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
-                <label class="form-check-label" for="showAll">Show all</label>
-            </div>
-          </div>
-          </div><!-- /.panel-heading -->
           <div class="panel-body no-padding">
-            <div v-for="listing in listings" class="list-group no-margin list-message">
+            <div v-for="listing in listings" class="list-group no-margin list-message my-3">
               <div class="card h-100 listing">
                 <!--img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap"-->
                 <div class="card-body">
                   <h5 class="card-title listing-title" :class="{ need: listing.isNeed }" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
-                  <button class="btn btn-secondary float-end collapsible" type="button" data-bs-toggle="collapse" :data-bs-target="returnID(listing._id,1)" aria-expanded="false" :aria-controls="returnID(listing._id)"><i class="fa fa-chevron-circle-down"></i></button>
+                  <span class="badge top-right rounded-pill bg-primary" :class="listing.category">{{listing.category}}</span>
+                  <button v-if="listing.description" class="btn btn-secondary float-end collapsible" type="button" data-bs-toggle="collapse" :data-bs-target="returnID(listing._id,1)" aria-expanded="false" :aria-controls="returnID(listing._id)"><i class="fa fa-chevron-circle-down"></i></button>
                   <div class="collapse collapse-horizontal" :id="returnID(listing._id)">
                     <div class="card-text description" v-html="listing.description"></div>
                   </div>
@@ -31,7 +48,7 @@
                     }">
                     <div class="popper" v-text="listing.tags"></div>
                  
-                    <button slot="reference" class="btn btn-secondary tags-popper text-truncate" v-text="listing.tags"></button>
+                    <button v-if="listing.tags" slot="reference" class="btn btn-secondary tags-popper text-truncate" v-text="listing.tags"></button>
                   </popper>
                   <p class="card-text tags text-truncate"></p>
                 <!--/div>
@@ -74,8 +91,8 @@
           <Messenger></Messenger>
           <div class="card-footer text-muted">
             <dl class="row">
-              <dt class="col-sm-2">{{activeDeal.status}}</dt>
-              <dd class="col-sm-10">{{dealStatusHints(activeDeal.status)}}</dd>
+              <dt class="col-sm-2" v-text="activeDeal.status"></dt>
+              <dd class="col-sm-10" v-html="dealStatusHints(activeDeal.status)"></dd>
             </dl>
           </div>
         </div>
@@ -89,7 +106,7 @@
               </div>
               <div v-else-if="activeDeal.status === 'accepted'">
                   <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute <i class="fa fa-fw fa-exclamation"></i></button>
-                  <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+                  <button class="btn btn-info" @click="leaveReview()">Leave Review</button>
               </div>
             </li>
         </ul>
@@ -308,6 +325,9 @@ ul.list-group span.badge, .card-footer span.badge, .card-header span.badge {
 }
 button.tags-popper.text-truncate {
     max-width: 80%;
+}
+.badge.top-right.bg-primary {
+    text-transform: capitalize;
 }
 </style>
   

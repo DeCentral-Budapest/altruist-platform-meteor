@@ -125,14 +125,5 @@ export default {
 </script>
 
 <style scoped>
-  .listing blockquote {
-      font-style: italic;
-  }
-  .listing-title:before {
-    content: '💝';
-  }
-  .listing-title.need:before {
-    content: '🤲';
-  }
 </style>
 

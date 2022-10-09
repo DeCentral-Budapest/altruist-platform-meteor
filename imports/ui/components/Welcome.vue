@@ -82,8 +82,5 @@ export default {
 </script>
 
 <style scoped>
-.float-right {
-    float: right!important;
-}
 </style>
   

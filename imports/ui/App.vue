@@ -137,4 +137,51 @@ export default {
     vertical-align: text-bottom;
     margin-left: -0.8em;
   }
+  span.inline {
+    padding: 0em 0.2em 0.1em;
+    margin: 0 -0.2em -0.1em;
+    border-radius: 0.2em;
+  }
+  .badge.top-right {
+    top: 1.6em;
+    right: 1.6em;
+    position: absolute;
+  }
+  .badge.bottom-right {
+    bottom: 1.6em;
+    right: 1.6em;
+    position: absolute;
+  }
+  .float-right {
+    float: right!important;
+  }
+  .float-left {
+    float: left!important;
+  }
+  .listing blockquote {
+    font-style: italic;
+  }
+  .listing-title:before {
+    content: '💝';
+  }
+  .listing-title.need:before {
+    content: '🤲';
+  }
+  .small.display-6 {
+      font-size: 1.2em;
+  }
+  footer .list-group-item.nav-item {
+    padding: 0 !important;
+  }
+  ul.nav-item {
+      list-style: none;
+      padding-left: 0;
+  }
+  footer a {
+    text-decoration: none;
+    padding: 0.8em 0em;
+  }
+  .list-group-flush {
+    clear: both;
+  }
 </style>
