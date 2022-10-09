@@ -137,4 +137,9 @@ export default {
     vertical-align: text-bottom;
     margin-left: -0.8em;
   }
+  span.bg-success.text-light.inline {
+    padding: 0em 0.2em 0.1em;
+    margin: 0 -0.2em -0.1em;
+    border-radius: 0.2em;
+  }
 </style>
