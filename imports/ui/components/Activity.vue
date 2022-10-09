@@ -89,7 +89,7 @@
               </div>
               <div v-else-if="activeTx.status === 'accepted'">
                   <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute <i class="fa fa-fw fa-exclamation"></i></button>
-                  <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+                  <button class="btn btn-info" @click="leaveReview()">Leave Review</button>
               </div>
             </li>
         </ul>
