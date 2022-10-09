@@ -35,8 +35,8 @@
                 <!--img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap"-->
                 <div class="card-body">
                   <h5 class="card-title listing-title" :class="{ need: listing.isNeed }" v-html="listing.title" @click="goto(listing)">{{listing.title}}</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{listing.category}}</h6>
-                  <button class="btn btn-secondary float-end collapsible" type="button" data-bs-toggle="collapse" :data-bs-target="returnID(listing._id,1)" aria-expanded="false" :aria-controls="returnID(listing._id)"><i class="fa fa-chevron-circle-down"></i></button>
+                  <span class="badge top-right rounded-pill bg-primary" :class="listing.category">{{listing.category}}</span>
+                  <button v-if="listing.description" class="btn btn-secondary float-end collapsible" type="button" data-bs-toggle="collapse" :data-bs-target="returnID(listing._id,1)" aria-expanded="false" :aria-controls="returnID(listing._id)"><i class="fa fa-chevron-circle-down"></i></button>
                   <div class="collapse collapse-horizontal" :id="returnID(listing._id)">
                     <div class="card-text description" v-html="listing.description"></div>
                   </div>
@@ -48,7 +48,7 @@
                     }">
                     <div class="popper" v-text="listing.tags"></div>
                  
-                    <button slot="reference" class="btn btn-secondary tags-popper text-truncate" v-text="listing.tags"></button>
+                    <button v-if="listing.tags" slot="reference" class="btn btn-secondary tags-popper text-truncate" v-text="listing.tags"></button>
                   </popper>
                   <p class="card-text tags text-truncate"></p>
                 <!--/div>
@@ -325,6 +325,9 @@ ul.list-group span.badge, .card-footer span.badge, .card-header span.badge {
 }
 button.tags-popper.text-truncate {
     max-width: 80%;
+}
+.badge.top-right.bg-primary {
+    text-transform: capitalize;
 }
 </style>
   

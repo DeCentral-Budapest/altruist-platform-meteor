@@ -142,4 +142,18 @@ export default {
     margin: 0 -0.2em -0.1em;
     border-radius: 0.2em;
   }
+  .badge.top-right {
+    top: 1.6em;
+    right: 1.6em;
+    position: absolute;
+  }
+  .listing blockquote {
+    font-style: italic;
+  }
+  .listing-title:before {
+    content: '💝';
+  }
+  .listing-title.need:before {
+    content: '🤲';
+  }
 </style>
