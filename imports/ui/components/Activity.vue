@@ -1,19 +1,36 @@
 <template>
   <div class="container-fluid">
     <div class="row message-wrapper">
+      <div class="col-md-12">
+        <h2>
+          {{this.showAll ? 'All of Your' : 'Your active'}} <em>Deals</em> are listed here.
+        </h2>
+        <p class="form-check-inline">
+          <em>Deals</em> are activities on your listed Goods &amp; Services and Needs. By default only the active <em>Deals</em> are shown.
+        </p>
+        <div class="form-check form-check-inline form-switch form-check-inline">
+          <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
+          <label class="form-check-label" for="showAll">Show all</label>
+        </div>
+        <p>
+          <router-link to="/myresources" class="btn btn-outline-primary keychainify-checked">Jump to my released <em>Resources</em> »</router-link>
+          <router-link to="/myneeds" class="btn btn-outline-primary keychainify-checked">Jump to my released <em>Needs</em> »</router-link>
+        </p>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </symbol>
+          <strong>
+          The <em>Deals</em> can have the following states:
+          </strong>
+          <span class="bg-primary text-light inline">Inquiry</span> | <span class="bg-danger text-light inline">Canceled</span> | <span class="bg-success text-light inline">Accepted</span> | <span class="bg-warning text-light inline">Disputed</span> | <span class="bg-info text-light inline">Reviewed</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
       <div class="col-md-4 message-sideleft">
         <div class="panel">
-          <div class="panel-heading">
-            <h3 class="panel-title">{{this.showAll ? 'All Deals' : 'Active Listings'}}</h3>
-            <div class="mb-3">
-              <div class="form-check form-check-inline form-switch">
-                <input class="form-check-input" type="checkbox" id="showAll" v-model="showAll">
-                <label class="form-check-label" for="showAll">Show all</label>
-            </div>
-          </div>
-          </div><!-- /.panel-heading -->
           <div class="panel-body no-padding">
-            <div v-for="listing in listings" class="list-group no-margin list-message">
+            <div v-for="listing in listings" class="list-group no-margin list-message my-3">
               <div class="card h-100 listing">
                 <!--img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap"-->
                 <div class="card-body">
