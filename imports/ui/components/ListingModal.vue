@@ -34,7 +34,7 @@
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
                     <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp" v-model="tags">
-                    <div id="tagsHelp" class="form-text">Use smarttags & hashtags, separated by spaces (<code>@location</code> <code>$currency</code> <code>!event</code> <code>@mention</code> <code>.related</code> <code>=same_as</code> <code>#tag</code> <code>#category</code><sup><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues/6" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a></sup>).</div>
+                    <div id="tagsHelp" class="form-text">Use smarttags & hashtags, separated by spaces (<code>@location</code> <code>$currency</code> <code>!event</code> <code>+mention</code> <code>.related</code> <code>=same_as</code> <code>#tag</code> <code>#category</code><sup><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues/6" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a></sup>).</div>
                 </div>
                 <div class="mb-3">
                   <div class="form-check form-check-inline">
