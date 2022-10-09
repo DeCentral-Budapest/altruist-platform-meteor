@@ -31,8 +31,8 @@
           <li><router-link to="/myresources" class="nav-link">My Resources</router-link></li>
           <li><router-link to="/mygoods" class="nav-link">- My Goods</router-link></li>
           <li><router-link to="/myservices" class="nav-link">- My Services</router-link></li>
-          <li><router-link to="/myneeds" class="nav-link">My needs</router-link></li>
-          <li><a href="#" class="nav-link active" data-bs-toggle="modal" data-bs-target="#listingModal" role="button">Create new listing</a></li>
+          <li><router-link to="/myneeds" class="nav-link">My Needs</router-link></li>
+          <li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#listingModal" role="button">Create new listing</a></li>
         </ul>
       </li>
     </ul>
