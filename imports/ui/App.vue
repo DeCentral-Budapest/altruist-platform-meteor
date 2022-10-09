@@ -183,5 +183,5 @@ export default {
   }
   .list-group-flush {
     clear: both;
-  
+  }
 </style>
