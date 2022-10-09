@@ -192,9 +192,6 @@ export default {
 .border-top {
     border-top: 1px solid #dee2e6!important;
 }
-.float-right {
-    float: right;
-}
 .chat-messages > div {
     position: relative;
 }

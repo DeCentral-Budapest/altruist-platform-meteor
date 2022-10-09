@@ -147,6 +147,17 @@ export default {
     right: 1.6em;
     position: absolute;
   }
+  .badge.bottom-right {
+    bottom: 1.6em;
+    right: 1.6em;
+    position: absolute;
+  }
+  .float-right {
+    float: right!important;
+  }
+  .float-left {
+    float: left!important;
+  }
   .listing blockquote {
     font-style: italic;
   }
