@@ -32,7 +32,7 @@ Deals.statusObjects = {
     disputed: {
         bgClass: 'bg-warning',
         faClass:  'fa-exclamation',
-        hint: 'This <em>Deal</em> is currently under <span class="bg-warning text-light">and <em>Dispute</em>',
+        hint: 'This <em>Deal</em> is currently under dispute',
         todo: 'Accept', // TODO +Accept +Cancel
     },
     reviewed: {

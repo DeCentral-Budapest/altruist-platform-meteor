@@ -74,8 +74,8 @@
           <Messenger></Messenger>
           <div class="card-footer text-muted">
             <dl class="row">
-              <dt class="col-sm-2" v-text="activeTx.status"></dt>
-              <dd class="col-sm-10" v-html="dealStatusHints(activeTx.status)"></dd>
+              <dt class="col-sm-2">{{activeTx.status}}</dt>
+              <dd class="col-sm-10">{{dealStatusHints(activeTx.status)}}</dd>
             </dl>
           </div>
         </div>
