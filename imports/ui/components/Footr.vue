@@ -36,14 +36,4 @@ export default {
 }
 </script>
 <style scope>
-  .small.display-6 {
-      font-size: 1.2em;
-  }
-  footer .list-group-item.nav-item {
-    padding: 0 !important;
-  }
-  ul.nav-item {
-      list-style: none;
-      padding-left: 0;
-  }
 </style>

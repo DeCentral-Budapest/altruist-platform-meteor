@@ -167,4 +167,21 @@ export default {
   .listing-title.need:before {
     content: '🤲';
   }
+  .small.display-6 {
+      font-size: 1.2em;
+  }
+  footer .list-group-item.nav-item {
+    padding: 0 !important;
+  }
+  ul.nav-item {
+      list-style: none;
+      padding-left: 0;
+  }
+  footer a {
+    text-decoration: none;
+    padding: 0.8em 0em;
+  }
+  .list-group-flush {
+    clear: both;
+  
 </style>

@@ -70,8 +70,13 @@
         </form>
       </div>
     </div>
-    <div class="col col-12 text-right">
-      <small>Created with 💚 on the <em >Lands of the Hungarian Crown</em></small>
+    <div class="row container-fluid text-right">
+      <div class="col">
+        <small><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/blob/main/LICENSE" target="_blank"><i class="fa-brands fa-github fa-fw"></i>AGPL-3.0 license </a></small>
+      </div>
+      <div class="col">
+        <small>Created with 💚 on the <em >Lands of the Hungarian Crown</em></small>
+      </div>
     </div>
   </div>
 </template>
