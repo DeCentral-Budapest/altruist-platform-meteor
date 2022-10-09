@@ -70,6 +70,9 @@
         </form>
       </div>
     </div>
+    <div class="col col-12 text-right">
+      <small>Created with 💚 on the <em >Lands of the Hungarian Crown</em></small>
+    </div>
   </div>
 </template>
 
