@@ -10,7 +10,7 @@
         <div class="modal-body">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" v-model="title" required>
+                    <input type="text" class="form-control" id="title" v-model="title" placeholder="Descriptive one-liner in short 🤏" required>
                 </div>
                 <div class="mb-3">
                 	<div class="form-check form-switch">
@@ -18,7 +18,7 @@
                     <label class="form-check-label" for="formURLorFile">Switch to <i>{{(checked)?"URL":"File"}}</i> upload</label>
                 	</div>
                   <div v-if="!checked" class="form-url">
-                    <input class="form-control form-control-url" type="text" id="imgURL" v-model="imgURL" placeholder='https://i.imgur.com/e8PooMD.png'>
+                    <input class="form-control form-control-url" type="text" id="imgURL" v-model="imgURL" placeholder="https://i.imgur.com/e8PooMD.png">
                     <div class="form-text">Use publicly available images only (ex: <code>https://i.imgur.com/e8PooMD.png</code>)</div>
                   </div>
                 	<div v-if="checked" class="form-file">
@@ -29,11 +29,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3" v-model="description"></textarea>
+                    <textarea class="form-control" id="description" rows="3" placeholder="What? Where? How? Why?" v-model="description">
+# What?
+# Where?
+# How?
+# Why?
+</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
-                    <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp" v-model="tags">
+                    <input type="text" class="form-control" id="tags" aria-describedby="tagsHelp" placeholder="@Szeklerland $VLT !Hackathon +eapo #altruizm #JavaScript #meteor #vue" v-model="tags">
                     <div id="tagsHelp" class="form-text">Use smarttags & hashtags, separated by spaces (<code>@location</code> <code>$currency</code> <code>!event</code> <code>+mention</code> <code>.related</code> <code>=same_as</code> <code>#tag</code> <code>#category</code><sup><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues/6" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a></sup>).</div>
                 </div>
                 <div class="mb-3">
@@ -53,7 +58,7 @@
         </div>
         <div class="modal-footer">            
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" title="Instantly publishing this Listing">Submit</button>
         </div>
         </div> 
         </form>
