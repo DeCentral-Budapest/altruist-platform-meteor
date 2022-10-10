@@ -226,10 +226,16 @@ export default {
 		console.log('asd');
 		console.log(this);
     },
-	scrollMeTo(refName) {
-            // var element = this.$els[refName];
-			// element.scrollIntoView();
-        },
+    scrollMeTo(refName) {
+      let element = this.$refs[refName];
+      if (!element) {
+        Meteor.defer(() => {
+          element = this.$refs[refName];
+          element?.scrollIntoView();
+        });
+      }
+      else element.scrollIntoView();
+    },
     changeStatus(status) {
         Meteor.call('statusChangeDeal', { txId: Session.get('activeTx')._id, status }, (err, res) => {
           if (!err) {
