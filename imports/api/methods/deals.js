@@ -19,38 +19,38 @@ Meteor.methods({
     return Deals.insert(doc);
   },
   'statusChangeDeal'(doc) {
-    check(doc.txId, String);
+    check(doc.dealId, String);
     check(doc.status, String);
 
     const msgRecord = { sentBy: this.userId, time: new Date(), status: doc.status }
     console.log('statusChangeDeal', msgRecord)
-    return Deals.update(doc.txId, { $set: { status: doc.status }, $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
+    return Deals.update(doc.dealId, { $set: { status: doc.status }, $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
   },
   'newChatMessage'(doc) {
-    check(doc.txId, String);
+    check(doc.dealId, String);
     check(doc.text, String);
 
     const msgRecord = { sentBy: this.userId, time: new Date(), text: doc.text }
-    return Deals.update(doc.txId, { $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
+    return Deals.update(doc.dealId, { $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
   },
   'reviewBylister'(doc) {
-    check(doc.txId, String);
+    check(doc.dealId, String);
     check(doc.rating, Number);
     check(doc.text, String);
-    doc.userId = tx.takenBy;
+    doc.userId = deal.takenBy;
     doc.reviewerId = this.userId;
 
     const revId = Reviews.insert(doc);
-    return Deals.update(doc.txId, { $set: { listerReview: revId } });
+    return Deals.update(doc.dealId, { $set: { listerReview: revId } });
   },
   'reviewByTaker'(doc) {
-    check(doc.txId, String);
+    check(doc.dealId, String);
     check(doc.rating, Number);
     check(doc.text, String);
-    doc.userId = tx.listedBy;
+    doc.userId = deal.listedBy;
     doc.reviewerId = this.userId;
 
     const revId = Reviews.insert(doc);
-    return Deals.update(doc.txId, { $set: { takerReview: revId } });
+    return Deals.update(doc.dealId, { $set: { takerReview: revId } });
   },
 });

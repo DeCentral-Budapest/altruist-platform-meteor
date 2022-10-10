@@ -112,11 +112,11 @@ export default {
     },
     takeListing(listing) {
       const self = this;
-      const tx = {
+      const deal = {
         listingId: listing._id,
         listedBy: listing.createdBy,
       }
-      Meteor.call('initiateDeal', tx, (err, res) => {
+      Meteor.call('initiateDeal', deal, (err, res) => {
         self.$router.push({ name: 'View deal', params: { tid: res } })
       });
     }

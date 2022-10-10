@@ -54,20 +54,20 @@
                 <!--/div>
                 <div class="card-footer"-->
                   <ul class="list-group list-group-flush">
-                    <li v-for="tx in dealsOf(listing)" class="card border-primary btn btn-light" @click='setActive(tx);hasActive = tx._id;scrollMeTo("messenger")' :class="{'active': hasActive === tx._id}">
+                    <li v-for="deal in dealsOf(listing)" class="card border-primary btn btn-light" @click='setActive(deal);hasActive = deal._id;scrollMeTo("messenger")' :class="{'active': hasActive === deal._id}">
                       <div class="card-header">
-                        {{todo(tx.status)}}
+                        {{todo(deal.status)}}
                       </div>
                       <div class="card-body">
                         <p class="card-text">
-                          {{contraPartyOf(tx).username}}
+                          {{contraPartyOf(deal).username}}
                           <br />
-                          {{lastMessage(tx)}}
+                          {{lastMessage(deal)}}
                         </p>
                       </div>
                       <div class="card-footer text-muted">
-                      {{tx.createdAt.toLocaleDateString()}} 
-											  <span class="badge float-right rounded-pill" :class="bgClass(tx.status)"><i class="fa fa-fw" :class="faClass(tx.status)"></i></span>
+                      {{deal.createdAt.toLocaleDateString()}} 
+											  <span class="badge float-right rounded-pill" :class="bgClass(deal.status)"><i class="fa fa-fw" :class="faClass(deal.status)"></i></span>
                       </div>
                     </li>
                   </ul>
@@ -77,34 +77,34 @@
           </div><!-- /.panel-body -->
         </div><!-- /.panel -->
       </div><!-- /.message-sideleft -->
-      <div v-if="activeTx" class="col-md-8 message-panel" id="messenger" ref="messenger">
+      <div v-if="activeDeal" class="col-md-8 message-panel" id="messenger" ref="messenger">
         <div class="card">
           <div class="card-header">
-            <span class="badge float-right rounded-pill" :class="bgClass(activeTx.status)"><i class="fa fa-fw" :class="faClass(activeTx.status)"></i></span>
+            <span class="badge float-right rounded-pill" :class="bgClass(activeDeal.status)"><i class="fa fa-fw" :class="faClass(activeDeal.status)"></i></span>
             <button type="button" class="btn btn-primary disabled" disabled>
-              Listed by <span class="badge badge-light">{{getUserNameById(activeTx.listedBy)}}</span>
+              Listed by <span class="badge badge-light">{{getUserNameById(activeDeal.listedBy)}}</span>
             </button>
             <button type="button" class="btn btn-primary disabled" disabled>
-              Inquiry by <span class="badge badge-light">{{getUserNameById(activeTx.takenBy)}}</span>
+              Inquiry by <span class="badge badge-light">{{getUserNameById(activeDeal.takenBy)}}</span>
             </button>
           </div>
           <Messenger></Messenger>
           <div class="card-footer text-muted">
             <dl class="row">
-              <dt class="col-sm-2" v-text="activeTx.status"></dt>
-              <dd class="col-sm-10" v-html="dealStatusHints(activeTx.status)"></dd>
+              <dt class="col-sm-2" v-text="activeDeal.status"></dt>
+              <dd class="col-sm-10" v-html="dealStatusHints(activeDeal.status)"></dd>
             </dl>
           </div>
         </div>
       <!--/div>
-      <div v-if="activeTx" class="col-md-3 message-sideright"-->
+      <div v-if="activeDeal" class="col-md-3 message-sideright"-->
         <ul class="list-group list-group-flush">
             <li class="list-group-item text-center">
-              <div v-if="activeTx.status === 'inquiry'">
+              <div v-if="activeDeal.status === 'inquiry'">
                   <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
                   <button class="btn btn-success" @click="changeStatus('accepted')">Accept <i class="fa fa-fw fa-check"></i></button>
               </div>
-              <div v-else-if="activeTx.status === 'accepted'">
+              <div v-else-if="activeDeal.status === 'accepted'">
                   <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute <i class="fa fa-fw fa-exclamation"></i></button>
                   <button class="btn btn-info" @click="leaveReview()">Leave Review</button>
               </div>
@@ -146,7 +146,7 @@ export default {
     $subscribe: {
       'users': [],
       'listings': [],
-      'deals': [],
+      'dealsOfUser': [],
       'reviews': [],
     },
     listings() {
@@ -155,18 +155,18 @@ export default {
       const userId = Meteor.userId()
       const selector = { $or: [ { listedBy: userId }, { takenBy: userId } ] }
       if (!this.showAll) selector.status = { $in: ['inquiry', 'accepted'] }
-      const txs = Deals.find(selector)
-      const listingIds = _.uniq(txs.map(tx => tx.listingId))
+      const deals = Deals.find(selector)
+      const listingIds = _.uniq(deals.map(deal => deal.listingId))
       const listings = listingIds.map(id => Listings.findOne(id))
       console.log('listings', listings)
       return listings
     },
-    activeTxId() {
-      const activeTx = Session.get('activeTx')
-      return activeTx && activeTx._id
+    activeDealId() {
+      const activeDeal = Session.get('activeDeal')
+      return activeDeal && activeDeal._id
     },
-    activeTx() {
-      return Session.get('activeTx')
+    activeDeal() {
+      return Session.get('activeDeal')
     },
   },
   methods: {
@@ -177,9 +177,9 @@ export default {
       const pre = "_" // https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
       return (hasHash?"#":"")+pre+id
     },
-    setActive(tx) {
-      console.log('Set active', tx)
-      Session.set('activeTx', tx)
+    setActive(deal) {
+      console.log('Set active', deal)
+      Session.set('activeDeal', deal)
     },
     dealsOf(listing) {
       const selector = { listingId: listing._id }
@@ -237,10 +237,10 @@ export default {
       else element.scrollIntoView();
     },
     changeStatus(status) {
-        Meteor.call('statusChangeDeal', { txId: Session.get('activeTx')._id, status }, (err, res) => {
+        Meteor.call('statusChangeDeal', { dealId: Session.get('activeDeal')._id, status }, (err, res) => {
           if (!err) {
-	    			const activeTx = Session.get('activeTx')
-			    	Session.set('activeTx', Deals.findOne(activeTx._id) ) // to trigger reactive ui update
+	    			const activeDeal = Session.get('activeDeal')
+			    	Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
           }
         })
     },

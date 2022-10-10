@@ -41,7 +41,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{relation.name}}</h5>name
                   <h6 class="card-subtitle mb-2 text-muted">zone number: {{relation.zonenumber}}</h6>
-                  <h6 class="card-subtitle mb-2 text-muted">tx counter: </h6>
+                  <h6 class="card-subtitle mb-2 text-muted">deal counter: </h6>
                   <p class="card-text">{{relation.description}}</p>
                 </div>
                 <div class="card-footer">
@@ -63,11 +63,11 @@
             <div class="col" >
               <div class="card h-100">
                 <ol class="list-group list-group-numbered" >
-                  <li v-for="tx in deals" class="list-group-item d-flex justify-content-between align-items-start">
+                  <li v-for="deal in deals" class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                      <div class="fw-bold">{{getTitle(tx.listingId)}}</div>
-                        <span>date: {{tx.createdAt.toLocaleDateString()}}</span>
-                        <span>status: {{tx.status}}</span>
+                      <div class="fw-bold">{{getTitle(deal.listingId)}}</div>
+                        <span>date: {{deal.createdAt.toLocaleDateString()}}</span>
+                        <span>status: {{deal.status}}</span>
                     </div>
                     <span class="badge bg-primary rounded-pill">14</span>
                   </li>
@@ -139,14 +139,14 @@ export default {
     },
     deals () {
       userId = Meteor.userId();
-       const txs = Deals.find({
+       const deals = Deals.find({
         $or: [
           { listedBy: userId },
           { takenBy: userId },
         ],
       });
-      console.log(txs.fetch());
-      return txs;
+      console.log(deals.fetch());
+      return deals;
     },
     listings () {
       userId = Meteor.userId();
