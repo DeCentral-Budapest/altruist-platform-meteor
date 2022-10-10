@@ -75,7 +75,7 @@ export default {
   meteor: {
     $subscribe: {
       'listings': [],
-      'deals': [],
+      'dealsOfUser': [],
       'reviews': [],
     },
     activeDealId() {

@@ -108,7 +108,7 @@ export default {
     $subscribe: {
       'users': [],
       'listings': [],
-      'deals': [],
+      'dealsOfUser': [],
       'reviews': [],
     },
   },
