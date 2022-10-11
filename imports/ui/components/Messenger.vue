@@ -81,12 +81,6 @@ export default {
   props: {
   },
   meteor: {
-    activeDeal() {
-		console.log('Get active deal')
-      const deal = Session.get('activeDeal')
-      console.log('Active deal is', deal)
-      return deal || {}
-    },
     activeContraParty() {
       const deal = Session.get('activeDeal')
       console.log('Get active contraparty', deal)
@@ -105,6 +99,13 @@ export default {
     }
   },
   methods: {
+    activeDeal() {
+	  console.log('Get active deal')
+      let deal = Session.get('activeDeal')
+      console.log('Active deal is', deal)
+      deal = Deals._transform(deal)
+      return deal || {}
+    },
 	isMine(msg) {
 		return msg.sentBy === Meteor.userId()
 	},
@@ -122,13 +123,13 @@ export default {
         return 'https://bootdey.com/img/Content/avatar/avatar1.png'
     },
     bgClass(status) {
-       return Deals.statusObjects[status].bgClass
+       return this.activeDeal()?.getStatusObject(status).bgClass
     },
     faClass(status) {
-       return Deals.statusObjects[status].faClass
+       return this.activeDeal()?.getStatusObject(status).faClass
     },
 	activeChat() {
-		console.log('Get active chat')
+	  console.log('Get active chat')
       const deal = Session.get('activeDeal')
 	  if (!deal) return []
 	  const chat = deal.chat

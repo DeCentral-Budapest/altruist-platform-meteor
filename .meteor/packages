@@ -29,3 +29,4 @@ jalik:ufs
 jalik:ufs-gridfs
 jparker:gravatar
 percolate:migrations
+dburles:collection-helpers

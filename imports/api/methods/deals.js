@@ -7,20 +7,34 @@ Meteor.methods({
   'initiateDeal'(doc) {
     check(doc.listingId, String);
     doc.takenBy = this.userId;
-    doc.status = 'inquiry'
+    doc.createdAt = new Date();
+    // Messaging
     const msgRecord = { sentBy: this.userId, time: new Date(), status:'inquiry' }
     doc.chat = [msgRecord];
     doc.chatMsgCount = 1;
+    // Status
+    doc.status = 'inquiry'
     doc.agreedValue = [];
-    doc.listerReview = null;
-    doc.takerReview = null;
-    doc.createdAt = new Date();
+    doc.accepts = [];  // userId
+    doc.reviews = {}; // userId: reviewId
 
     return Deals.insert(doc);
   },
   'statusChangeDeal'(doc) {
     check(doc.dealId, String);
     check(doc.status, String);
+
+    const deal = Deals.findOne(doc.txId);
+    if (!deal) return
+    
+    if (doc.status === 'accepted') {
+      if (_.contains(deal.confirms, this.userId)) return; // Accepting again, when already acepted by this party, should do nothing
+      else if (deal.accepts.length === 0) {  // If other party not yet accepted
+        doc.status = 'inquiry';            // then we cannot move to accepted state yet
+      }
+      console.log('One party accepted,now  waiting for the other one')
+      return Deals.update(doc.dealId, { $push: { accepts: this.userId } });
+    }
 
     const msgRecord = { sentBy: this.userId, time: new Date(), status: doc.status }
     console.log('statusChangeDeal', msgRecord)

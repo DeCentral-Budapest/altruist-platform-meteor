@@ -78,22 +78,24 @@ export default {
       'dealsOfUser': [],
       'reviews': [],
     },
-    activeDealId() {
-      const activeDeal = Session.get('activeDeal')
-      return activeDeal && activeDeal._id
-    },
-    activeDeal() {
-      return Session.get('activeDeal')
-    },
   },
   methods: {
+    activeDealId() {
+      const deal = Session.get('activeDeal')
+      return deal && deal._id
+    },
+    activeDeal() {
+      let deal = Session.get('activeDeal')
+      deal = Deals._transform(deal)
+      return deal
+    },
     getUserNameById(userId) {
         const user = Meteor.users.findOne(userId)
         if (user) return user.username
         return 'Not found user'
     },
     dealStatusHints(status) {
-        return Deals.statusObjects[status].hint
+        return this.activeDeal()?.getStatusObject(status).hint
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })

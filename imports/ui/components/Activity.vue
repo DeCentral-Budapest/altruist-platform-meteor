@@ -161,13 +161,6 @@ export default {
       console.log('listings', listings)
       return listings
     },
-    activeDealId() {
-      const activeDeal = Session.get('activeDeal')
-      return activeDeal && activeDeal._id
-    },
-    activeDeal() {
-      return Session.get('activeDeal')
-    },
   },
   methods: {
     listingImg(listing) {
@@ -176,6 +169,15 @@ export default {
     returnID(id,hasHash=0) {
       const pre = "_" // https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
       return (hasHash?"#":"")+pre+id
+    },
+    activeDealId() {
+      const deal = Session.get('activeDeal')
+      return deal && deal._id
+    },
+    activeDeal() {
+      let deal = Session.get('activeDeal')
+      deal = Deals._transform(deal)
+      return deal
     },
     setActive(deal) {
       console.log('Set active', deal)
@@ -205,13 +207,13 @@ export default {
       return 'ERROR'
     },
     bgClass(status) {
-       return Deals.statusObjects[status].bgClass
+       return this.activeDeal()?.getStatusObject(status).bgClass
     },
     faClass(status) {
-       return Deals.statusObjects[status].faClass
+       return this.activeDeal()?.getStatusObject(status).faClass
     },
     todo(status) {
-      return Deals.statusObjects[status].todo
+      return this.activeDeal()?.getStatusObject(status).todo
     },
     getUserNameById(userId) {
         const user = Meteor.users.findOne(userId)
@@ -219,7 +221,7 @@ export default {
         return 'Not found user'
     },
     dealStatusHints(status) {
-        return Deals.statusObjects[status].hint
+        return this.activeDeal()?.getStatusObject(status).hint
     },
     goto(listing) {
      // this.$router.push({ name: 'View listing', params: { lid: listing._id } })
