@@ -9,6 +9,11 @@ A **Trusted F/LOSS marketplace** for *collaborative economy*, where individuals,
 
 `tbd.`
 
+## Participating on Hacktoberfest 2022
+[![Hacktoberfest 2022](https://user-images.githubusercontent.com/4000929/195348829-bef064a0-0410-4ec8-b4de-4aac68b9bbdc.png)](https://hacktoberfest.com/participation/)
+> Participating in Hacktoberfest leads to personal growth, professional opportunities, and community building. But it all begins with meaningful contributions to open-source software. We’re committed to prioritizing quality contributions as outlined in our participation rule
+> -- [Participation | Hacktoberfest 2022](https://hacktoberfest.com/participation/)
+
 ## Running on Galaxy 
 [![altru.eu on meteor.cloud](https://assets.website-files.com/5dd3f8176674eb0829f184d5/5fff6890ad5e896f40209256_Meteor%20Logo.png "Scale your apps confidently with minimal DevOps")](https://altru.eu.meteorapp.com/)
 
