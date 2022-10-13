@@ -56,7 +56,7 @@
                   <ul class="list-group list-group-flush">
                     <li v-for="deal in dealsOf(listing)" class="card border-primary btn btn-light" @click='setActive(deal);hasActive = deal._id;scrollMeTo("messenger")' :class="{'active': hasActive === deal._id}">
                       <div class="card-header">
-                        {{todo(deal.status)}}
+                        {{todo(deal)}}
                       </div>
                       <div class="card-body">
                         <p class="card-text">
@@ -67,7 +67,7 @@
                       </div>
                       <div class="card-footer text-muted">
                       {{deal.createdAt.toLocaleDateString()}} 
-											  <span class="badge float-right rounded-pill" :class="bgClass(deal.status)"><i class="fa fa-fw" :class="faClass(deal.status)"></i></span>
+											  <span class="badge float-right rounded-pill" :class="bgClass(deal)"><i class="fa fa-fw" :class="faClass(deal)"></i></span>
                       </div>
                     </li>
                   </ul>
@@ -80,7 +80,7 @@
       <div v-if="activeDeal" class="col-md-8 message-panel" id="messenger" ref="messenger">
         <div class="card">
           <div class="card-header">
-            <span class="badge float-right rounded-pill" :class="bgClass(activeDeal.status)"><i class="fa fa-fw" :class="faClass(activeDeal.status)"></i></span>
+            <span class="badge float-right rounded-pill" :class="bgClass(activeDeal)"><i class="fa fa-fw" :class="faClass(activeDeal)"></i></span>
             <button type="button" class="btn btn-primary disabled" disabled>
               Listed by <span class="badge badge-light">{{getUserNameById(activeDeal.listedBy)}}</span>
             </button>
@@ -92,7 +92,7 @@
           <div class="card-footer text-muted">
             <dl class="row">
               <dt class="col-sm-2" v-text="activeDeal.status"></dt>
-              <dd class="col-sm-10" v-html="dealStatusHints(activeDeal.status)"></dd>
+              <dd class="col-sm-10" v-html="dealStatusHints(activeDeal)"></dd>
             </dl>
           </div>
         </div>
@@ -150,8 +150,6 @@ export default {
       'reviews': [],
     },
     listings() {
-//      console.log('Listings.find()', Listings.find().fetch())
-//      return Listings.find().fetch()
       const userId = Meteor.userId()
       const selector = { $or: [ { listedBy: userId }, { takenBy: userId } ] }
       if (!this.showAll) selector.status = { $in: ['inquiry', 'accepted'] }
@@ -161,6 +159,15 @@ export default {
       console.log('listings', listings)
       return listings
     },
+    activeDealId() {
+      const deal = Session.get('activeDeal')
+      return deal && deal._id
+    },
+    activeDeal() {
+      let deal = Session.get('activeDeal')
+      deal = deal ? Deals._transform(deal) : undefined
+      return deal
+    },
   },
   methods: {
     listingImg(listing) {
@@ -169,15 +176,6 @@ export default {
     returnID(id,hasHash=0) {
       const pre = "_" // https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
       return (hasHash?"#":"")+pre+id
-    },
-    activeDealId() {
-      const deal = Session.get('activeDeal')
-      return deal && deal._id
-    },
-    activeDeal() {
-      let deal = Session.get('activeDeal')
-      deal = Deals._transform(deal)
-      return deal
     },
     setActive(deal) {
       console.log('Set active', deal)
@@ -206,22 +204,22 @@ export default {
       else if (lastMsg.status) return lastMsg.status
       return 'ERROR'
     },
-    bgClass(status) {
-       return this.activeDeal()?.getStatusObject(status).bgClass
+    bgClass(deal) {
+      return deal?.getStatusObject(deal.status).bgClass
     },
-    faClass(status) {
-       return this.activeDeal()?.getStatusObject(status).faClass
+    faClass(deal) {
+      return deal?.getStatusObject(deal.status).faClass
     },
-    todo(status) {
-      return this.activeDeal()?.getStatusObject(status).todo
+    todo(deal) {
+      return deal?.getStatusObject(deal.status).todo
     },
     getUserNameById(userId) {
         const user = Meteor.users.findOne(userId)
         if (user) return user.username
         return 'Not found user'
     },
-    dealStatusHints(status) {
-        return this.activeDeal()?.getStatusObject(status).hint
+    dealStatusHints(deal) {
+      return deal?.getStatusObject(deal.status).hint
     },
     goto(listing) {
      // this.$router.push({ name: 'View listing', params: { lid: listing._id } })
@@ -237,6 +235,9 @@ export default {
           if (!err) {
 	    			const activeDeal = Session.get('activeDeal')
 			    	Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
+          }
+          if (err) {
+            alert(err);
           }
         })
     },

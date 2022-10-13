@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
+import { _ } from 'meteor/underscore';
 import Deals from '../collections/Deals.js';
 import Reviews from '../collections/Reviews.js';
 
@@ -24,12 +25,12 @@ Meteor.methods({
     check(doc.dealId, String);
     check(doc.status, String);
 
-    const deal = Deals.findOne(doc.txId);
+    const deal = Deals.findOne(doc.dealId);
     if (!deal) return
     
     if (doc.status === 'accepted') {
-      if (_.contains(deal.confirms, this.userId)) return; // Accepting again, when already acepted by this party, should do nothing
-      else if (deal.accepts.length === 0) {  // If other party not yet accepted
+      if (_.contains(deal.accepts, this.userId)) return; // Accepting again, when already acepted by this party, should do nothing
+      else if (deal.accepts?.length === 0) {  // If other party not yet accepted
         doc.status = 'inquiry';            // then we cannot move to accepted state yet
       }
       console.log('One party accepted,now  waiting for the other one')
