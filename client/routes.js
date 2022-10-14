@@ -16,6 +16,11 @@ const routes = [
     redirect: '/activity'
   },
   {
+    path: "/offers",
+    name: "Listings",
+    redirect: '/listings'
+  },
+  {
     path: "/activity",
     name: "Activity",
     component: Activity,
