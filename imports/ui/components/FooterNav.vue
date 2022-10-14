@@ -32,7 +32,7 @@
           <li><router-link to="/mygoods" class="nav-link">- My Goods</router-link></li>
           <li><router-link to="/myservices" class="nav-link">- My Services</router-link></li>
           <li><router-link to="/myneeds" class="nav-link">My Needs</router-link></li>
-          <li><a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#listingModal" role="button">Create new listing</a></li>
+          <li><a href="#" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#listingModal" role="button">Create new listing</a></li>
         </ul>
       </li>
     </ul>
@@ -61,6 +61,12 @@
         </ul>
       </li>
       <li class="list-group-item nav-item"><a href="#" class="nav-link disabled" data-bs-toggle="modal" data-bs-target="#listingModal" disabled>About membership and relations?</a></li>
+      <li class="list-group-item nav-item">
+        <a class="btn w-100" href="https://roti.express/r/hmequl" target="_blank">
+          <img src="https://roti.express/img/roti-magnet.png" alt="roti.express" style="max-height:2em;" />
+          Feedback
+        </a>
+      </li>
     </ul>
     <div class="col col-lg-4">
       <div class="">
