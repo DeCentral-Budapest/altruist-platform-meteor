@@ -76,7 +76,7 @@ import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
 import BookingForm from './components/BookingForm.vue'
-import Hello from './components/Hello.vue'
+import ListingPage from './components/ListingPage.vue'
 import DealPage from './components/DealPage.vue'
 import ProfileModal from './components/ProfileModal.vue'
 
@@ -97,9 +97,9 @@ export default {
     LoginForm,
     RegisterForm,
     BookingForm,
-    Hello,
     Welcome,
     DealPage,
+    ListingPage,
   },
   meteor: {
     currentUser () {

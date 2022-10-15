@@ -19,19 +19,19 @@
           <div class="col-md-3">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title text-uppercase btn-outline-secondary">{{activeDeal.status}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(activeDeal.listedBy)}}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(activeDeal.takenBy)}}</h6>
+                <h5 class="card-title text-uppercase btn-outline-secondary">{{deal.status}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{getUserNameById(deal.listedBy)}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Taken by: {{getUserNameById(deal.takenBy)}}</h6>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                      <small>{{dealStatusHints(activeDeal.status)}}</small>
+                      <small v-html="dealStatusHints()"></small>
                     </li>
                     <li class="list-group-item">
-                      <div v-if="activeDeal.status === 'inquiry'">
+                      <div v-if="deal.status === 'inquiry'">
                           <button class="btn btn-outline-warning" @click="changeStatus('canceled')">Cancel</button>
                           <button class="btn btn-success" @click="changeStatus('accepted')">Accept</button>
                       </div>
-                      <div v-else-if="activeDeal.status === 'accepted'">
+                      <div v-else-if="deal.status === 'accepted'">
                           <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
                           <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
                       </div>
@@ -54,18 +54,10 @@ import Messenger from './Messenger.vue'
 
 export default {
   data() {
-    const dealId = this.$route.params.tid
-    let deal = Deals.findOne(dealId)
-    if (!deal) deal = { listing: null }
-    else {
-      const listing = Listings.findOne(deal.listingId)
-      deal.listing = listing
-      deal.dealId = deal._id
-    }
-    deal.message = ''
-    console.log("activeDeal", deal)
-    Session.set('activeDeal', deal)
-    return deal
+    const dealId = this.$route.params.tid;
+    return { 
+      dealId
+    };
   },
   components: {
     Messenger,
@@ -78,13 +70,19 @@ export default {
       'dealsOfUser': [],
       'reviews': [],
     },
-    activeDealId() {
-      const activeDeal = Session.get('activeDeal')
-      return activeDeal && activeDeal._id
+    deal() {
+      const dealId = this.dealId;
+      let deal = Deals.findOne(dealId);
+      if (!deal) deal = {};
+      Session.set('activeDeal', deal); // for Messenger
+      return deal;
     },
-    activeDeal() {
-      return Session.get('activeDeal')
-    },
+    listing() {
+      const dealId = this.dealId;
+      let deal = Deals.findOne(dealId);
+      let listing = deal?.listingId ? Listings.findOne(deal.listingId) : null;
+      return listing;
+    }
   },
   methods: {
     getUserNameById(userId) {
@@ -92,32 +90,22 @@ export default {
         if (user) return user.username
         return 'Not found user'
     },
-    dealStatusHints(status) {
-        return Deals.statusObjects[status].hint
+    dealStatusHints() {
+        return this.deal?.getStatusObject(this.deal?.status).hint
     },
     goto(listing) {
       this.$router.push({ name: 'View listing', params: { lid: listing._id } })
     },
     changeStatus(status) {
         Meteor.call('statusChangeDeal', { dealId: this.dealId, status }, (err, res) => {
-          if (!err) {
-	    			const activeDeal = Session.get('activeDeal')
-			    	Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
+          if (err) {
+            alert(err);
           }
         })
     },
-    reviewTrasactiom() {
-        // TODO
-    },
-    sendMessage() {
-        Meteor.call('sendMessage', { dealId: this.dealId, text: this.message }, (err, res) => {
-            if (!err) {
-                this.message = ''
-                const activeDeal = Session.get('activeDeal')
-    			    	Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
-            }
-        })
-    },
+    leaveReview() {
+      // TODO
+    }
   },
 }
 </script>
