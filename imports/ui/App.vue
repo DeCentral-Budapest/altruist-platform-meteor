@@ -70,6 +70,7 @@ import Navbar from './components/Navbar.vue'
 import Footr from './components/Footr.vue'
 import FooterNav from './components/FooterNav.vue'
 import Welcome from './components/Welcome.vue'
+import Hello from './components/Hello.vue'
 import Activity from './components/Activity.vue'
 import ListingModal from './components/ListingModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
@@ -98,6 +99,7 @@ export default {
     RegisterForm,
     BookingForm,
     Welcome,
+    Hello,
     DealPage,
     ListingPage,
   },
