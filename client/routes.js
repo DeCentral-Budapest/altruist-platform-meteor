@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import Activity from '/imports/ui/components/Activity.vue'
 import ListingGrid from '/imports/ui/components/ListingGrid.vue'
-import ListingModal from '/imports/ui/components/ListingModal.vue'
+import ListingPage from '/imports/ui/components/ListingPage.vue'
 import Profile from '/imports/ui/components/Profile.vue'
 import DealPage from '/imports/ui/components/DealPage.vue'
 
@@ -59,7 +59,7 @@ const routes = [
   {
     path: "/listing/:lid",
     name: 'View listing',
-    component: ListingModal,
+    component: ListingPage,
   },
   {
     path: "/deal/:tid",
