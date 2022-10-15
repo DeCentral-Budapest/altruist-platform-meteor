@@ -1,12 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
+import Listings from '../collections/Listings.js';
 import Deals from '../collections/Deals.js';
 import Reviews from '../collections/Reviews.js';
 
 Meteor.methods({
   'initiateDeal'(doc) {
     check(doc.listingId, String);
+    const listing = Listings.findOne(doc.listingId);
+    doc.listedBy = listing.createdBy;
     doc.takenBy = this.userId;
     doc.createdAt = new Date();
     // Messaging
@@ -28,16 +31,16 @@ Meteor.methods({
     const deal = Deals.findOne(doc.dealId);
     if (!deal) return
     
-    if (doc.status === 'accepted') {
-      if (_.contains(deal.accepts, this.userId)) return; // Accepting again, when already acepted by this party, should do nothing
-      else if (deal.accepts?.length === 0) {  // If other party not yet accepted
-        doc.status = 'inquiry';            // then we cannot move to accepted state yet
-      }
-      console.log('One party accepted,now  waiting for the other one')
-      return Deals.update(doc.dealId, { $push: { accepts: this.userId } });
-    }
-
     const msgRecord = { sentBy: this.userId, time: new Date(), status: doc.status }
+
+    if (doc.status === 'accepted') {
+      if (_.contains(deal.accepts, this.userId)) {
+        return; // Accepting again, when already acepted by this party, should do nothing
+      } else if (deal.accepts?.length === 0) {  // If other party not yet accepted
+        doc.status = 'inquiry';            // First accept -- then we cannot move to accepted state yet
+      }
+      Deals.update(doc.dealId, { $push: { accepts: this.userId } });
+    }
     console.log('statusChangeDeal', msgRecord)
     return Deals.update(doc.dealId, { $set: { status: doc.status }, $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
   },

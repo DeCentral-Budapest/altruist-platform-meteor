@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import assert from 'assert';
 import Listings from '../collections/Listings.js';
-import '../methods/listings.js';
+import './listings.js';
 
 if (Meteor.isServer) {
   describe('method: listings', function () {
@@ -18,8 +18,8 @@ if (Meteor.isServer) {
     });
 
     it('can createListing', function () {
-      const addListing = Meteor.server.method_handlers['createListing'];
-      addListing.apply({ userId: testUserId }, [{ title: 'apple', description: '', tags: '#fruit', isNeed: false }]);
+      const createListing = Meteor.server.method_handlers['createListing'];
+      createListing.apply({ userId: testUserId }, [{ title: 'apple', description: '', tags: '#fruit', isNeed: false }]);
       assert.equal(Listings.find().count(), 1);
     });
   });
