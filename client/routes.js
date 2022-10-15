@@ -16,11 +16,6 @@ const routes = [
     redirect: '/activity'
   },
   {
-    path: "/offers",
-    name: "Listings",
-    redirect: '/listings'
-  },
-  {
     path: "/activity",
     name: "Activity",
     component: Activity,
@@ -54,6 +49,11 @@ const routes = [
     name: "Listings",
     component: ListingGrid,
     props: { isNeed: 'false', isOwn: 'false' },
+  },
+  {
+    path: "/offers",
+    name: "Offers",
+    redirect: '/listings'
   },
   {
     path: "/needs",
