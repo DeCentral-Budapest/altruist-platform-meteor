@@ -60,9 +60,9 @@
                       </div>
                       <div class="card-body">
                         <p class="card-text">
-                          {{contraPartyOf(deal).username}}
+                          {{deal.lastMessageSender().username}}
                           <br />
-                          {{lastMessage(deal)}}
+                          {{deal.lastMessage()}}
                         </p>
                       </div>
                       <div class="card-footer text-muted">
@@ -106,7 +106,7 @@
               </div>
               <div v-else-if="activeDeal.status === 'accepted'">
                   <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute <i class="fa fa-fw fa-exclamation"></i></button>
-                  <button class="btn btn-info" @click="leaveReview()">Leave Review</button>
+                  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reviewModal" @click="leaveReview()">Leave Review</button>
               </div>
             </li>
         </ul>
@@ -124,6 +124,7 @@ import { Session } from 'meteor/session';
 import { _ } from 'meteor/underscore';
 import Listings from '/imports/api/collections/Listings'
 import Deals from '/imports/api/collections/Deals'
+import Reviews from '/imports/api/collections/Reviews'
 import Messenger from './Messenger.vue'
 import 'vue-popperjs/dist/vue-popper.css';
 import Welcome from './Welcome.vue'
@@ -189,20 +190,7 @@ export default {
       return deals
     },
     contraPartyOf(deal) {
-      let contraPartyId
-      const userId = Meteor.userId()
-      if (deal.listedBy === userId) contraPartyId = deal.takenBy
-      else if (deal.takenBy === userId) contraPartyId = deal.listedBy
-      else return { username: "Not found" }
-      return Meteor.users.findOne(contraPartyId) || { username: "Not found" }
-    },
-    lastMessage(deal) {
-      const chat = deal.chat
-      if (chat.length === 0) return 
-      const lastMsg = _.last(chat)
-      if (lastMsg.text) return lastMsg.text.substr(0, 20) + '…'
-      else if (lastMsg.status) return lastMsg.status
-      return 'ERROR'
+      return deal.contraPartyOf(Meteor.userId())
     },
     bgClass(deal) {
       return deal?.getStatusObject(deal.status).bgClass

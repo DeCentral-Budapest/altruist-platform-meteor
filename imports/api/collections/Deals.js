@@ -1,13 +1,35 @@
 import { Mongo } from 'meteor/mongo';
 import { MeteorData } from 'vue-meteor-tracker';
+import { _ } from 'meteor/underscore';
 
 const Deals = new Mongo.Collection('deals');
 
 Deals.helpers({
   sideOf(userId) {
-    if (userId === this.createdBy) return 'lister'
+    if (userId === this.listedBy) return 'lister'
     else if (userId === this.takenBy) return 'taker'
     return undefined
+  },
+  contraPartyOf(userId) {
+    let otherUserId;
+    if (userId === this.listedBy) otherUserId = this.takenBy
+    else if (userId === this.takenBy) otherUserId = this.listedBy
+    else return undefined
+    return Meteor.users.findOne(otherUserId)
+  },
+  lastMessage() {
+    const chat = this.chat
+    if (chat.length === 0) return 
+    const lastMsg = _.last(chat)
+    if (lastMsg.text) return lastMsg.text.substr(0, 20) + '…'
+    else if (lastMsg.status) return lastMsg.status
+    return 'ERROR'
+  },
+  lastMessageSender() {
+    const chat = this.chat
+    if (chat.length === 0) return 
+    const lastMsg = _.last(chat)
+    return Meteor.users.findOne(lastMsg.sentBy)
   },
   getStatusObject(status, userId = Meteor.userId()) {
     let statusObj = Deals.statusObjects[status]
@@ -36,8 +58,16 @@ Deals.helpers({
               statusObj.label = 'request'
             }
         }
-    }
-    return statusObj;
+    } else if (status === 'accepted' && Object.keys(this.reviews)?.length === 1) { // This is the special status, when it is half reviewed, but not by both
+      if (this.reviews[userId]) {
+          statusObj.hint = 'This deal has been reviewed by you. It is awaiting the review of the other party.'
+          statusObj.todo = 'Awaiting other review'
+      } else {
+          statusObj.hint = 'The other party already Reviewed this deal. It is awaiting your review to finalize.'
+          statusObj.todo = 'Review'
+      }
+  }
+  return statusObj;
   },
 });
 

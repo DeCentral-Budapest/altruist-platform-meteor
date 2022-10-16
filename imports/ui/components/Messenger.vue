@@ -57,8 +57,8 @@
 
 <script>
 import { Session } from 'meteor/session'
-import Listings from '../../api/collections/Listings'
-import Deals from '../../api/collections/Deals'
+import Listings from '/imports/api/collections/Listings'
+import Deals from '/imports/api/collections/Deals'
 
 export default {
   data() {

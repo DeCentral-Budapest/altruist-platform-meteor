@@ -13,7 +13,7 @@
 
 <script>
 import bootstrap from 'bootstrap';
-import Listings from '../../api/collections/Listings'
+import Listings from '/imports/api/collections/Listings'
 
 export default {
   data() {

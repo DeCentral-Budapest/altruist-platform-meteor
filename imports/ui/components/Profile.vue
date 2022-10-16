@@ -113,9 +113,9 @@
 </template>
 
 <script>
-import { Photos } from '../../api/collections/Photos';
-import Deals from '../../api/collections/Deals.js';
-import Listings from '../../api/collections/Listings'
+import { Photos } from '/imports/api/collections/Photos';
+import Deals from '/imports/api/collections/Deals.js';
+import Listings from '/imports/api/collections/Listings'
 
 export default {
   name: "Profile",

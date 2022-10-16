@@ -5,6 +5,7 @@
         <Navbar />
         <router-view></router-view>
         <ListingModal />
+        <ReviewModal />
         <ProfileModal />
       </div>
       <div v-if="!currentUser">
@@ -73,6 +74,7 @@ import Welcome from './components/Welcome.vue'
 import Hello from './components/Hello.vue'
 import Activity from './components/Activity.vue'
 import ListingModal from './components/ListingModal.vue'
+import ReviewModal from './components/ReviewModal.vue'
 import ListingGrid from './components/ListingGrid.vue'
 import LoginForm from './components/LoginForm.vue'
 import RegisterForm from './components/RegisterForm.vue'
@@ -93,6 +95,7 @@ export default {
     FooterNav,
     Activity,
     ListingModal,
+    ReviewModal,
     ProfileModal,
     ListingGrid,
     LoginForm,

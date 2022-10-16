@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import assert from 'assert';
 import Listings from '../collections/Listings.js';
 import Deals from '../collections/Deals.js';
+import Reviews from '../collections/Reviews.js';
 import './deals.js';
 
 function callMethod(methodName, ...params) {
@@ -74,6 +75,43 @@ if (Meteor.isServer) {
 
         const deal = Deals.findOne(dealId);
         assert.equal(deal.chatMsgCount, 4);
+      });
+
+      it('can review a deal', function () {
+        const reviewId = callMethod('reviewDeal', { userId: testUserIdA }, [{ dealId, rating: 4, details: 'It was good' }]);
+
+        const review = Reviews.findOne(reviewId);
+        assert.equal(review.reviewedBy, testUserIdA);
+        assert.equal(review.userId, testUserIdB);
+        assert.equal(review.rating, 4);
+
+        const deal = Deals.findOne(dealId);
+
+        assert.equal(deal.status, 'accepted');  // still in accepted, needs other party to review as well
+        assert.equal(deal.reviews[testUserIdA], reviewId)
+        assert.equal(deal.reviews[testUserIdB], undefined)
+        assert.equal(deal.chatMsgCount, 5);
+      });
+
+      it('same user cannot review twice', function () {
+        assert.throws(() => {
+          callMethod('reviewDeal', { userId: testUserIdA }, [{ dealId, rating: 4, details: 'It was NOT good' }]);
+        }, 'err_notAllowed');
+      });
+
+      it('both parties need to review the deal', function () {
+        const reviewId = callMethod('reviewDeal', { userId: testUserIdB }, [{ dealId, rating: 5, details: 'Perfect' }]);
+
+        const review = Reviews.findOne(reviewId);
+        assert.equal(review.reviewedBy, testUserIdB);
+        assert.equal(review.userId, testUserIdA);
+        assert.equal(review.rating, 5);
+
+        const deal = Deals.findOne(dealId);
+
+        assert.equal(deal.status, 'reviewed');
+        assert.equal(deal.reviews[testUserIdB], reviewId)
+        assert.equal(deal.chatMsgCount, 6);
       });
     });
   });

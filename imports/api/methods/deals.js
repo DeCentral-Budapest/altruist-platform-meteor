@@ -40,6 +40,11 @@ Meteor.methods({
         doc.status = 'inquiry';            // First accept -- then we cannot move to accepted state yet
       }
       Deals.update(doc.dealId, { $push: { accepts: this.userId } });
+    } else if (doc.status === 'reviewed') {
+      if (Object.keys(deal.reviews).length < 2) {
+        doc.status = 'accepted';            // Both reviews needed --  we cannot move to reviewed state yet
+      }
+  
     }
     console.log('statusChangeDeal', msgRecord)
     return Deals.update(doc.dealId, { $set: { status: doc.status }, $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
@@ -51,24 +56,23 @@ Meteor.methods({
     const msgRecord = { sentBy: this.userId, time: new Date(), text: doc.text }
     return Deals.update(doc.dealId, { $push: { chat: msgRecord }, $inc: { chatMsgCount: 1 } });
   },
-  'reviewBylister'(doc) {
+  'reviewDeal'(doc) {
     check(doc.dealId, String);
     check(doc.rating, Number);
-    check(doc.text, String);
-    doc.userId = deal.takenBy;
-    doc.reviewerId = this.userId;
+    check(doc.details, String);
+    const deal = Deals.findOne(doc.dealId);
+    if (!_.contains([deal.listedBy, deal.takenBy], this.userId)) throw new Meteor.Error('err_notAllowed', 'This user was not a party in this deal.')
+    if (_.contains(Object.keys(deal.reviews), this.userId)) throw new Meteor.Error('err_notAllowed', 'Cannot review twice.')
+    if (deal.status !== 'accepted') throw new Meteor.Error('err_notAllowed', 'Cannot review deal in this status.')
 
-    const revId = Reviews.insert(doc);
-    return Deals.update(doc.dealId, { $set: { listerReview: revId } });
-  },
-  'reviewByTaker'(doc) {
-    check(doc.dealId, String);
-    check(doc.rating, Number);
-    check(doc.text, String);
-    doc.userId = deal.listedBy;
-    doc.reviewerId = this.userId;
+    doc.reviewedBy = this.userId;
+    doc.userId = deal.contraPartyOf(this.userId)._id;
+    const reviewId = Reviews.insert(doc);
+    Deals.update(doc.dealId, { $set: { [`reviews.${this.userId}`]: reviewId } });
 
-    const revId = Reviews.insert(doc);
-    return Deals.update(doc.dealId, { $set: { takerReview: revId } });
+    const statusChangeMethod = Meteor.server.method_handlers['statusChangeDeal'];
+    statusChangeMethod.apply({ userId: this.userId }, [{ dealId: doc.dealId, status: 'reviewed' }]);
+
+    return reviewId;
   },
 });

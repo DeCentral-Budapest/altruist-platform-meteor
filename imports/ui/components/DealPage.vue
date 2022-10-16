@@ -33,7 +33,7 @@
                       </div>
                       <div v-else-if="deal.status === 'accepted'">
                           <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
-                          <button class="btn btn-success" @click="leaveReview()">Leave Review</button>
+                          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reviewModal" @click="leaveReview()">Leave Review</button>
                       </div>
                     </li>
                 </ul>
@@ -48,8 +48,9 @@
 
 <script>
 import { Session } from 'meteor/session'
-import Listings from '../../api/collections/Listings'
-import Deals from '../../api/collections/Deals'
+import Listings from '/imports/api/collections/Listings'
+import Deals from '/imports/api/collections/Deals'
+import Reviews from '/imports/api/collections/Reviews'
 import Messenger from './Messenger.vue'
 
 export default {

@@ -30,7 +30,7 @@
 
 <script>
 import { Session } from 'meteor/session';
-import Listings from '../../api/collections/Listings'
+import Listings from '/imports/api/collections/Listings'
 
 export default {
   props: {
