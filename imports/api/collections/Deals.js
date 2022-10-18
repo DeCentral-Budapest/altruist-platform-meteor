@@ -58,7 +58,7 @@ Deals.helpers({
               statusObj.label = 'request'
             }
         }
-    } else if (status === 'accepted' && Object.keys(this.reviews)?.length === 1) { // This is the special status, when it is half reviewed, but not by both
+    } else if (status === 'accepted' && this.reviews && Object.keys(this.reviews).length === 1) { // This is the special status, when it is half reviewed, but not by both
       if (this.reviews[userId]) {
           statusObj.hint = 'This deal has been reviewed by you. It is awaiting the review of the other party.'
           statusObj.todo = 'Awaiting other review'

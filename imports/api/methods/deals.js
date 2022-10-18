@@ -62,7 +62,7 @@ Meteor.methods({
     check(doc.details, String);
     const deal = Deals.findOne(doc.dealId);
     if (!_.contains([deal.listedBy, deal.takenBy], this.userId)) throw new Meteor.Error('err_notAllowed', 'This user was not a party in this deal.')
-    if (_.contains(Object.keys(deal.reviews), this.userId)) throw new Meteor.Error('err_notAllowed', 'Cannot review twice.')
+    if (deal.reviews && _.contains(Object.keys(deal.reviews), this.userId)) throw new Meteor.Error('err_notAllowed', 'Cannot review twice.')
     if (deal.status !== 'accepted') throw new Meteor.Error('err_notAllowed', 'Cannot review deal in this status.')
 
     doc.reviewedBy = this.userId;
