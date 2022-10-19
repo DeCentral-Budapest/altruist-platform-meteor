@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <Messenger></Messenger>
+            <Messenger :active-deal-doc="deal"></Messenger>
           </div>
           <div class="col-md-3">
             <div class="card h-100">
@@ -33,7 +33,7 @@
                       </div>
                       <div v-else-if="deal.status === 'accepted'">
                           <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute</button>
-                          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reviewModal" @click="leaveReview()">Leave Review</button>
+                          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reviewModal">Leave Review</button>
                       </div>
                     </li>
                 </ul>
@@ -47,10 +47,8 @@
 </template>
 
 <script>
-import { Session } from 'meteor/session'
 import Listings from '/imports/api/collections/Listings'
 import Deals from '/imports/api/collections/Deals'
-import Reviews from '/imports/api/collections/Reviews'
 import Messenger from './Messenger.vue'
 
 export default {
@@ -75,7 +73,6 @@ export default {
       const dealId = this.dealId;
       let deal = Deals.findOne(dealId);
       if (!deal) deal = {};
-      Session.set('activeDeal', deal); // for Messenger
       return deal;
     },
     listing() {
@@ -104,9 +101,6 @@ export default {
           }
         })
     },
-    leaveReview() {
-      // TODO
-    }
   },
 }
 </script>

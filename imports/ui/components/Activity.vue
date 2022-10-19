@@ -88,7 +88,7 @@
               Inquiry by <span class="badge badge-light">{{getUserNameById(activeDeal.takenBy)}}</span>
             </button>
           </div>
-          <Messenger></Messenger>
+          <Messenger :active-deal-doc="activeDeal"></Messenger>
           <div class="card-footer text-muted">
             <dl class="row">
               <dt class="col-sm-2" v-text="activeDeal.status"></dt>
@@ -106,7 +106,7 @@
               </div>
               <div v-else-if="activeDeal.status === 'accepted'">
                   <button class="btn btn-outline-warning" @click="changeStatus('disputed')">Dispute <i class="fa fa-fw fa-exclamation"></i></button>
-                  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reviewModal" @click="leaveReview()">Leave Review</button>
+                  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reviewModal">Leave Review</button>
               </div>
             </li>
         </ul>
@@ -234,9 +234,6 @@ export default {
             alert(err);
           }
         })
-    },
-    leaveReview() {
-        // TODO
     },
   },
 }

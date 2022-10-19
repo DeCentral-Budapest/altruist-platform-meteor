@@ -15,7 +15,7 @@
 					</div>
 					<div class="position-relative">
 						<div class="chat-messages p-4">
-							<div v-for="msg in this.activeChat()" class="pb-4">
+							<div v-for="msg in this.activeChat" :key="msg.text" class="pb-4">
 								<div v-if="msg.text" :class="[isMine(msg) ? 'chat-message-right' : 'chat-message-left']">
 									<!--div>
 										<img :src="getAvatarById(msg.sentBy)" class="rounded-circle mr-1" :alt="getUserNameById(msg.sentBy)" width="40" height="40">
@@ -44,10 +44,10 @@
                   <input type="checkbox" aria-label="Checkbox for following text input">
                 </div>
               </div>
-  <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput" v-on:keyup.enter="sendMessage()">
-<div class="input-group-append">
-    <button class="btn btn-primary" @click="sendMessage()">Send <i class="fa fa-paper-plane"></i></button>
-  </div>
+							<input type="text" class="form-control" placeholder="Type your message" v-model="messageInput" v-on:keyup.enter="sendMessage()">
+							<div class="input-group-append">
+								<button class="btn btn-primary" @click="sendMessage()">Send <i class="fa fa-paper-plane"></i></button>
+							</div>
             </div>
 					</div>
 				</div>
@@ -56,35 +56,20 @@
 </template>
 
 <script>
-import { Session } from 'meteor/session'
-import Listings from '/imports/api/collections/Listings'
 import Deals from '/imports/api/collections/Deals'
 
 export default {
-  data() {
-/*    const dealId = Session.get('activeDealId')
-    if (!dealId) return {}
-    const deal = Deals.findOne(dealId)
-    let contraPartyId
-    if (Meteor.userId() === deal.listedBy) contraPartyId = deal.takenBy
-    else if (Meteor.userId() === deal.takenBy) contraPartyId = deal.listedBy
-    else contraPartyId = Meteor.userId()
-    const contraParty = Meteor.users.findOne(contraPartyId)
-    return {
-        deal,
-        contraParty 
-    }*/
-    return {
-		messageInput: ''
-	}
-  },
+	data() {
+  	return {
+			messageInput: '',
+		}
+	},
   props: {
+    activeDealDoc: Object,
   },
   meteor: {
     activeContraParty() {
-      const deal = Session.get('activeDeal')
-      console.log('Get active contraparty', deal)
-
+      const deal = this.activeDealDoc
       const nullUser = { username: "Not found", avatar: 'https://bootdey.com/img/Content/avatar/avatar1.png' }
       if (!deal) return nullUser
       let contraPartyId
@@ -94,56 +79,49 @@ export default {
       else return nullUser
       return Meteor.users.findOne(contraPartyId) || nullUser
     },
-	activeContraPartyAvatar() {
-      return this.activeContraParty.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'
-    }
+		activeContraPartyAvatar() {
+    	return this.activeContraParty.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'
+  	},
+		activeChat() {
+			const deal = Deals.findOne(this.activeDealDoc._id);
+	  	const chat = deal?.chat
+      return chat || []
+		},
   },
   methods: {
     activeDeal() {
-	  console.log('Get active deal')
-      let deal = Session.get('activeDeal')
-      console.log('Active deal is', deal)
+      let deal = this.activeDealDoc;
       deal = Deals._transform(deal)
       return deal || {}
     },
-	isMine(msg) {
-		return msg.sentBy === Meteor.userId()
-	},
+		isMine(msg) {
+			return msg.sentBy === Meteor.userId()
+		},
     isTyping() {
-        return false // TODO: implement
+      return false // TODO: implement
     },
-	getUserNameById(userId) {
-        const user = Meteor.users.findOne(userId)
-        if (user) return user.username
-        return 'Not found user'
+		getUserNameById(userId) {
+			const user = Meteor.users.findOne(userId)
+			if (user) return user.username
+			return 'Not found user'
     },
-	getAvatarById(userId) {
-        const user = Meteor.users.findOne(userId)
-        if (user && user.avatar) return user.avatar
-        return 'https://bootdey.com/img/Content/avatar/avatar1.png'
+		getAvatarById(userId) {
+			const user = Meteor.users.findOne(userId)
+			if (user && user.avatar) return user.avatar
+			return 'https://bootdey.com/img/Content/avatar/avatar1.png'
     },
     bgClass(status) {
-       return this.activeDeal()?.getStatusObject(status).bgClass
+      return this.activeDeal()?.getStatusObject(status).bgClass
     },
     faClass(status) {
-       return this.activeDeal()?.getStatusObject(status).faClass
+      return this.activeDeal()?.getStatusObject(status).faClass
     },
-	activeChat() {
-	  console.log('Get active chat')
-      const deal = Session.get('activeDeal')
-	  if (!deal) return []
-	  const chat = deal.chat
-      console.log('Active chat is', chat)
-      return chat || []
-	},
     sendMessage() {
-        Meteor.call('newChatMessage', { dealId: Session.get('activeDeal')._id, text: this.messageInput }, (err, res) => {
-            if (!err) {
-                this.messageInput = ''
-				const activeDeal = Session.get('activeDeal')
-				Session.set('activeDeal', Deals.findOne(activeDeal._id) ) // to trigger reactive ui update
-            }
-        })
+			Meteor.call('newChatMessage', { dealId: this.activeDealDoc._id, text: this.messageInput }, (err, res) => {
+				if (!err) {
+					this.messageInput = ''
+				}
+			})
     },
   },
 }
