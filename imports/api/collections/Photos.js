@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { UploadFS } from 'meteor/jalik:ufs';
+import imageCompression from 'browser-image-compression';
 
 export const Photos = new Mongo.Collection('photos');
 
@@ -49,6 +50,22 @@ function uploadFile(file, extraFields, callbackFn) {
 
 Photos.upload = function upload(extraFields, callbackFn) {
   UploadFS.selectFiles(function (file) {
-    uploadFile(file, extraFields, callbackFn);
+    const MAX_IMAGE_MB = 1;
+    if (file.type.startsWith('image') && file.size > MAX_IMAGE_MB * 1024 * 1024) {
+    const options = {
+      maxSizeMB: MAX_IMAGE_MB,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true
+    }
+    imageCompression(file, options)
+      .then(function (compressedFile) {
+        return uploadFile(compressedFile, extraFields, callbackFn);
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+    } else { 
+      uploadFile(file, extraFields, callbackFn); 
+    }
   });
 };

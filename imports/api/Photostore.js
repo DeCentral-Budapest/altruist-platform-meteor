@@ -20,7 +20,7 @@ export const PhotoStore = new GridFSStore({
   chunkSize: 1024 * 255,
   filter: new UploadFS.Filter({
     contentTypes: ['image/*'],
-    maxSize: 2000000, // 2MB,
+   // maxSize: 2000000, // 2MB,
   }),
   permissions,
 });
