@@ -32,7 +32,7 @@ Deals.helpers({
     return Meteor.users.findOne(lastMsg.sentBy)
   },
   getStatusObject(status, userId = Meteor.userId()) {
-    let statusObj = Deals.statusObjects[status]
+    let statusObj = _.clone(Deals.statusObjects[status])
 //    if (typeof obj === 'function') obj = obj(this.sideOf(userId), this.isNeed)
     if (status === 'inquiry' && this.accepts?.length === 1) { // This is the special status, when it is half accepted, but not by both
         if (this.accepts[0] === userId) {

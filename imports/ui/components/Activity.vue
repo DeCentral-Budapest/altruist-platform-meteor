@@ -30,7 +30,7 @@
       <div class="col-md-4 message-sideleft">
         <div class="panel">
           <div class="panel-body no-padding">
-            <div v-for="listing in listings" class="list-group no-margin list-message my-3">
+            <div v-for="listing in listings" :key="listing._id" class="list-group no-margin list-message my-3">
               <div class="card h-100 listing">
                 <!--img class="card-img-top" @click="goto(listing)" v-bind:src="listingImg(listing)" alt="Card image cap"-->
                 <div class="card-body">
@@ -54,7 +54,7 @@
                 <!--/div>
                 <div class="card-footer"-->
                   <ul class="list-group list-group-flush">
-                    <li v-for="deal in dealsOf(listing)" class="card border-primary btn btn-light" @click='setActive(deal);hasActive = deal._id;scrollMeTo("messenger")' :class="{'active': hasActive === deal._id}">
+                    <li v-for="deal in dealsOf(listing)" :key="deal._id" class="card border-primary btn btn-light" @click='setActive(deal);hasActive = deal._id;scrollMeTo("messenger")' :class="{'active': hasActive === deal._id}">
                       <div class="card-header">
                         {{todo(deal)}}
                       </div>
@@ -156,7 +156,7 @@ export default {
       if (!this.showAll) selector.status = { $in: ['inquiry', 'accepted'] }
       const deals = Deals.find(selector)
       const listingIds = _.uniq(deals.map(deal => deal.listingId))
-      const listings = listingIds.map(id => Listings.findOne(id))
+      const listings = listingIds.map(id => Listings.findOne(id)).filter(elem => elem)
       console.log('listings', listings)
       return listings
     },
