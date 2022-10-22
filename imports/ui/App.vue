@@ -126,6 +126,7 @@ export default {
     }
   sup > small {
     font-size: 0.5em;
+    white-space: nowrap;
   }
   .text-right {
     text-align: right !important;
