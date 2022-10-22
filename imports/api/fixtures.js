@@ -68,7 +68,7 @@ Meteor.startup(() => {
         isNeed: true,
         createdAt: new Date('2022, 9, 30'),
         createdBy: demoUserId,
-      },
+      }, // TODO add another user with listings to have something on /needs and /listings too
     ];
 	  data.forEach(listing => Listings.insert(listing));
   }
