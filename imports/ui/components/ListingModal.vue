@@ -58,6 +58,7 @@
         </div>
         <div class="modal-footer">            
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-light disabled" disabled>Archive</button>
             <button type="submit" class="btn btn-primary" title="Instantly publishing this Listing">Submit</button>
         </div>
         </div> 
@@ -152,6 +153,9 @@ export default {
           self.fileName = file.name;
       });
     },
+    listingArchive(){
+      // TODO: only accessible for the owner and forthose who are eligible to list through the /activity page with the label `<span class="bg-light">Archived</span>` while "Show all" is enabled.
+    }
   },
 }
 </script>
