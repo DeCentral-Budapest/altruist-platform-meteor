@@ -62,9 +62,15 @@
       </li>
       <li class="list-group-item nav-item"><a href="#" class="nav-link disabled" data-bs-toggle="modal" data-bs-target="#listingModal" disabled>About membership and relations?</a></li>
       <li class="list-group-item nav-item">
-        <a class="btn w-100" href="https://roti.express/r/hmequl" target="_blank">
-          <img src="https://roti.express/img/roti-magnet.png" alt="roti.express" style="max-height:2em;" />
-          Feedback
+        <a href="https://github.com/alTRUEco/alTRUE.meteor" title="Toolkit is to solve Scarcity with Sharing Economy." target="_blank">
+          <i class="fa-brands fa-github fa-fw"></i>
+          Source code
+        </a>
+      </li>
+      <li class="list-group-item nav-item">
+        <a href="https://docs.altru.eco/" title="alTRU.Eco - The eBay of altruism | alTRUE.meteor" target="_blank">
+          <i class="fa-brands fa-github fa-fw"></i>
+          Documentation
         </a>
       </li>
     </ul>
@@ -78,7 +84,7 @@
     </div>
     <div class="row container-fluid text-right">
       <div class="col">
-        <small><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/blob/main/LICENSE" target="_blank"><i class="fa-brands fa-github fa-fw"></i>AGPL-3.0 license </a></small>
+        <small><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/blob/main/LICENSE" target="_blank"><i class="fa-brands fa-github fa-fw"></i>AGPL-3.0 licensíe </a></small>
       </div>
       <div class="col">
         <small>Created with 💚 on the <em >Lands of the Hungarian Crown</em></small>
