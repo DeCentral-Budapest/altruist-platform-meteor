@@ -203,4 +203,13 @@ export default {
     right: -8px;
     font-size: 1em;
 }
+.chat-message-right, .chat-message-left {
+    max-width: 90%;
+}
+.chat-message-right .rounded {
+    border-bottom-right-radius: unset !important;
+}
+.chat-message-left .rounded {
+    border-bottom-left-radius: unset !important;
+}
 </style>
