@@ -32,8 +32,8 @@
           </li>
         </ul>
         <p class="form-check-inline">
-          <a href="https://alTRU.Eco" target="_blank">
-            <img src="https://altru.eu.meteorapp.com/ufs/photoStore/rsoZAijC7qHYzxKPz/alTRUEco-logo-sq-tr-c.png" alt="roti.express" style="max-height:5em;" />
+          <a href="https://alTRU.Eco" title="Bottom-up economy to solve Scarcity | Toolkit with data privacy" target="_blank">
+            <img src="/assets/images/alTRUEco-logo.png" alt="alTRUEco logo" style="max-height:5em;" />
           </a>
         </p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
