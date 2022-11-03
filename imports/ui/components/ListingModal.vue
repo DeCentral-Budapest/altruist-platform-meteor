@@ -35,6 +35,7 @@
 # How?
 # Why?
 </textarea>
+                <div class="form-text"><abbr title="What is the topic in short.">What?</abbr> <abbr title="Approximate location if it's relevant; or Online/Virtual">Where?</abbr> <abbr title="How the transaction will happen in case of a match">How?</abbr> <abbr title="Why is this important?">Why?</abbr></div>
             </div>
             <div class="mb-3">
                 <label for="tags" class="form-label">Tags</label>
@@ -160,5 +161,13 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
+input.form-check-input {
+    cursor: pointer;
+}
+label {
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+}
 </style>

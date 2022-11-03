@@ -41,7 +41,7 @@
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input type="checkbox" aria-label="Checkbox for following text input disabled" disabled>
+                  <input type="checkbox" aria-label="Send anonym message when checked" disabled>
                 </div>
               </div>
               <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput" v-on:keyup.enter="sendMessage()">
