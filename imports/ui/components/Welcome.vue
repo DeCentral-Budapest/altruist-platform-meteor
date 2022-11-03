@@ -12,7 +12,7 @@
             <li class="list-group-item">Capability in dealing with a situation or in meeting difficulties</li>
           </ul>
           <p>Now you can start collecting your resources to one place</p>
-          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#listingModal">Create your Listing <i class="fa fa-fw fa-pencil"></i></a>
+          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#listingModal">Create your Listing <i class="fa fa-fw fa-pencil fa-fw"></i></a>
           <a href="https://www.dictionary.com/browse/resource" target="_blank" class="btn btn-sm btn-secondary float-right" title="Resource on Dictionary.com"><i class="fa-solid fa-fw fa-info"></i></a>
         </div>
       </div>
@@ -23,7 +23,7 @@
           <h5 class="card-title">About Listings</h5>
           <h6 class="card-subtitle text-muted py-2"></h6>
           <p class="card-text"><p><span>The basic feature of the software is to list your resources or needs (we call it </span><em><strong><span>Listings</span></strong></em><span>). The category of </span><em><span>Listings</span></em><span> can be </span><em><strong><span>Goods</span></strong></em><span>, or </span><strong><span>Services</span></strong><span>. The state of the </span><strong><span>Listing</span></strong><span> can be switched from the default state to </span><em><span>“It’s a Need”</span></em><span>, what represents the listed resource as a Need.</span></p></p>
-          <a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues" class="btn btn-primary" target="_blank">Issues and Feature requests<i class="fa-solid fa-fw fa-github"></i></a>
+          <a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/issues" class="btn btn-primary" target="_blank">Issues and Feature requests <i class="fa-brands fa-fw fa-github"></i></a>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <h5 class="card-title">The Problem</h5>
           <h6 class="card-subtitle text-muted py-2">The reason the platform was created</h6>
           <p class="card-text" ><span>Independent communities provide bottom-up solutions, they are the foundation for stable &amp; resilient social and economic systems, and they </span><strong><span>lack the technology</span></strong><span> to </span><strong><span>collect</span></strong><span>, </span><strong><span>process</span></strong><span>, and </span><strong><span>share</span></strong><span> their </span><strong><span>available resources</span></strong><span>, as well as </span><strong><span>and their needs as well</span></strong>.</p>
-          <a href="#" class="btn btn-primary disabled" disabled>You can publish your Story soon<i class="fa-solid fa-fw fa-pen-nib"></i></a>          
+          <a href="#" class="btn btn-primary disabled" disabled>You can publish your Story soon <i class="fa fa-fw fa-pen-nib"></i></a>          
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@
 									<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
 										<div class="font-weight-bold mb-1 text-center">
 										{{msg.status}} by {{getUserNameById(msg.sentBy)}}
-											<span class="badge float-right rounded-pill" :class="bgClass(msg.status)"><i class="fa fa-fw fa-question" :class="faClass(msg.status)"></i></span>
+											<span class="badge float-right rounded-pill" :class="bgClass(msg.status)"><i class="fa fa-fw" :class="faClass(msg.status)"></i></span>
 										</div>
 									</div>
 								</div>
@@ -41,13 +41,13 @@
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input type="checkbox" aria-label="Checkbox for following text input">
+                  <input type="checkbox" aria-label="Checkbox for following text input disabled" disabled>
                 </div>
               </div>
-  <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput" v-on:keyup.enter="sendMessage()">
-<div class="input-group-append">
-    <button class="btn btn-primary" @click="sendMessage()">Send <i class="fa fa-paper-plane"></i></button>
-  </div>
+              <input type="text" class="form-control" placeholder="Type your message" v-model="messageInput" v-on:keyup.enter="sendMessage()">
+              <div class="input-group-append">
+                <button class="btn btn-primary" @click="sendMessage()">Send <i class="fa fa-fw fa-paper-plane"></i></button>
+              </div>
             </div>
 					</div>
 				</div>
@@ -211,5 +211,17 @@ export default {
 }
 .chat-message-left .rounded {
     border-bottom-left-radius: unset !important;
+}
+.input-group-text {
+    border-radius: 0.375rem 0 0 0.375rem;
+    height: 100%;
+    margin-right: -1px;
+}
+.input-group-append .btn {
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
+}
+.input-group input.form-control {
+    border-radius: unset;
 }
 </style>

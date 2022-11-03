@@ -16,7 +16,7 @@
       <address>
         <strong><abbr title="The Local Resource Based Meritocratic CryptoEcoSystem">Projekt VáLTó</abbr></strong><br>
         Szeklerland, Transylvania<br>
-        <abbr title="Phone">P:</abbr> +40735360065
+        <abbr title="Telephone">T:</abbr> +40735360065
       </address>
     </div>
     <ul class="col-md-3 col-sm-4 col-lg-2 list-group list-group-flush">
@@ -69,7 +69,7 @@
       </li>
       <li class="list-group-item nav-item">
         <a href="https://docs.altru.eco/" title="alTRU.Eco - The eBay of altruism | alTRUE.meteor" target="_blank">
-          <i class="fa-brands fa-github fa-fw"></i>
+          <i class="fa fa-code-pull-request fa-fw"></i>
           Documentation
         </a>
       </li>
@@ -84,7 +84,7 @@
     </div>
     <div class="row container-fluid text-right">
       <div class="col">
-        <small><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/blob/main/LICENSE" target="_blank"><i class="fa-brands fa-github fa-fw"></i>AGPL-3.0 licensíe </a></small>
+        <small><a href="https://github.com/DeCentral-Budapest/altruist-platform-meteor/blob/main/LICENSE" target="_blank"><i class="fa fa-code fa-fw"></i> AGPL-3.0 licensíe </a></small>
       </div>
       <div class="col">
         <small>Created with 💚 on the <em >Lands of the Hungarian Crown</em></small>
