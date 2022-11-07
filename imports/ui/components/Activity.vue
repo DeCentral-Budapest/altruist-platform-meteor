@@ -23,7 +23,7 @@
           <strong>
           The <em>Deals</em> can have the following states:
           </strong>
-          <span class="bg-primary text-light inline">Inquiry</span> | <span class="bg-danger text-light inline">Canceled</span> | <span class="bg-success text-light inline">Accepted</span> | <span class="bg-warning text-light inline">Disputed</span> | <span class="bg-info text-light inline">Reviewed</span>
+          <span class="bg-primary text-light inline">Inquiry</span> | <span class="bg-danger text-light inline">Canceled</span> | <span class="bg-success text-light inline">Accepted</span> | <span class="bg-warning text-light inline">Disputed</span> | <span class="bg-info text-light inline">Reviewed</span> | <span class="bg-light inline">Archived</span>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       </div>

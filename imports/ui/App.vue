@@ -126,6 +126,7 @@ export default {
     }
   sup > small {
     font-size: 0.5em;
+    white-space: nowrap;
   }
   .text-right {
     text-align: right !important;
@@ -144,7 +145,6 @@ export default {
   }
   span.inline {
     padding: 0em 0.2em 0.1em;
-    margin: 0 -0.2em -0.1em;
     border-radius: 0.2em;
   }
   .badge.top-right {
